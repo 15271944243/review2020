@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.DoubleSummaryStatistics;
-import java.util.HashSet;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.LongSummaryStatistics;
@@ -133,27 +132,60 @@ public class StreamCollectorsTest {
     }
 
     @Test
-    public void summingInt() {
+    public void test_summingInt() {
         Stream<String> stream = Stream.of("1", "2", "3" ,"4", "5", "6", "7", "8", "9", "10");
         IntSummaryStatistics statistics = stream.collect(Collectors.summarizingInt(Integer::valueOf));
     }
 
     @Test
-    public void summarizingLong() {
+    public void test_summarizingLong() {
         Stream<String> stream = Stream.of("1", "2", "3" ,"4", "5", "6", "7", "8", "9", "10");
         LongSummaryStatistics statistics = stream.collect(Collectors.summarizingLong(Long::valueOf));
     }
 
     @Test
-    public void summarizingDouble() {
+    public void test_summarizingDouble() {
         Stream<String> stream = Stream.of("1", "2", "3" ,"4", "5", "6", "7", "8", "9", "10");
         DoubleSummaryStatistics statistics = stream.collect(Collectors.summarizingDouble(Double::valueOf));
     }
 
     @Test
-    public void groupingBy() {
+    public void test_groupingBy() {
         Stream<String> stream = Stream.of("qwe", "asdas", "e3qw" ,"qe3r34", "ssss5", "dsdaw6", "asdqwe7", "ewrsd8", "csdw9", "sdvz1s0");
         Map map = stream.collect(Collectors.groupingBy(s -> s.charAt(0)));
+    }
+
+    @Test
+    public void test_groupingBy2() {
+        Stream<String> stream = Stream.of("qwe", "asdas", "e3qw" ,"qe3r34", "ssss5", "dsdaw6", "asdqwe7", "ewrsd8", "csdw9", "sdvz1s0");
+        Map map = stream.collect(Collectors.groupingBy(s -> s.charAt(0), Collectors.joining(",")));
+    }
+
+    @Test
+    public void test_partitioningBy() {
+        Stream<Integer> stream = Stream.of(1,2,3,4,5,6,7,8,9,10);
+        Map<Boolean, List<Integer>> map = stream.collect(Collectors.partitioningBy(s -> s % 2 == 0));
+
+    }
+
+    @Test
+    public void test_partitioningBy2() {
+        Stream<Integer> stream = Stream.of(1,2,3,4,5,6,7,8,9,10);
+        Map<Boolean, IntSummaryStatistics> map = stream.collect(
+                Collectors.partitioningBy(s -> s % 2 == 0, Collectors.summarizingInt(Integer::valueOf)));
+    }
+
+    @Test
+    public void test_mapping() {
+        Stream<Integer> stream = Stream.of(1,2,3,4,5,6,7,8,9,10);
+        Map<Boolean, String> map = stream.collect(
+                Collectors.partitioningBy(s -> s % 2 == 0,
+                        Collectors.mapping(String::valueOf, Collectors.joining(","))));
+    }
+
+    @Test
+    public void test_reducing1() {
+
     }
 }
 
