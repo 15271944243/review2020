@@ -12,6 +12,35 @@ import java.util.HashSet;
 public class Ttttt {
 
     /**
+     * +=的隐式类型转换
+     */
+    @Test
+    public void test_implicit() {
+        byte a = 127;
+        byte b = 127;
+//        b = a + b; // 报编译错误:cannot convert from int to byte
+        b += a;        // 等价于 b = (byte)(a + b)
+        System.out.println(b);
+
+        char c = 'c';
+        int d = c + 1;
+
+
+//        short s1= 32767;
+//        s1 = s1 + 1;
+    }
+
+    @Test
+    public void test_intern() {
+        String b = "asd";
+        String a = new String("asd");
+        System.out.println(a.intern() == a);
+        System.out.println(b.intern() == b);
+    }
+
+
+
+    /**
      * 异或
      */
     @Test
@@ -63,30 +92,6 @@ public class Ttttt {
         System.out.println(Integer.toBinaryString(s));
         s>>=33;
         System.out.println(Integer.toBinaryString(s));
-    }
-
-    /**
-     * 值传递和引用传递
-     */
-    @Test
-    public void test_valueTransmit() {
-        int num = 1;
-        foo(num);
-        String str = "123";
-        foo(str);
-        StringBuilder sb = new StringBuilder("iphone");
-        foo(sb);
-        StringBuilder sb2 = new StringBuilder("iphone");
-        foo2(sb2);
-        System.out.println("num=" + num);
-        System.out.println("str=" + str);
-        System.out.println("sb=" + sb.toString());
-        System.out.println("sb2=" + sb2.toString());
-
-        int[][] arr2 = new int[2][4];
-        int[][] arr3 = new int[3][];
-        arr3[0] = new int [5];
-        arr3[1] = arr2[0];
     }
 
     private void foo(int num) {
