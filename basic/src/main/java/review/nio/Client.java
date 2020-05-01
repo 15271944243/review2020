@@ -9,7 +9,6 @@ public class Client {
 
 	//需要一个Selector 
 	public static void main(String[] args) {
-		
 		//创建连接的地址
 		InetSocketAddress address = new InetSocketAddress("127.0.0.1", 8765);
 		
@@ -50,7 +49,5 @@ public class Client {
 				}
 			}
 		}
-		
 	}
-	
 }

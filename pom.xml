@@ -12,6 +12,7 @@
         <module>lambda</module>
         <module>dependencies</module>
         <module>basic</module>
+        <module>netty</module>
     </modules>
 
     <properties>
