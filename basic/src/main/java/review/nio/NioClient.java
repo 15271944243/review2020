@@ -95,6 +95,12 @@ public class NioClient implements Runnable {
         }
     }
 
+    /**
+     * http://blog.sina.com.cn/s/blog_783ede0301013g5n.html
+     * 参考上面对文档,如果要在生产使用java原生NIO(本人都是用对Netty),最好注册SelectionKey.OP_WRITE事件
+     * @param socketChannel
+     * @throws IOException
+     */
     private void doWrite(SocketChannel socketChannel) throws IOException {
         byte[] req = "query time order".getBytes();
         ByteBuffer writeBuffer = ByteBuffer.allocate(req.length);
