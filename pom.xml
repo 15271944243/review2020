@@ -13,6 +13,7 @@
         <module>dependencies</module>
         <module>basic</module>
         <module>netty</module>
+        <module>algorithm</module>
     </modules>
 
     <properties>
