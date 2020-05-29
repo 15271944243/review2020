@@ -17,35 +17,27 @@ public class ValidateBinarySearchTree {
      */
 
     /**
-     * Definition for a binary tree node.
-     * public class TreeNode {
-     *     int val;
-     *     TreeNode left;
-     *     TreeNode right;
-     *     TreeNode() {}
-     *     TreeNode(int val) { this.val = val; }
-     *     TreeNode(int val, TreeNode left, TreeNode right) {
-     *         this.val = val;
-     *         this.left = left;
-     *         this.right = right;
-     *     }
-     * }
-     */
-
-    /**
      * 题目意思: 给定一个二叉树,判断它是否是一个二叉搜索树
      *
      * 思路一: 中序遍历整棵树,将遍历后的节点放入数组中,如果数组是一个升序数组,则是二叉搜索树
+     * 中序遍历算法可以参考BinaryTreeInorderTraversal.java
      * 思路二: 递归判断
      */
 
     public static void main(String[] args) {
         ValidateBinarySearchTree tree = new ValidateBinarySearchTree();
         TreeNode root = new TreeNode();
-        tree.isValidBST(root, null, null);
+        tree.recursion(root, null, null);
     }
 
-    private boolean isValidBST(TreeNode root, Integer max, Integer min) {
+    /**
+     * 递归
+     * @param root
+     * @param max
+     * @param min
+     * @return
+     */
+    private boolean recursion(TreeNode root, Integer max, Integer min) {
         if (root == null) {
             return true;
         }
@@ -55,10 +47,8 @@ public class ValidateBinarySearchTree {
         if (min != null && root.val <= min) {
             return false;
         }
-        return isValidBST(root.left, root.val, min) && isValidBST(root.right, max, root.val);
+        return recursion(root.left, root.val, min) && recursion(root.right, max, root.val);
     }
-
-
 
     static class TreeNode {
         int val;
