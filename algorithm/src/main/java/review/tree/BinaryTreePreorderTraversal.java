@@ -19,6 +19,8 @@ public class BinaryTreePreorderTraversal {
      *
      */
 
+    // TODO 非递归算法
+
     /**
      * 前序遍历(DLR)
      * D=Degree
@@ -51,20 +53,5 @@ public class BinaryTreePreorderTraversal {
             list.addAll(rightList);
         }
         return list;
-    }
-
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) {
-            this.val = val;
-        }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 }

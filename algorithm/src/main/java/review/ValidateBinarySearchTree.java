@@ -1,7 +1,7 @@
 package review;
 
 /**
- * @description:
+ * https://leetcode.com/problems/validate-binary-search-tree/
  * @author: xiaoxiaoxiang
  * @date: 2020/5/25 23:10
  */
