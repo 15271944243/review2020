@@ -1,6 +1,12 @@
 package review.nio;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.nio.channels.FileChannel;
 import java.util.Random;
 
 /**
@@ -35,5 +41,28 @@ public class LearnBuffer {
             System.out.println("buffer capacity: " + buffer.capacity());
             System.out.println(buffer.get());
         }
+    }
+
+    public void test2() throws Exception {
+        FileInputStream fileInputStream = new FileInputStream("input.txt");
+        FileOutputStream fileOutputStream = new FileOutputStream("output.txt");
+        FileChannel inputChannel = fileInputStream.getChannel();
+        FileChannel outputChannel = fileOutputStream.getChannel();
+
+        ByteBuffer buffer = ByteBuffer.allocate(512);
+        while (true) {
+            buffer.clear();
+            int read = inputChannel.read(buffer);
+            System.out.println("read:" + read);
+            if (read < 0) {
+                break;
+            }
+            buffer.flip();
+            outputChannel.write(buffer);
+        }
+        inputChannel.close();
+        outputChannel.close();
+        fileInputStream.close();
+        fileOutputStream.close();
     }
 }
