@@ -1,11 +1,9 @@
 package review.nio;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.Random;
 
@@ -21,8 +19,8 @@ public class LearnBuffer {
      * 学习buffer的使用
      * @param args
      */
-    public static void main(String[] args) {
-        learnBuffer2();
+    public static void main(String[] args) throws Exception {
+        learnBuffer4();
     }
 
     /**
@@ -87,7 +85,7 @@ public class LearnBuffer {
      * channel 读写
      * @throws Exception
      */
-    public void learnBuffer3() throws Exception {
+    public static void learnBuffer3() throws Exception {
         FileInputStream fileInputStream = new FileInputStream("input.txt");
         FileOutputStream fileOutputStream = new FileOutputStream("output.txt");
         FileChannel inputChannel = fileInputStream.getChannel();
@@ -108,5 +106,20 @@ public class LearnBuffer {
         outputChannel.close();
         fileInputStream.close();
         fileOutputStream.close();
+    }
+
+    /**
+     * 学习MappedByteBuffer
+     * @throws Exception
+     */
+    public static void learnBuffer4() throws Exception {
+        RandomAccessFile randomAccessFile = new RandomAccessFile("input.txt", "rw");
+        FileChannel fileChannel = randomAccessFile.getChannel();
+        // 内存映射文件 读前5个字节
+        MappedByteBuffer mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 0, 5);
+        mappedByteBuffer.put(0, (byte) 'x');
+        mappedByteBuffer.put(3, (byte) 'y');
+        fileChannel.close();
+        // idea没有自动刷新文件,使用文本编辑器打开
     }
 }

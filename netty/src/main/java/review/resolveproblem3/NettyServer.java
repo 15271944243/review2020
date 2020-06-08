@@ -35,7 +35,7 @@ public class NettyServer {
         bootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_BACKLOG, 1024)
-                .handler(new LoggingHandler(LogLevel.INFO))
+                .handler(new LoggingHandler(LogLevel.DEBUG))
 //                .childOption(ChannelOption.SO_KEEPALIVE, true)
                 .childHandler(new ChildChannelHandler());
 
