@@ -23,7 +23,9 @@ public class ServerHandler implements Runnable{
             String body = null;
             while(true){
                 body = in.readLine();
-                if(body == null) break;
+                if (body == null) {
+                    break;
+                }
                 System.out.println("Server :" + body);
                 out.println("服务器端回送响的应数据.");
             }
