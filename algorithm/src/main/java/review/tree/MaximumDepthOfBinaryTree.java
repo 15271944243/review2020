@@ -1,5 +1,8 @@
 package review.tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * https://leetcode.com/problems/maximum-depth-of-binary-tree/
  * @author: xiaoxiaoxiang
@@ -33,8 +36,44 @@ public class MaximumDepthOfBinaryTree {
      * 思路一: 深度优先搜索(Depth Fitst Search)
      * 思路二: 广度优先搜索(Breadth First Search)
      */
-    public int maxDepth(TreeNode root) {
 
-        return 0;
+
+    /**
+     * 广度优先搜索(Breadth First Search)
+     * @param root
+     * @return
+     */
+    public int maxDepthByBFS(TreeNode root) {
+        int maxDepth = 0;
+        List<TreeNode> nodeList = new ArrayList<>(1);
+        if (root != null) {
+            nodeList.add(root);
+        }
+        while (!nodeList.isEmpty()) {
+            maxDepth++;
+            List<TreeNode> tmpList = new ArrayList<>();
+            for (TreeNode treeNode : nodeList) {
+                if (treeNode.left != null) {
+                    tmpList.add(treeNode.left);
+                }
+                if (treeNode.right != null){
+                    tmpList.add(treeNode.right);
+                }
+            }
+            nodeList = tmpList;
+        }
+        return maxDepth;
+    }
+
+    /**
+     * 深度优先搜索(Depth Fitst Search)
+     * @param root
+     * @return
+     */
+    public int maxDepthByDFS(TreeNode root) {
+        if (root==null) {
+            return 0;
+        }
+        return 1 + Math.max(maxDepthByDFS(root.left), maxDepthByDFS(root.right));
     }
 }

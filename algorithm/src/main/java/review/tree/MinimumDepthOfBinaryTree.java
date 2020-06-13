@@ -1,5 +1,8 @@
 package review.tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * https://leetcode.com/problems/minimum-depth-of-binary-tree/
  * @author: xiaoxiaoxiang
@@ -35,8 +38,35 @@ public class MinimumDepthOfBinaryTree {
      * 思路二: 广度优先搜索(Breadth First Search)
      */
 
-    public int minDepth(TreeNode root) {
-
-        return 0;
+    /**
+     * 广度优先搜索(Breadth First Search)
+     * @param root
+     * @return
+     */
+    public int minDepthByBFS(TreeNode root) {
+        int minDepth = 0;
+        List<TreeNode> nodeList = new ArrayList<>(1);
+        if (root != null) {
+            nodeList.add(root);
+        }
+        while (!nodeList.isEmpty()) {
+            minDepth++;
+            List<TreeNode> tmpList = new ArrayList<>();
+            for (TreeNode treeNode : nodeList) {
+                if (treeNode.right == null && treeNode.left == null) {
+                    tmpList.clear();
+                    break;
+                } else {
+                    if (treeNode.left != null) {
+                        tmpList.add(treeNode.left);
+                    }
+                    if (treeNode.right != null){
+                        tmpList.add(treeNode.right);
+                    }
+                }
+            }
+            nodeList = tmpList;
+        }
+        return minDepth;
     }
 }

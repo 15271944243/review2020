@@ -39,7 +39,7 @@ public class BinaryTreeLevelOrderTraversal {
      * @param root
      * @return
      */
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrderByBFS(TreeNode root) {
         if (root == null) {
             return new ArrayList<>();
         }
