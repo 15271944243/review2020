@@ -98,6 +98,7 @@ public class NioServer implements Runnable {
             if (key.isReadable()) {
                 SocketChannel sc = (SocketChannel) key.channel();
                 ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+                // client端口后,会发送一条数据,但是readBytes的值是-1
                 int readBytes = sc.read(readBuffer);
                 if (readBytes > 0) {
                     // 有数据则进行读取 读取之前需要进行复位方法(把position 和limit进行复位)
