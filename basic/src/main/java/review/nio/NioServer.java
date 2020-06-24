@@ -56,7 +56,7 @@ public class NioServer implements Runnable {
                     key = iterator.next();
                     iterator.remove();
                     try {
-                        handleInput(key);
+                        handleEvent(key);
                     } catch (IOException e) {
                         if (key != null) {
                             key.cancel();
@@ -80,45 +80,52 @@ public class NioServer implements Runnable {
         }
     }
 
-    private void handleInput(SelectionKey key) throws IOException {
+    private void handleEvent(SelectionKey key) throws IOException {
         if (key.isValid()) {
             // 处理新接入的请求消息
             if (key.isAcceptable()) {
-                System.out.println("connect accept,time" + System.currentTimeMillis());
-                //1 获取服务通道
-                ServerSocketChannel ssc =  (ServerSocketChannel) key.channel();
-                //2 执行阻塞方法
-                SocketChannel sc = ssc.accept();
-                //3 设置阻塞模式
-                sc.configureBlocking(false);
-                //4 注册到多路复用器上，并设置读取标识
-                sc.register(this.selector, SelectionKey.OP_READ);
+                handleAccept(key);
             }
-
             if (key.isReadable()) {
-                SocketChannel sc = (SocketChannel) key.channel();
-                ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-                // client端口后,会发送一条数据,但是readBytes的值是-1
-                int readBytes = sc.read(readBuffer);
-                if (readBytes > 0) {
-                    // 有数据则进行读取 读取之前需要进行复位方法(把position 和limit进行复位)
-                    readBuffer.flip();
-                    // 根据缓冲区的数据长度创建相应大小的byte数组，接收缓冲区的数据
-                    byte[] bytes = new byte[readBuffer.remaining()];
-                    // 接收缓冲区数据
-                    readBuffer.get(bytes);
-                    // 打印结果
-                    String body = new String(bytes).trim();
-                    System.out.println("server recive body:" + body);
-
-                    String response = "currentTime=" + new Date().toString();
-                    doWrite(sc, response);
-                } else if (readBytes < 0) {
-                    // 关闭链路
-                    key.cancel();
-                    sc.close();
-                }
+                handleRead(key);
             }
+        }
+    }
+
+    private void handleAccept(SelectionKey key) throws IOException {
+        System.out.println("connect accept,time" + System.currentTimeMillis());
+        //1 获取服务通道
+        ServerSocketChannel ssc =  (ServerSocketChannel) key.channel();
+        //2
+        SocketChannel sc = ssc.accept();
+        //3 设置阻塞模式
+        sc.configureBlocking(false);
+        //4 注册到多路复用器上，并设置读取标识
+        sc.register(this.selector, SelectionKey.OP_READ);
+    }
+
+    private void handleRead(SelectionKey key) throws IOException {
+        SocketChannel sc = (SocketChannel) key.channel();
+        ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+        // client端口后,会发送一条数据,但是readBytes的值是-1
+        int readBytes = sc.read(readBuffer);
+        if (readBytes > 0) {
+            // 有数据则进行读取 读取之前需要进行复位方法(把position 和limit进行复位)
+            readBuffer.flip();
+            // 根据缓冲区的数据长度创建相应大小的byte数组，接收缓冲区的数据
+            byte[] bytes = new byte[readBuffer.remaining()];
+            // 接收缓冲区数据
+            readBuffer.get(bytes);
+            // 打印结果
+            String body = new String(bytes).trim();
+            System.out.println("server recive body:" + body);
+
+            String response = "currentTime=" + new Date().toString();
+            doWrite(sc, response);
+        } else if (readBytes < 0) {
+            // 关闭链路
+            key.cancel();
+            sc.close();
         }
     }
 
