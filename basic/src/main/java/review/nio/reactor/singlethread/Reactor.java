@@ -1,6 +1,5 @@
 package review.nio.reactor.singlethread;
 
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
@@ -15,7 +14,7 @@ import java.util.Iterator;
  * @author: xiaoxiaoxiang
  * @date: 2020/6/24 11:39
  */
-public class Reactor  {
+public class Reactor implements Runnable {
 
     final Selector selector;
 
@@ -28,24 +27,30 @@ public class Reactor  {
         serverSocketChannel.socket().bind(new InetSocketAddress(port));
         SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         selectionKey.attach(new Acceptor());
-
     }
 
-    public static void main(String[] args) throws IOException {
-        Reactor reactor = new Reactor(8765);
-        Dispatcher dispatcher = new Dispatcher();
+    @Override
+    public void run() {
         while (true) {
-            reactor.selector.select();
-            Iterator<SelectionKey> selectionKeys = reactor.selector.selectedKeys().iterator();
-            while (selectionKeys.hasNext()) {
-                SelectionKey key = selectionKeys.next();
-                if (!key.isValid()) {
-                    continue;
+            try {
+                this.selector.select();
+                Iterator<SelectionKey> selectionKeys = this.selector.selectedKeys().iterator();
+                while (selectionKeys.hasNext()) {
+                    SelectionKey key = selectionKeys.next();
+                    if (!key.isValid()) {
+                        continue;
+                    }
+                    selectionKeys.remove();
+                    dispatch(key);
                 }
-                selectionKeys.remove();
-                dispatcher.dispatch(key);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+    }
 
+    void dispatch(SelectionKey selectionKey) throws IOException {
+        EventHandler eventHandler = (EventHandler) selectionKey.attachment();
+        eventHandler.process(selectionKey);
     }
 }

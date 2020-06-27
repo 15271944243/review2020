@@ -17,7 +17,6 @@ public class Handler implements EventHandler {
 
     private static ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-
     @Override
     public void process(SelectionKey selectionKey) throws IOException {
         executorService.execute(() -> {
