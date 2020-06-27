@@ -1,7 +1,6 @@
 package review.nio.reactor.multipleReactor;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -10,21 +9,23 @@ import java.util.Iterator;
 /**
  * @description:
  * @author: xiaoxiaoxiang
- * @date: 2020/6/27 14:40
+ * @date: 2020/6/27 14:41
  */
-public class MainReactor implements Runnable {
+public class SubReactor implements Runnable {
 
     final Selector selector;
 
-    final ServerSocketChannel serverSocketChannel;
+    /**
+     * 每个SubReactor都有自己的selector
+     * @throws IOException
+     */
+    public SubReactor() throws IOException {
+        this.selector = Selector.open();
 
-    public MainReactor(int port) throws IOException {
-        selector = Selector.open();
-        serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.configureBlocking(false);
-        serverSocketChannel.socket().bind(new InetSocketAddress(port));
-        SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        selectionKey.attach(new Acceptor());
+    }
+    public void register(ServerSocketChannel serverSocketChannel) throws IOException {
+        SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_READ);
+        selectionKey.attach(new Handler());
     }
 
     @Override
@@ -32,7 +33,7 @@ public class MainReactor implements Runnable {
         while (!Thread.interrupted()) {
             try {
                 if (this.selector.select(1000L) > 0) {
-                    System.out.println("mainReactor select...");
+                    System.out.println("subReactor select...");
                     Iterator<SelectionKey> selectionKeys = this.selector.selectedKeys().iterator();
                     while (selectionKeys.hasNext()) {
                         SelectionKey key = selectionKeys.next();
