@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
+import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
 /**
@@ -23,8 +24,9 @@ public class SubReactor implements Runnable {
         this.selector = Selector.open();
 
     }
-    public void register(ServerSocketChannel serverSocketChannel) throws IOException {
-        SelectionKey selectionKey = serverSocketChannel.register(selector, SelectionKey.OP_READ);
+    public void register(SocketChannel socketChannel) throws IOException {
+        System.out.println(Thread.currentThread().getName() + " SubReactor register");
+        SelectionKey selectionKey = socketChannel.register(selector, SelectionKey.OP_READ);
         selectionKey.attach(new Handler());
     }
 
@@ -33,7 +35,7 @@ public class SubReactor implements Runnable {
         while (!Thread.interrupted()) {
             try {
                 if (this.selector.select(1000L) > 0) {
-                    System.out.println("subReactor select...");
+                    System.out.println(Thread.currentThread().getName() + " subReactor select...");
                     Iterator<SelectionKey> selectionKeys = this.selector.selectedKeys().iterator();
                     while (selectionKeys.hasNext()) {
                         SelectionKey key = selectionKeys.next();

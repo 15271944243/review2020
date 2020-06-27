@@ -36,11 +36,11 @@ public class Acceptor implements EventHandler {
         ServerSocketChannel serverSocketChannel = (ServerSocketChannel) selectionKey.channel();
         SocketChannel socketChannel = serverSocketChannel.accept();
         socketChannel.configureBlocking(false);
-        Selector selector = subReactors[index].selector;
+        SubReactor subReactor = subReactors[index];
         index++;
         if (index >= subReactors.length) {
             index = 0;
         }
-        socketChannel.register(selector, SelectionKey.OP_READ, new Handler());
+        subReactor.register(socketChannel);
     }
 }

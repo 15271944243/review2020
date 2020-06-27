@@ -3,7 +3,8 @@ package review.nio.reactor.multipleReactor;
 import java.io.IOException;
 
 /**
- * 一个MainReactor,多个SubReactor
+ * 一个MainReactor用来处理connect事件
+ * 多个SubReactor用来处理read、write事件
  * @author: xiaoxiaoxiang
  * @date: 2020/6/27 14:42
  */

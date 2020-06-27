@@ -48,7 +48,7 @@ public class Handler implements EventHandler {
             readBuffer.get(bytes);
             // 打印结果
             String body = new String(bytes).trim();
-            System.out.println("server recive body:" + body);
+            System.out.println(Thread.currentThread().getName() + " server recive body:" + body);
 
             String response = "currentTime=" + new Date().toString();
             processWrite(sc, response);
