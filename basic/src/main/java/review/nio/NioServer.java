@@ -16,7 +16,7 @@ public class NioServer implements Runnable {
 
     private ServerSocketChannel serverSocketChannel;
 
-    private volatile boolean stop;
+//    private volatile boolean stop;
 
     public static void main(String[] args) {
         new Thread(new NioServer(8765), "NioServer-001").start();
@@ -44,7 +44,7 @@ public class NioServer implements Runnable {
 
     @Override
     public void run() {
-        while(!stop){
+        while(true){
             try {
                 //1 必须要让多路复用器开始监听
                 selector.select(1000L);
@@ -71,13 +71,13 @@ public class NioServer implements Runnable {
             }
         }
 
-        if (selector != null) {
-            try {
-                selector.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (selector != null) {
+//            try {
+//                selector.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private void handleEvent(SelectionKey key) throws IOException {
