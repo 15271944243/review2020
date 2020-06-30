@@ -4,13 +4,24 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @description:
  * @author: xiaoxiaoxiang
  * @date: 2020/5/5 16:44
  */
+@Slf4j
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
+
+
+    @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        log.info("sleep 2 seconds");
+        Thread.sleep(2000L);
+        log.info("channel registered");
+        super.channelRegistered(ctx);
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -38,4 +49,5 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         cause.printStackTrace();
         ctx.close();
     }
+
 }
