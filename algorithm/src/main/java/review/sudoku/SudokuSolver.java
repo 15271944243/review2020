@@ -1,5 +1,8 @@
 package review.sudoku;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * https://leetcode.com/problems/sudoku-solver/
  * @author: xiaoxiaoxiang
@@ -58,34 +61,7 @@ public class SudokuSolver {
         System.out.println();
     }
 
-//    public static void main(String[] args) {
-//        int a = 0b011110111;
-//        System.out.println("a=" + get32BitBinString(a));
-//        int b = a ^ 0b111111111;
-//
-//        while (b != 0) {
-//            int x = ((b - 1) & b) ^ b;
-//            System.out.println(get32BitBinString(x));
-//            b = b ^ x;
-//            System.out.println(get32BitBinString(b));
-//        }
-//    }
-
-    private static String get32BitBinString(int number) {
-        StringBuilder sBuilder = new StringBuilder();
-        for (int i = 0; i < 32; i++){
-            sBuilder.append(number & 1);
-            number = number >>> 1;
-        }
-        return sBuilder.reverse().toString();
-    }
-
-    private void test(int[] marks) {
-        for (int i = 0; i < marks.length; i++) {
-            System.out.println(get32BitBinString(marks[i]));
-        }
-        System.out.println("--------------");
-    }
+    private Map<Integer, Integer> map = new HashMap<>();
 
     public void solveSudoku(char[][] board) {
         int n = 9;
@@ -99,11 +75,8 @@ public class SudokuSolver {
         int[] gridMark = new int[n];
         // 初始化
         init(board, n, colMark, rowMark, gridMark);
-
-//        test(colMark);
-//        test(rowMark);
-//        test(gridMark);
-        // TODO 找出当前所以空格可填数字个数最少的位置
+        // TODO 将当前单元格可填数字个数从最少的开始排序,方便遍历
+//        sortCell();
 
         dfs(board, n, colMark, rowMark, gridMark, 0);
     }
@@ -121,6 +94,7 @@ public class SudokuSolver {
                     updateMark(colMark, rowMark, gridMark, cell, i ,j ,k);
                 }
             }
+            map.put(1 << i, i + 1);
         }
     }
 
@@ -128,11 +102,6 @@ public class SudokuSolver {
         for (; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == '.') {
-                    System.out.println("i=" + i + ",j=" + j);
-
-                    if (i==0 && j==5) {
-                        System.out.println();
-                    }
 
                     int col = colMark[i];
                     int row = rowMark[j];
@@ -141,7 +110,6 @@ public class SudokuSolver {
 
                     // 合并行、列、九宫格后的标记
                     int mark = col | row | grid;
-                    System.out.println(get32BitBinString(mark));
                     // 因为是9x9的数独,只查找低9位里0的位置
                     int tmpMark = mark ^ 0b111111111;
 
@@ -152,9 +120,11 @@ public class SudokuSolver {
 
                     // 循环查找低9位里0的位置,即当前单元格的可用数字
                     while (tmpMark != 0) {
-                        int num = ((tmpMark - 1) & tmpMark) ^ tmpMark;
+                        int position = ((tmpMark - 1) & tmpMark) ^ tmpMark;
+                        int num = map.get(position);
                         board[i][j] = (char)(num + '0');
                         updateMark(colMark, rowMark, gridMark, num, i, j ,k);
+                        tmpMark = tmpMark ^ position;
 
                         boolean result = dfs(board, n, colMark, rowMark, gridMark, i);
 
@@ -168,57 +138,9 @@ public class SudokuSolver {
                             return true;
                         }
                     }
-                    // 因为一定有一种解,所以不用异常处理
+                    return false;
                 }
             }
-        }
-        return true;
-    }
-
-
-//    private int calculateAvaliableNum(int mark, int avaliableNum) {
-//
-////        while (b != 0) {
-////            int x = ((b - 1) & b) ^ b;
-////            System.out.println(get32BitBinString(x));
-////            b = b ^ x;
-////            System.out.println(get32BitBinString(b));
-////        }
-//
-//    }
-
-
-    /**
-     * 采用位运算的方式,判断单元格的值是否合法
-     * 比用for循环判断的方式效率更高
-     * @param colMark
-     * @param rowMark
-     * @param gridMark
-     * @param cell
-     * @param i       cell的行索引
-     * @param j       cell的列索引
-     * @param k       cell的小九宫格的索引
-     * @return
-     */
-    private boolean isValid(int[] colMark, int[] rowMark, int[] gridMark, int cell,
-                            int i, int j, int k) {
-        int col = colMark[i];
-        int row = rowMark[j];
-        int grid = gridMark[k];
-        // 判断单元格的值在当前行内是否合法
-        // cell在当前行和列的位置是 1 << (cell - 1)
-        int cellPoition = 1 << (cell - 1);
-        if ((col & cellPoition) != 0) {
-            // 该单元格的值在行内已存在
-            return false;
-        }
-        if ((row & cellPoition) != 0) {
-            // 该单元格的值在列内已存在
-            return false;
-        }
-        if ((grid & cellPoition) != 0) {
-            // 该单元格的值在列内已存在
-            return false;
         }
         return true;
     }
