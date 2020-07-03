@@ -1,12 +1,17 @@
 package review.singleton;
 
+import java.io.Serializable;
+
 /**
  * 单例-懒汉式-线程安全-缩小锁粒度-使用DCL-出现指令重排序问题
  * @author: xiaoxiaoxiang
  * @date: 2020/7/2 17:50
  */
-public class Singleton08 {
-
+public class Singleton08 implements Serializable {
+    /**
+     * 这里实现序列化接口只是为了后续的破坏单例的demo用
+     */
+    private static final long serialVersionUID = -1887934938314269394L;
     /**
      * Singleton07出现指令重排序问题
      */

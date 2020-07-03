@@ -7,6 +7,10 @@ package review.singleton;
  */
 public class Singleton09 {
 
+    /**
+     * 枚举类的本质是什么,为什么可以使用枚举类实现单例,你能回答上来么?
+     * @return
+     */
     public static Singleton09 getSingleton() {
         return SingletonEnum.INSTANCE.getSingleton09();
     }

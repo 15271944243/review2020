@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author: xiaoxiaoxiang
  * @date: 2020/7/2 17:53
  */
-public class Singleton01Test {
+public class SingletonTest {
 
     @Test
     public void getSingleton() {
@@ -17,11 +17,14 @@ public class Singleton01Test {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Singleton06 singleton06 = Singleton06.getSingleton();
-                    System.out.println(singleton06.toString());
+//                    Singleton06 singleton06 = Singleton06.getSingleton();
+//                    System.out.println(singleton06.toString());
 
                     //  Singleton08 singleton08 = Singleton08.getSingleton();
                     //  System.out.println(singleton08.toString());
+
+                    Singleton09 singleton09 = Singleton09.getSingleton();
+                    System.out.println(singleton09.toString());
                 }
             }).start();
         }
