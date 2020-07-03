@@ -23,7 +23,12 @@ public class SingletonTest {
                     //  Singleton08 singleton08 = Singleton08.getSingleton();
                     //  System.out.println(singleton08.toString());
 
-                    Singleton09 singleton09 = Singleton09.getSingleton();
+                    // 不建议通过getSingleton()方法获取单例,因为会被反射和序列化破坏
+//                    Singleton09 singleton09 = Singleton09.getSingleton();
+//                    System.out.println(singleton09.toString());
+
+                    // 建议直接通过枚举类获取单例
+                    Singleton09 singleton09 = SingletonEnum.INSTANCE.getSingleton09();
                     System.out.println(singleton09.toString());
                 }
             }).start();
