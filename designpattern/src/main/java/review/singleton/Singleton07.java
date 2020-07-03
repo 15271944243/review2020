@@ -5,25 +5,25 @@ package review.singleton;
  * @author: xiaoxiaoxiang
  * @date: 2020/7/2 17:50
  */
-public class Singleton05 {
+public class Singleton07 {
 
     /**
      * Singleton04缩小锁粒度,但是出现了线程安全问题
      */
 
-    private static Singleton05 singleton;
+    private static Singleton07 singleton;
 
-    private Singleton05() {}
+    private Singleton07() {}
 
     /**
      * 使用DCL(double check lock)解决线程安全问题,但会出现指令重排序问题
      * @return
      */
-    public static Singleton05 getSingleton() {
+    public static Singleton07 getSingleton() {
         if (singleton == null) {
-            synchronized (Singleton05.class) {
+            synchronized (Singleton07.class) {
                 if (singleton == null) {
-                    singleton = new Singleton05();
+                    singleton = new Singleton07();
                 }
             }
         }

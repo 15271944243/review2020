@@ -5,25 +5,25 @@ package review.singleton;
  * @author: xiaoxiaoxiang
  * @date: 2020/7/2 17:50
  */
-public class Singleton06 {
+public class Singleton08 {
 
     /**
      * Singleton05出现指令重排序问题
      */
 
-    private static volatile Singleton06 singleton;
+    private static volatile Singleton08 singleton;
 
-    private Singleton06() {}
+    private Singleton08() {}
 
     /**
      * 使用volatile修饰singleton,解决指令重排序问题
      * @return
      */
-    public static Singleton06 getSingleton() {
+    public static Singleton08 getSingleton() {
         if (singleton == null) {
-            synchronized (Singleton06.class) {
+            synchronized (Singleton08.class) {
                 if (singleton == null) {
-                    singleton = new Singleton06();
+                    singleton = new Singleton08();
                 }
             }
         }
