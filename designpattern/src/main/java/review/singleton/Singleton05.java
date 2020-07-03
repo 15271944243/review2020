@@ -5,23 +5,23 @@ package review.singleton;
  * @author: xiaoxiaoxiang
  * @date: 2020/7/2 17:50
  */
-public class Singleton03 {
+public class Singleton05 {
 
     /**
      * 有人觉得Singleton02会线程不安全,所以加锁
      */
 
-    private static Singleton03 singleton;
+    private static Singleton05 singleton;
 
-    private Singleton03() {}
+    private Singleton05() {}
 
     /**
      * 但锁的粒度太粗
      * @return
      */
-    public synchronized static Singleton03 getSingleton() {
+    public synchronized static Singleton05 getSingleton() {
         if (singleton == null) {
-            singleton = new Singleton03();
+            singleton = new Singleton05();
         }
         return singleton;
     }
