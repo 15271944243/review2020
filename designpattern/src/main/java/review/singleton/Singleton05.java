@@ -8,7 +8,7 @@ package review.singleton;
 public class Singleton05 {
 
     /**
-     * 有人觉得Singleton02会线程不安全,所以加锁
+     * 有人觉得Singleton04会线程不安全,所以加锁
      */
 
     private static Singleton05 singleton;

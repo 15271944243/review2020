@@ -8,7 +8,7 @@ package review.singleton;
 public class Singleton07 {
 
     /**
-     * Singleton04缩小锁粒度,但是出现了线程安全问题
+     * Singleton06缩小锁粒度,但是出现了线程安全问题
      */
 
     private static Singleton07 singleton;

@@ -8,7 +8,7 @@ package review.singleton;
 public class Singleton06 {
 
     /**
-     * 有人觉得Singleton03锁的粒度太粗,只针对初始化对象的代码上锁
+     * 有人觉得Singleton05锁的粒度太粗,只针对初始化对象的代码上锁
      */
 
     private static Singleton06 singleton;

@@ -8,7 +8,7 @@ package review.singleton;
 public class Singleton08 {
 
     /**
-     * Singleton05出现指令重排序问题
+     * Singleton07出现指令重排序问题
      */
 
     private static volatile Singleton08 singleton;
