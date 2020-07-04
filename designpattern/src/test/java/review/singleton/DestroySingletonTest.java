@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class DestroySingletonTest {
 
-    @Test
+//    @Test
     public void destroySingleton() {
         System.out.println("-----destroyByReflection");
         DestroySingleton01.destroyByReflection();
