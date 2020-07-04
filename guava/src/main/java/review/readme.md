@@ -1,0 +1,1 @@
+- eventbus 学习使用guava EventBus 实现观察者模式,可支持同步阻塞与异步非阻塞

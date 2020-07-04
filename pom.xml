@@ -16,6 +16,7 @@
         <module>algorithm</module>
         <module>servlet</module>
         <module>designpattern</module>
+        <module>guava</module>
     </modules>
 
     <properties>
