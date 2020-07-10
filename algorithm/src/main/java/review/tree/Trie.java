@@ -60,20 +60,91 @@ public class Trie {
 
     }
 
+    /**
+     * 节点值(这个场景,val没啥用,根据index就可以计算出val)
+     */
+//    Character val;
+    /**
+     * 因为只有26个a-z的小写字母,正好可以转化为0-25的索引(如果没有这个限制,就只能用Map存了)
+     */
+    Trie[] subList = new Trie[26];
+    /**
+     * 是否是叶子节点
+     */
+    boolean isEnd;
+
     /** Inserts a word into the trie. */
     public void insert(String word) {
-
+        Trie trie = this;
+        for (int i =0; i< word.length(); i++) {
+            char c = word.charAt(i);
+            int index = c - 'a';
+            if (index > 25) {
+                throw new ArrayIndexOutOfBoundsException(index);
+            }
+            Trie sub = trie.subList[index];
+            if (sub == null) {
+                sub = new Trie();
+//                sub.val = c;
+                trie.subList[index] = sub;
+            }
+            trie = sub;
+        }
+        trie.isEnd = true;
     }
 
     /** Returns if the word is in the trie. */
     public boolean search(String word) {
-
-        return false;
+        Trie trie = this;
+        for (int i =0; i< word.length(); i++) {
+            char c = word.charAt(i);
+            int index = c - 'a';
+            if (index > 25) {
+                throw new ArrayIndexOutOfBoundsException(index);
+            }
+            Trie sub = trie.subList[index];
+            if (sub == null) {
+                return false;
+            }
+            trie = sub;
+        }
+        return trie.isEnd;
     }
 
     /** Returns if there is any word in the trie that starts with the given prefix. */
     public boolean startsWith(String prefix) {
+        Trie trie = this;
+        for (int i =0; i< prefix.length(); i++) {
+            char c = prefix.charAt(i);
+            int index = c - 'a';
+            if (index > 25) {
+                throw new ArrayIndexOutOfBoundsException(index);
+            }
+            Trie sub = trie.subList[index];
+            if (sub == null) {
+                return false;
+            }
+            trie = sub;
+        }
+        return true;
+    }
 
-        return false;
+    public static void main(String[] args) {
+//        Trie obj = new Trie();
+//        String word = "fsdzceqwrwa";
+//        obj.insert(word);
+//        System.out.println(obj.search(word));
+//        System.out.println(obj.search("dsdsqwe"));
+//        System.out.println(obj.startsWith("fsdzc"));
+//        System.out.println(obj.startsWith("asfq"));
+
+        Trie trie = new Trie();
+        trie.insert("apple");
+        System.out.println(trie.search("apple"));  // returns true
+        System.out.println(trie.search("app")); // returns false
+
+        System.out.println(trie.startsWith("app")); // returns true
+        trie.insert("app");
+        System.out.println(trie.search("app"));     // returns true
     }
 }
