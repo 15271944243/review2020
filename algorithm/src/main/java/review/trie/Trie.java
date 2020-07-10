@@ -1,4 +1,4 @@
-package review.tree;
+package review.trie;
 
 /**
  * https://leetcode.com/problems/implement-trie-prefix-tree/
