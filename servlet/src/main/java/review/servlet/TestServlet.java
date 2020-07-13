@@ -2,6 +2,7 @@ package review.servlet;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
@@ -54,6 +55,10 @@ public class TestServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("doPost");
         System.out.println("param1=" + param1);
-        super.doPost(req, resp);
+
+        ServletOutputStream out = resp.getOutputStream();
+        out.write("sdsfdfwerewr".getBytes());
+//        out.flush();
+//        out.close();
     }
 }
