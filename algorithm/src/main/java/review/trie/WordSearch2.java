@@ -101,8 +101,12 @@ public class WordSearch2 {
         if (visit[i][j]) {
             return;
         }
-        visit[i][j] = true;
 
+        if (!trie.startsWith(word)) {
+            return;
+        }
+
+        visit[i][j] = true;
         if (trie.search(word) && !result.contains(word)) {
             result.add(word);
         }
@@ -111,32 +115,25 @@ public class WordSearch2 {
             // 上相邻
             String newWord = word + board[i - 1][j];
             // 继续搜索,可能会出现多个,比如app与apple
-            if (trie.startsWith(newWord)) {
-                dfs(board, trie, newWord, i - 1, j, visit, result);
-            }
+            dfs(board, trie, newWord, i - 1, j, visit, result);
         }
         if (i + 1 < board.length) {
             // 下相邻
             String newWord = word + board[i + 1][j];
-            if (trie.startsWith(newWord)) {
-                dfs(board, trie, newWord, i + 1, j, visit, result);
-            }
+            dfs(board, trie, newWord, i + 1, j, visit, result);
+
         }
         if (j - 1 > -1) {
             // 左相邻
             String newWord = word + board[i][j - 1];
-            if (trie.startsWith(newWord)) {
-                dfs(board, trie, newWord, i, j - 1, visit, result);
-            }
+            dfs(board, trie, newWord, i, j - 1, visit, result);
         }
         if (j + 1 < board[i].length) {
             // 右相邻
             String newWord = word + board[i][j + 1];
-            if (trie.startsWith(newWord)) {
-                dfs(board, trie, newWord, i, j + 1, visit, result);
-            }
-        }
+            dfs(board, trie, newWord, i, j + 1, visit, result);
 
+        }
         visit[i][j] = false;
     }
 }
