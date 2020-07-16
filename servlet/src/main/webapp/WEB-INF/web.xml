@@ -20,6 +20,8 @@
     <servlet>
         <servlet-name>testServlet</servlet-name>
         <servlet-class>review.servlet.TestServlet</servlet-class>
+        <!-- 容器启动时加载Servlet -->
+        <load-on-startup>1</load-on-startup>
         <init-param>
             <param-name>param1</param-name>
             <param-value>testServlet</param-value>
