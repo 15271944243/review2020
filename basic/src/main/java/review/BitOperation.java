@@ -16,6 +16,18 @@ public class BitOperation {
      * @param args
      */
     public static void main(String[] args) {
+        System.out.println(get32BitBinString(0));
+        System.out.println(get32BitBinString(~0));
+        System.out.println(-9 << 28);
+        System.out.println(get32BitBinString(-9 << 28));
+
+        System.out.println(-2 >> 2);
+        System.out.println(get32BitBinString(-2 >> 2));
+
+        System.out.println(-6 >>> 2);
+        System.out.println(get32BitBinString(-6 >>> 2));
+
+
         BitOperation bitOperation = new BitOperation();
         // 每个1出现的情况
         bitOperation.onePosition();
@@ -31,6 +43,14 @@ public class BitOperation {
         System.out.println(bitOperation.oddOrEven(4));
         // 计算绝对值
         System.out.println(bitOperation.abs(-2));
+
+        System.out.println(get32BitBinString(bitOperation.setRightPosition(15, 3)));
+        System.out.println(bitOperation.getPositionValue(15, 3));
+
+        System.out.println(bitOperation.getPositionPower(15, 3));
+
+
+
     }
 
     /**
@@ -54,8 +74,11 @@ public class BitOperation {
         System.out.println("b=" + get32BitBinString(b));
         b = b ^ 0b111111111;
         while (b != 0) {
+            System.out.println("b=" + get32BitBinString(b));
             int x = ((b - 1) & b) ^ b;
+            int y = b & -b ;
             System.out.println(get32BitBinString(x));
+            System.out.println(get32BitBinString(y));
             b = b ^ x;
         }
     }
@@ -116,5 +139,54 @@ public class BitOperation {
             number = number >>> 1;
         }
         return sBuilder.reverse().toString();
+    }
+
+    /**
+     * 将x最右边的n位改为0 (n > 0)
+     */
+    private int setRightPosition(int x, int n) {
+        return x & (~0 << n);
+    }
+
+    /**
+     * 获取x的第n位值(0或1) (n > 0)
+     */
+    private int getPositionValue(int x, int n) {
+        return  (x >> (n - 1)) & 1;
+    }
+
+    /**
+     * 获取x的第n位的幂值 (n > 0)
+     */
+    private int getPositionPower(int x, int n) {
+        return  x & (1 << (n - 1));
+    }
+
+    /**
+     * 仅将第n位改为1 (n > 0)
+     */
+    private int setPositionOne(int x, int n) {
+        return  x | (1 << (n - 1));
+    }
+
+    /**
+     * 仅将第n位改为0 (n > 0)
+     */
+    private int setPositionZero(int x, int n) {
+        return  x & (~(1 << (n - 1)));
+    }
+
+    /**
+     * 仅将最高位至(含)第n位改为0 (n > 0)
+     */
+    private int aaa(int x, int n) {
+        return  x & ((1 << n) - 1);
+    }
+
+    /**
+     * 将第n位至第1位(含)改为0 (n > 0)
+     */
+    private int bbb(int x, int n) {
+        return  x & (~((1 << n) - 1));
     }
 }
