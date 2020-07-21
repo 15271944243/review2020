@@ -1,6 +1,7 @@
 package review.sdf;
 
 import org.junit.Test;
+import review.juc.NamedThreadFactory;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -32,7 +33,8 @@ public class SdfThreadUnsafeTest {
      */
     private static ExecutorService pool = new ThreadPoolExecutor(5, 200,
             0L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<Runnable>(1024), new ThreadPoolExecutor.AbortPolicy());
+            new LinkedBlockingQueue<Runnable>(1024), new NamedThreadFactory("sdftest"),
+    new ThreadPoolExecutor.AbortPolicy());
 
     /**
      * 定义一个CountDownLatch,保证所有子线程执行完之后主线程再执行
@@ -40,9 +42,9 @@ public class SdfThreadUnsafeTest {
     private static CountDownLatch countDownLatch = new CountDownLatch(100);
 
     /**
-     * 你会发现simpleDateFormat打印的个数不是100;
-     * 而dateTimeFormatter打印的个数是100;
-     * 说明simpleDateFormat是线程不安全的
+     * 你会发现SimpleDateFormat打印的个数不是100;
+     * 而DateTimeFormatter打印的个数是100;
+     * 说明SimpleDateFormat是线程不安全的
      * @throws InterruptedException
      */
     @Test

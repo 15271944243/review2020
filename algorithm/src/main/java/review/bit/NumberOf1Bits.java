@@ -14,7 +14,8 @@ public class NumberOf1Bits {
 
     /**
      * 题目意思: 给一个无符号整型数字,返回这个数字中1bit的数量
-     * 思路: 使用位运算
+     * 思路一: 摩2取余数,并右移1位
+     * 思路二: 使用位运算n & (n - 1)
      */
 
     public int hammingWeight(int n) {
