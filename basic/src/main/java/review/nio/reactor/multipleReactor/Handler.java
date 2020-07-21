@@ -1,12 +1,16 @@
 package review.nio.reactor.multipleReactor;
 
+import review.juc.NamedThreadFactory;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 多线程处理event
@@ -15,7 +19,13 @@ import java.util.concurrent.Executors;
  */
 public class Handler implements EventHandler {
 
-    private static ExecutorService executorService = Executors.newFixedThreadPool(10);
+    /**
+     * 定义线程池
+     */
+    private static ExecutorService executorService = new ThreadPoolExecutor(10, 10,
+            0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>(1024), new NamedThreadFactory("nio-handle"),
+            new ThreadPoolExecutor.AbortPolicy());
 
     @Override
     public void process(SelectionKey selectionKey) throws IOException {
