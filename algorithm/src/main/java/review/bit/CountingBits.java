@@ -34,43 +34,35 @@ public class CountingBits {
      * 计算计算它的二进制表达式中1的数量,以数组的方式返回它们
      * 要求: 时间复杂度O(n),空间复杂度O(n),不要使用类似c++里的 __builtin_popcount 函数
      *
-     * 思路一: 计算num中1的个数为t,然后循环num,每循环一次就就对num减1,判断(num-1)的最后一位是否是1,如果是1,
-     * 则(num-1)中的1的个数为t-1,否则(num-1)中的1的个数为t (错误)
-     * 思路二:
+     * 思路一: 0 ≤ i ≤ num, 把i当作数组的下标,该下标对应的值就是它1的个数
+     * i & (i - 1)可以去掉i最右边的一个1（如果有）,因此 i & (i - 1）是比 i 小的,
+     * 而且i & (i - 1)的1的个数已经在前面算过了,所以i的1的个数就是 i & (i - 1)的1的个数加上1
+     * 思路二: i >> 1会把最低位去掉,因此i >> 1 也是比i小的,同样也是在前面的数组里算过.
+     * 当 i 的最低位是0,则 i 中1的个数和i >> 1中1的个数相同; 当i的最低位是1, i 中1的个数是 i >> 1中1的个数再加1
      */
 
     public static void main(String[] args) {
         CountingBits obj = new CountingBits();
         int[] result = obj.countBits(5);
+        int[] result2 = obj.countBits(7);
         System.out.println(111);
     }
 
     public int[] countBits(int num) {
         int[] result = new int[num + 1];
 
-        // 计算num中1的个数k
-        int n1 = num;
-        int k = 0;
-        while (n1 != 0) {
-            k++;
-            n1= n1 & (n1 - 1);
+        for (int i=1;i<result.length;i++) {
+            result[i] = result[i&(i-1)] + 1;
         }
 
-        if (k == 0) {
-            return result;
-        }
-        result[num] = k;
+        return result;
+    }
 
-        // 计算 1 ～ num - 1的数字i中1的个数
-        int i = num;
-        while (i > 0) {
-            // 如果i的最后一位是1
-            if ((i & 1) == 1) {
-                // 个数为k-1,反之个数为k
-                k = k - 1;
-            }
-            result[i-1] = k;
-            i--;
+    public int[] countBits2(int num) {
+        int[] result = new int[num + 1];
+
+        for (int i=1;i<result.length;i++) {
+            result[i] = result[i >> 1] + (i & 1);
         }
 
         return result;
