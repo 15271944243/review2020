@@ -48,9 +48,6 @@ public class BitOperation {
         System.out.println(bitOperation.getPositionValue(15, 3));
 
         System.out.println(bitOperation.getPositionPower(15, 3));
-
-
-
     }
 
     /**
@@ -139,6 +136,25 @@ public class BitOperation {
             number = number >>> 1;
         }
         return sBuilder.reverse().toString();
+    }
+
+    /**
+     * 把最低位的1改为0
+     * @param x
+     * @return
+     */
+    private int lowone(int x) {
+        return x & (x - 1);
+    }
+
+    /**
+     * 得到最低位的1
+     * @param x
+     * @return
+     */
+    private int getlowone(int x) {
+          //  (x & (x - 1)) ^ b
+        return x & -x;
     }
 
     /**
