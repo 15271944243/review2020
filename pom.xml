@@ -17,6 +17,7 @@
         <module>servlet</module>
         <module>designpattern</module>
         <module>guava</module>
+        <module>groovy</module>
     </modules>
 
     <properties>
