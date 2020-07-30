@@ -1,7 +1,7 @@
 package review.groovy
 
 /**
- * @description:
+ * http://www.groovy-lang.org/single-page-documentation.html
  * @author: xiaoxiaoxiang
  * @date: 2020/7/27 17:19
  */

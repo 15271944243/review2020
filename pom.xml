@@ -18,6 +18,7 @@
         <module>designpattern</module>
         <module>guava</module>
         <module>groovy</module>
+        <module>redis</module>
     </modules>
 
     <properties>
