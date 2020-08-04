@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import review.service.ExpireService;
 
 /**
@@ -12,6 +13,7 @@ import review.service.ExpireService;
  * @author: xiaoxiaoxiang
  * @date: 2020/7/30 16:35
  */
+@EnableRedisHttpSession
 @SpringBootApplication
 public class RedisApplication implements ApplicationListener<ApplicationReadyEvent> {
 
@@ -26,6 +28,6 @@ public class RedisApplication implements ApplicationListener<ApplicationReadyEve
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         // 过期时间测试
-        expireService.expireTime();
+//        expireService.expireTime();
     }
 }
