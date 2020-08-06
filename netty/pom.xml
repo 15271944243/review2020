@@ -13,11 +13,11 @@
     <artifactId>netty</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>16.0</version>
-        </dependency>
+        </dependency>-->
          <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
