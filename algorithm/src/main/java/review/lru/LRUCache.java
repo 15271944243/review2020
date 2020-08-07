@@ -40,8 +40,8 @@ public class LRUCache {
 
     /**
      * 题目意思: 实现一个LRU Cache数据结构,要支持get和put(时间复杂度都是O(1)),初始化LRU Cache时,必须跟上一个正数的容量;
-     * 思路1: 使用HashMap + 双向列表LinkList
-     * 思路2: 直接使用LinkedHashMap,因为它就是HashMap + 双向列表的数据结构
+     * 思路1: 使用HashMap + 双向链表LinkList; HashMap来实现数据查询、插入都是O(1),双向链表实现查询需要被删除的节点为O(1)
+     * 思路2: 直接使用LinkedHashMap,因为它就是HashMap + 双向链表的数据结构
      */
 
     /**
