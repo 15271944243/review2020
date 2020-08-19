@@ -19,6 +19,7 @@
         <module>guava</module>
         <module>groovy</module>
         <module>redis</module>
+        <module>jvm</module>
     </modules>
 
     <properties>
