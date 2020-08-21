@@ -1,7 +1,7 @@
 package review.dp;
 
 /**
- * https://leetcode.com/problems/climbing-stairs/  70 爬楼梯
+ * https://leetcode.com/problems/climbing-stairs/ NO. 70 爬楼梯
  * @author: xiaoxiaoxiang
  * @date: 2020/8/21 11:24
  */
@@ -69,5 +69,28 @@ public class ClimbingStairs {
             }
         }
        return result[n];
+    }
+
+    /**
+     * 在climbStairs上升级,不使用数组存储全部结果,而使用两个变量,记录n-1和n-2的结果
+     * @param n
+     * @return
+     */
+    public int climbStairs2(int n) {
+        if (n < 3) {
+            return n;
+        }
+        // n-1的结果
+        int resultN1 = 2;
+        // n-2的结果
+        int resultN2 = 1;
+        // n的结果
+        int result = 0;
+        for (int i=3; i < n + 1; i++) {
+            result = resultN2 + resultN1;
+            resultN2 = resultN1;
+            resultN1 = result;
+        }
+        return result;
     }
 }
