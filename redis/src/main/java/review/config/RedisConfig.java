@@ -12,7 +12,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
  * @date: 2020/7/30 16:49
  */
 //@Configuration
-public class LettuceConfig {
+public class RedisConfig {
 
 //    @Value("${redisConfig.host}")
     private String host;
