@@ -20,6 +20,7 @@
         <module>groovy</module>
         <module>redis</module>
         <module>jvm</module>
+        <module>es</module>
     </modules>
 
     <properties>

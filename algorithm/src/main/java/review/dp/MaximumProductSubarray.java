@@ -1,8 +1,5 @@
 package review.dp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * https://leetcode.com/problems/maximum-product-subarray/ No. 152 乘积最大子序列
  * @author: xiaoxiaoxiang
@@ -32,24 +29,37 @@ public class MaximumProductSubarray {
      * 思路一: 循环找出所有子序列的乘积,比较大小
      * 思路二: 采用动态规划思想进行递推
      * ```
-     * dp[][] 一维数组表示第i位,
+     * dp[][] 一维数组表示第i位,二维数组表示正数最大值还是负数最小值,1:最大值,2:最小值
+     * 思路: 最大值乘以负数得到最小值,最小值乘以负数得到最大值
+     * 初始值: dp[0][0] = nums[0],dp[0][1] = nums[0];
      *
+     * 如果nums[1] >= 0
+     * dp[1][1] = max(dp[0][1] * nums[1], nums[1])
+     * dp[1][0] = min(dp[0][0] * nums[1], nums[1])
+     * 如果nums[1] < 0
+     * dp[1][1] = max(dp[0][0] * nums[1], nums[1])
+     * dp[1][0] = min(dp[0][1] * nums[1], nums[1])
      * ```
      */
 
     public int maxProduct(int[] nums) {
-
-        int[][] dp = new int[2][2];
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int[][] dp = new int[nums.length][2];
         dp[0][0] = nums[0];
         dp[0][1] = nums[0];
-
+        int max = nums[0];
         for (int i = 1; i < nums.length; i++) {
-            // 第i个数的在dp中的位置,即i模2,即i位奇数,值为1,i为偶数,值为0
-            int x = i & 1;
-            // 第i - 1个数的在dp中的位置,即i - 1模2
-            int y = (i - 1) & 1;
-
+            if (nums[i] >= 0) {
+                dp[i][1] = Math.max(dp[i-1][1] * nums[i], nums[i]);
+                dp[i][0] = Math.min(dp[i-1][0] * nums[i], nums[i]);
+            } else {
+                dp[i][1] = Math.max(dp[i-1][0] * nums[i], nums[i]);
+                dp[i][0] = Math.min(dp[i-1][1] * nums[i], nums[i]);
+            }
+            max = Math.max(max, dp[i][1]);
         }
-        return 0;
+        return max;
     }
 }
