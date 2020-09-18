@@ -1,14 +1,18 @@
 package review.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import review.config.sub.DefaultMessageDelegate;
 
@@ -39,6 +43,25 @@ public class RedisConfig {
         //  To use a dedicated connection each time, set shareNativeConnection to false.
 //        lettuceConnectionFactory.setShareNativeConnection();
         return lettuceConnectionFactory;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(StringRedisSerializer.class)
+    public StringRedisSerializer stringRedisSerializer() {
+        return new StringRedisSerializer();
+    }
+
+    @Bean(name = "jsonRedisTemplate")
+    @ConditionalOnMissingBean(name = "jsonRedisTemplate")
+    public RedisTemplate<String, Object> jsonRedisTemplate(
+            RedisConnectionFactory redisConnectionFactory, StringRedisSerializer stringRedisSerializer) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+        template.setKeySerializer(stringRedisSerializer);
+        // 设置值（value）的序列化采用FastJsonRedisSerializer。
+        template.setValueSerializer(jackson2JsonRedisSerializer);
+        return template;
     }
 
     /**

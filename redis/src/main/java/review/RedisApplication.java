@@ -1,12 +1,8 @@
 package review;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import review.service.ExpireService;
 
 /**
  * @description:
@@ -15,19 +11,9 @@ import review.service.ExpireService;
  */
 @EnableRedisHttpSession
 @SpringBootApplication
-public class RedisApplication implements ApplicationListener<ApplicationReadyEvent> {
-
+public class RedisApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RedisApplication.class, args);
-    }
-
-    @Autowired
-    private ExpireService expireService;
-
-    @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
-        // 过期时间测试
-//        expireService.expireTime();
     }
 }
