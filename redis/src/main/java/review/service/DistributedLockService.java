@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description:
+ * 分布式锁Service
  * @author: xiaoxiaoxiang
  * @date: 2020/9/18 16:01
  */

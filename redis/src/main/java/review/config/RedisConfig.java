@@ -53,9 +53,9 @@ public class RedisConfig {
 
     @Bean(name = "jsonRedisTemplate")
     @ConditionalOnMissingBean(name = "jsonRedisTemplate")
-    public RedisTemplate<String, Object> jsonRedisTemplate(
+    public RedisTemplate<String, ?> jsonRedisTemplate(
             RedisConnectionFactory redisConnectionFactory, StringRedisSerializer stringRedisSerializer) {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        RedisTemplate<String, ?> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         GenericJackson2JsonRedisSerializer jackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
         template.setKeySerializer(stringRedisSerializer);
