@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping("/test")
-public class TestController {
+public class SpringRedisSessionController {
 
     /**
      * Debug SpringSessionDataRedis
