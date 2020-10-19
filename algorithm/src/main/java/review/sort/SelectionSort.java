@@ -39,9 +39,13 @@ public class SelectionSort {
                 }
             }
             // 注: 这里不能使用异或来交换值,因为maxIndex=i的情况下, arr[maxIndex] ^ arr[i] = 0
-            int tmp = arr[maxIndex];
-            arr[maxIndex] = arr[i];
-            arr[i] = tmp;
+            swap(arr, maxIndex, i);
         }
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }
