@@ -2,8 +2,6 @@ package review.sort;
 
 import review.utils.StrUtils;
 
-import java.util.Arrays;
-
 /**
  * 选择排序
  * @author: xiaoxiaoxiang
@@ -39,13 +37,7 @@ public class SelectionSort {
                 }
             }
             // 注: 这里不能使用异或来交换值,因为maxIndex=i的情况下, arr[maxIndex] ^ arr[i] = 0
-            swap(arr, maxIndex, i);
+            StrUtils.swap(arr, maxIndex, i);
         }
-    }
-
-    private void swap(int[] arr, int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
     }
 }

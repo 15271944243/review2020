@@ -60,20 +60,16 @@ public class QuickSort {
             // 将比基准数小的数放在左侧,比基准数大的数放在右侧,可以通过交换位置实现
             // 思路: 找到比基准数大的数,把index记录下来,后面找到比基准数小的数,与之交换位置
             if (arr[i] < pivot) {
-                swap(arr, biggerIndex, i);
+                StrUtils.swap(arr, biggerIndex, i);
                 biggerIndex++;
             }
         }
         // 将基准数与最后一个比基准数小的数交换位置,达到分区的效果
-        swap(arr, left, biggerIndex - 1);
+        StrUtils.swap(arr, left, biggerIndex - 1);
         return biggerIndex - 1;
     }
 
-    private void swap(int[] arr, int i, int j) {
-        int tmp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
-    }
+
 
     /**
      * if(l < r){
