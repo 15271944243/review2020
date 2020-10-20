@@ -28,6 +28,13 @@ public class SelectionSort {
         System.out.println(StrUtils.arrayToString(a, ","));
     }
 
+    /**
+     * 基本思想是:
+     * 首先在未排序序列中找到最小（大）元素,存放到排序序列的起始位置;
+     * 然后,再从剩余未排序元素中继续寻找最小(大)元素,然后放到已排序序列的末尾.
+     * 以此类推,直到所有元素均排序完毕.
+     * @param arr
+     */
     public void selectionSort(int[] arr) {
         for (int i=arr.length-1; i>0; i--) {
             int maxIndex = 0;
