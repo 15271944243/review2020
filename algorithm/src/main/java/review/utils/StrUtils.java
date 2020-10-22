@@ -1,7 +1,5 @@
 package review.utils;
 
-import sun.net.www.content.text.Generic;
-
 /**
  * @description:
  * @author: xiaoxiaoxiang
@@ -20,5 +18,11 @@ public final class StrUtils {
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    public static void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 }

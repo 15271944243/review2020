@@ -2,6 +2,8 @@ package review.sort;
 
 import review.utils.StrUtils;
 
+import java.util.Arrays;
+
 /**
  * 归并排序
  * @author: xiaoxiaoxiang
@@ -23,7 +25,7 @@ public class MergeSort {
     public static void main(String[] args) {
         MergeSort mergeSort = new MergeSort();
         int[] a = {30,40,60,30,14,28,77,10,20,50,89,103};
-        mergeSort.mergeSort(a);
+        a = mergeSort.mergeSort(a);
         System.out.println(StrUtils.arrayToString(a, ","));
     }
 
@@ -39,7 +41,35 @@ public class MergeSort {
      *
      * @param arr  待排序的数组
      */
-    public void mergeSort(int[] arr){
+    public int[] mergeSort(int[] arr){
+        if (arr.length < 2) {
+            return arr;
+        }
+        int middle = arr.length / 2;
+        int[] leftArr = Arrays.copyOfRange(arr, 0, middle);
+        int[] rightArr = Arrays.copyOfRange(arr, middle, arr.length);
+        return merge(mergeSort(leftArr), mergeSort(rightArr));
+    }
 
+    private int[] merge(int[] leftArr, int[] rightArr) {
+        int[] reuslt = new int[leftArr.length + rightArr.length];
+        int m = 0, n = 0;
+        for(int i=0; i< reuslt.length;i++) {
+            if (m >= leftArr.length) {
+                // 左边的都放完了,就放右边的
+                reuslt[i] = rightArr[n++];
+            } else if (n >= rightArr.length) {
+                // 右边的都放完了,就放左边的
+                reuslt[i] = leftArr[m++];
+            } else {
+                // 两边都没放完,比较大小,谁小就放谁(按从小到大的顺序)
+                if (leftArr[m] <= rightArr[n]) {
+                    reuslt[i] = leftArr[m++];
+                } else {
+                    reuslt[i] = rightArr[n++];
+                }
+            }
+        }
+        return reuslt;
     }
 }
