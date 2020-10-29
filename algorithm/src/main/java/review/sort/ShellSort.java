@@ -64,22 +64,14 @@ public class ShellSort {
         int d = arr.length / 2;
         // 第一层循环,针对增量d的循环
         while (d > 0) {
-            // 第二层循环,根据增量d将原数组分割为子数组
-            for (int i=0;i<d;i++) {
-                // arr[i]作为第1个插入元素
-                int index = i + d;
-                // 第三层循环,针对子数组循环
-                while(index < arr.length) {
-                    // 第四层循环,插入排序
-                    int j = index;
-                    while (j >= d) {
-                        if (arr[j] < arr[j-d]) {
-                            // 交换位置
-                            StrUtils.swap(arr, j, j-d);
-                        }
-                        j-=d;
+            // 第二层循环,根据d分成子数组
+            // 从d开始,因为[0~d)相当于每个子数组的第一个插入元素
+            for (int i=d;i<arr.length;i++) {
+                // 第三层循环,插入排序,arr[i]即为被插入的元素,与前面的元素依次
+                for (int j=i;j>=d;j=j-d) {
+                    if (arr[j] < arr[j-d]) {
+                        StrUtils.swap(arr, j, j-d);
                     }
-                    index += d;
                 }
             }
             d = d / 2;
