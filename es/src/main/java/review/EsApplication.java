@@ -1,7 +1,6 @@
 package review;
 
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -10,18 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.boot.context.event.SpringApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.data.elasticsearch.core.SearchHit;
-import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import review.pojo.Snowplow;
-
-import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
@@ -60,9 +51,9 @@ public class EsApplication implements ApplicationListener<ApplicationReadyEvent>
         searchQuery.withQuery(boolQueryBuilder)//.withIndices("snowplow").withTypes("enriched")
                 .withSort(sortBuilder)
                 .withPageable(PageRequest.of(0, 10));
-        IndexCoordinates index = IndexCoordinates.of("snowplow");
-        SearchHits<Snowplow> snowplowSearchHits = elasticsearchOperations.search(searchQuery.build(), Snowplow.class, index);
-        List<SearchHit<Snowplow>> searchHitList = snowplowSearchHits.getSearchHits();
-        log.info("cid:{}埋点查询结果{}", "20191218000003910010", searchHitList.size());
+//        IndexCoordinates index = IndexCoordinates.of("snowplow");
+//        SearchHits<Snowplow> snowplowSearchHits = elasticsearchOperations.search(searchQuery.build(), Snowplow.class, index);
+//        List<SearchHit<Snowplow>> searchHitList = snowplowSearchHits.getSearchHits();
+//        log.info("cid:{}埋点查询结果{}", "20191218000003910010", searchHitList.size());
     }
 }

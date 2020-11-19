@@ -21,6 +21,8 @@
         <module>redis</module>
         <module>jvm</module>
         <module>es</module>
+        <module>springboot</module>
+        <module>spring</module>
     </modules>
 
     <properties>
