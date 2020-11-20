@@ -33,9 +33,9 @@ public class Singleton {
      * 在VM options项里添加-verbose:class即可
      * @param args
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         getInstance(true);
         System.out.println("----");
         getInstance(false);
-    }
+    }*/
 }

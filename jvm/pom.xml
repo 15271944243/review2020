@@ -12,5 +12,11 @@
 
     <artifactId>jvm</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.openjdk.jol</groupId>
+            <artifactId>jol-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
