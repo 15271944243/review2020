@@ -23,5 +23,12 @@ public class ObjectLayoutDemo {
     public static void main(String[] args) {
         User user = new User();
         System.out.println(ClassLayout.parseInstance(user).toPrintable());
+        // 调用hashCode方法时,才会去计算hashcode
+        System.out.println("user hashcode:" + user.hashCode());
+        System.out.println("-------hashcode");
+        System.out.println(ClassLayout.parseInstance(user).toPrintable());
+        System.out.println("-------array");
+        int[] intArr = new int[3306];
+        System.out.println(ClassLayout.parseInstance(intArr).toPrintable());
     }
 }
