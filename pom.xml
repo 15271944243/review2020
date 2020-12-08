@@ -72,7 +72,7 @@
         </plugins>
     </build>
 
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>spring-milestone</id>
             <name>Spring Milestone</name>
@@ -108,5 +108,5 @@
                 <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
-    </pluginRepositories>
+    </pluginRepositories>-->
 </project>
