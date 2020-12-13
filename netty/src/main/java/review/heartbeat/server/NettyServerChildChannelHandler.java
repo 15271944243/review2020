@@ -17,6 +17,7 @@ public class NettyServerChildChannelHandler extends ChannelInitializer<SocketCha
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
+        // 启用idle 空闲监测
         ch.pipeline().addLast(new IdleStateHandler(5, 7, 3));
 //        ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(1024 * 4, 0, 4, 0, 4));
 //        ch.pipeline().addLast(new LengthFieldPrepender(4));

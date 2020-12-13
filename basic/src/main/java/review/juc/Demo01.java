@@ -28,7 +28,7 @@ public class Demo01 {
                         System.out.println("奇数线程:"+num.intValue());
                         num.incrementAndGet();
                     }
-                    countDownLatch.countDown();
+//                    countDownLatch.countDown();
                 }
             }
         };
@@ -41,14 +41,16 @@ public class Demo01 {
                         System.out.println("偶数线程:"+num.intValue());
                         num.incrementAndGet();
                     }
-                    countDownLatch.countDown();
+//                    countDownLatch.countDown();
                 }
             }
         };
 
         t1.start();
         t2.start();
-        countDownLatch.await();
+//        countDownLatch.await();
+        Thread.sleep(1000L);
+        System.out.println(countDownLatch.getCount());
     }
 
 }

@@ -30,7 +30,9 @@ public class NettyServer {
                 .channel(NioServerSocketChannel.class)
                 .handler(new LoggingHandler(LogLevel.DEBUG))
                 .option(ChannelOption.SO_BACKLOG, 1024)
+                // 开启TCP的keepalive的两种方式, tcp的keepalive默认关闭
 //                .childOption(ChannelOption.SO_KEEPALIVE, true)
+//                .childOption(NioChannelOption.of(StandardSocketOptions.SO_KEEPALIVE), true)
                 .childHandler(new NettyServerChildChannelHandler());
 
         try {
