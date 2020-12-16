@@ -12,13 +12,13 @@ import review.api.ListApiDemo;
  * @author: xiaoxiaoxiang
  * @date: 2020/9/18 17:21
  */
-@SpringBootTest(classes = RedisApplication.class)
-@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = RedisApplication.class)
+//@RunWith(SpringRunner.class)
 public class ListApiDemoTest {
     @Autowired
     private ListApiDemo listApiDemo;
 
-    @Test
+//    @Test
     public void test() {
         listApiDemo.testPushCollection();
     }
