@@ -12,6 +12,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.concurrent.UnorderedThreadPoolEventExecutor;
 
 /**
  * @description:
@@ -61,6 +62,9 @@ public class NettyServer {
             socketChannel.pipeline().addLast(new StringDecoder());
             socketChannel.pipeline().addLast(new StringEncoder());
             socketChannel.pipeline().addLast(new NettyServerHandler());
+
+            // 指定业务处理线程池
+//            socketChannel.pipeline().addLast(new UnorderedThreadPoolEventExecutor(10), new NettyServerHandler());
         }
     }
 }
