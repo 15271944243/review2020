@@ -14,7 +14,9 @@ import review.jksj.client.codec.OrderProtocolDecoder;
 import review.jksj.client.codec.OrderProtocolEncoder;
 import review.jksj.codec.OrderFrameDecoder;
 import review.jksj.codec.OrderFrameEncoder;
+import review.jksj.common.RequestMessage;
 import review.jksj.common.order.OrderOperation;
+import review.jksj.util.IdUtil;
 
 /**
  * @description:
@@ -48,6 +50,10 @@ public class ClientV1 {
 
             OrderOperation orderOperation = new OrderOperation(1001, "todou");
             channelFuture.channel().writeAndFlush(orderOperation);
+
+            // 这里就算直接传RequestMessage,也是可行的,因为MessageToMessageEncoder里会匹配参数类型
+//            RequestMessage requestMessage = new RequestMessage(IdUtil.nextId(), new OrderOperation(1001, "todou"));
+//            channelFuture.channel().writeAndFlush(requestMessage);
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
