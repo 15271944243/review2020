@@ -9,40 +9,17 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadLocalCase01 {
 
-    private static ThreadLocal<String> threadLocal = new ThreadLocal<>();
-
+    /**
+     * 发生垃圾回收,若这个对象只被弱引用指向,那么就会被回收
+     * -verbose:gc -XX:+PrintGCDetails
+     * @param args
+     */
     public static void main(String[] args) {
-        threadLocal.get();
-//        Thread t1 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                threadLocal.get();
-//
-//            }
-//        }, "t1");
-//        t1.start();
-    }
-
-    public void aaa() {
-
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                threadLocal.get();
-            }
-        }, "t1");
-
-//        Thread t2 = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                threadLocal.set("t2");
-//            }
-//        }, "t2");
-        threadLocal.remove();
+        ThreadLocal<String> threadLocal = new ThreadLocal<>();
+        threadLocal.set("sdfsdfsdf");
+        System.gc();
+        // 由于强引用threadLocal还存在,所以GC时并不会回收Entry
+        String aaa = threadLocal.get();
+        System.out.println(aaa);
     }
 }
