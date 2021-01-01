@@ -7,7 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @description:
+ * 虚引用
+ * Reference和ReferenceQueue可以参考 https://cloud.tencent.com/developer/article/1152608
  * @author: xiaoxiaoxiang
  * @date: 2020/12/30 15:56
  */
@@ -17,7 +18,12 @@ public class PhantomReferenceTest {
     private static final ReferenceQueue<TestClass> QUEUE = new ReferenceQueue<>();
 
     /**
-     * -verbose:gc -Xms4m -Xmx4m -Xmn2m
+     * -verbose:gc -XX:+PrintGCDetails -Xms4m -Xmx4m -Xmn2m
+     *
+     * 如果obj被置为null, 当GC发现虚引用，GC会将把 PhantomReference 对象加入到队列ReferenceQueue中
+     * 注意此时pr所指向的对象并没有被回收, 在调用了 rq.poll() 返回 Reference 对象之后当GC第二次发现虚引用,
+     * 而此时 JVM 将虚引用phantomReference插入到队列 QUEUE 会插入失败, 此时 GC 才会对虚引用对象进行回收
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -29,7 +35,7 @@ public class PhantomReferenceTest {
             while (true) {
                 TEST_DATA.add(new byte[1024 * 100]);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     Thread.currentThread().interrupt();
@@ -58,7 +64,6 @@ public class PhantomReferenceTest {
             System.exit(1);
         }
     }
-
 
     static class TestClass {
         private String name;
