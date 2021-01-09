@@ -13,7 +13,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(System.currentTimeMillis());
+//        ctx.writeAndFlush(System.currentTimeMillis());
     }
 
     @Override
