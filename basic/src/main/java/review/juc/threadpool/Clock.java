@@ -1,4 +1,4 @@
-package review.juc.atomic.threadpool;
+package review.juc.threadpool;
 
 import review.juc.NamedThreadFactory;
 
