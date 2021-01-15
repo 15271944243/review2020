@@ -11,6 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.util.concurrent.DefaultThreadFactory;
+import io.netty.util.concurrent.UnorderedThreadPoolEventExecutor;
 import review.jksj.codec.OrderFrameDecoder;
 import review.jksj.codec.OrderFrameEncoder;
 import review.jksj.server.codec.OrderProtocolDecoder;
@@ -29,7 +30,9 @@ public class Server {
         NioEventLoopGroup workerGroup = new NioEventLoopGroup(0, new DefaultThreadFactory("worker"));
 
         MetricHandler metricHandler = new MetricHandler();
-
+        // 业务处理线程池, 此时业务处理就不再使用EventLoop的线程了
+        UnorderedThreadPoolEventExecutor businessExecutor =
+                new UnorderedThreadPoolEventExecutor(5, new DefaultThreadFactory("business"));
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(bossGroup, workerGroup)
@@ -52,7 +55,7 @@ public class Server {
                         pipeline.addLast("metricHandler", metricHandler);
 
                         pipeline.addLast(new LoggingHandler(LogLevel.INFO));
-                        pipeline.addLast(new OrderServerProcessHandler());
+                        pipeline.addLast(businessExecutor, new OrderServerProcessHandler());
                     }
                 });
 

@@ -21,5 +21,10 @@ public class ThreadLocalCase01 {
         // 由于强引用threadLocal还存在,所以GC时并不会回收Entry
         String aaa = threadLocal.get();
         System.out.println(aaa);
+
+        // 每new 一个 ThreadLocal, threadLocalHashCode 加上 HASH_INCREMENT
+        ThreadLocal<String> t1 = new ThreadLocal<>();
+        ThreadLocal<String> t2 = new ThreadLocal<>();
+
     }
 }
