@@ -22,7 +22,24 @@ public class HashedWheelTimerDemo {
      */
     public static void main(String[] args) {
         HashedWheelTimer timer = new HashedWheelTimer();
+
         Timeout timeout1 = timer.newTimeout(new TimerTask() {
+            @Override
+            public void run(Timeout timeout) throws Exception {
+                System.out.println("timeout1: " + new Date());
+            }
+        }, 10, TimeUnit.SECONDS);
+
+        Timeout timeout2 = timer.newTimeout(new TimerTask() {
+            @Override
+            public void run(Timeout timeout) throws Exception {
+                System.out.println("timeout2: " + new Date());
+            }
+        }, 1, TimeUnit.MINUTES);
+
+
+
+        /*Timeout timeout1 = timer.newTimeout(new TimerTask() {
             @Override
             public void run(Timeout timeout) throws Exception {
                 System.out.println("timeout1: " + new Date());
@@ -44,7 +61,7 @@ public class HashedWheelTimerDemo {
             public void run(Timeout timeout) throws Exception {
                 System.out.println("timeout3: " + new Date());
             }
-        }, 3, TimeUnit.SECONDS);
+        }, 3, TimeUnit.SECONDS);*/
 
     }
 }

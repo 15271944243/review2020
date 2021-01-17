@@ -19,7 +19,7 @@ public class AuthOperation extends Operation {
     private final String password;
 
     @Override
-    public OperationResult execute() {
+    public AuthOperationResult execute() {
         AuthOperationResult result = null;
         if ("admin".equalsIgnoreCase(username)) {
             result = new AuthOperationResult(true);

@@ -15,6 +15,7 @@ import review.jksj.client.codec.OrderProtocolEncoder;
 import review.jksj.codec.OrderFrameDecoder;
 import review.jksj.codec.OrderFrameEncoder;
 import review.jksj.common.RequestMessage;
+import review.jksj.common.auth.AuthOperation;
 import review.jksj.common.order.OrderOperation;
 import review.jksj.util.IdUtil;
 
@@ -47,6 +48,10 @@ public class ClientV1 {
                 });
         try {
             ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 8090).sync();
+
+            AuthOperation authOperation = new AuthOperation("admin", "xxxxx");
+            RequestMessage authMessage = new RequestMessage(IdUtil.nextId(), authOperation);
+            channelFuture.channel().writeAndFlush(authMessage);
 
             OrderOperation orderOperation = new OrderOperation(1001, "todou");
             channelFuture.channel().writeAndFlush(orderOperation);

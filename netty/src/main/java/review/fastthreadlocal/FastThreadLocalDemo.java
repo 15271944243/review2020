@@ -40,7 +40,7 @@ public class FastThreadLocalDemo {
         }
 
         // 线程池使用方式
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1,
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 5,
                 0, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(1024),
                 new ThreadFactory() {
