@@ -48,7 +48,39 @@ public class BitOperation {
         System.out.println(bitOperation.getPositionValue(15, 3));
 
         System.out.println(bitOperation.getPositionPower(15, 3));
+
+        // 取模
+        int mask = bitOperation.tableSizeFor(12) - 1;
+        System.out.println(bitOperation.mod(7, mask));
+        System.out.println(bitOperation.mod(6, mask));
+        System.out.println(bitOperation.mod(22, mask));
     }
+
+    /**
+     * 使用 `&` 来取模, 但有个前提条件是 被取模的掩码为2的n次方减1
+     */
+    private int mod(int value, int mod) {
+        return value & mod;
+    }
+
+    /**
+     * 找到不小于cap的最小 2 次幂
+     * copy from {@link java.util.HashMap}
+     * @param cap
+     * @return
+     */
+    private int tableSizeFor(int cap) {
+        int maxCapacity = 1 << 30;
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= maxCapacity) ? maxCapacity : n + 1;
+    }
+
+
 
     /**
      * 求二进制数里每个1出现的的情况
