@@ -37,8 +37,6 @@ public class HashedWheelTimerDemo {
             }
         }, 1, TimeUnit.MINUTES);
 
-
-
         /*Timeout timeout1 = timer.newTimeout(new TimerTask() {
             @Override
             public void run(Timeout timeout) throws Exception {

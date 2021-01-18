@@ -23,6 +23,10 @@
         <module>es</module>
         <module>springboot</module>
         <module>spring</module>
+        <module>dubbo</module>
+        <module>dubbo/dubbo-xml-provider</module>
+        <module>dubbo/dubbo-xml-consumer</module>
+        <module>dubbo/dubbo-xml-api</module>
     </modules>
 
     <properties>
