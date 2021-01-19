@@ -25,4 +25,34 @@ public final class StrUtils {
         arr[i] = arr[j];
         arr[j] = tmp;
     }
+
+    public static void swap(char[] arr, int i, int j) {
+        char tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    /**
+     * 反转字符串
+     * @param str
+     * @return
+     */
+    public static String reverse(String str) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        int head = 0;
+        int tail = chars.length - 1;
+        for (int i=0;i<chars.length;i++) {
+            // 当头指针小于等于尾指针时停止循环
+            if (head >= tail) {
+                break;
+            }
+            swap(chars, head, tail);
+            head++;
+            tail--;
+        }
+        return new String(chars);
+    }
 }
