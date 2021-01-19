@@ -12,11 +12,11 @@ import java.util.ServiceLoader;
 public class SpiDemo {
 
     public static void main(String[] args) {
-        ServiceLoader<Log> serviceLoader = ServiceLoader.load(Log.class);
-        Iterator<Log> iterator = serviceLoader.iterator();
+        ServiceLoader<MyLog> serviceLoader = ServiceLoader.load(MyLog.class);
+        Iterator<MyLog> iterator = serviceLoader.iterator();
         while (iterator.hasNext()) {
-            Log log = iterator.next();
-            log.info("Hello Java SPI!");
+            MyLog myLog = iterator.next();
+            myLog.info("Hello Java SPI!");
         }
     }
 }

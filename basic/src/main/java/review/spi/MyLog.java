@@ -6,7 +6,7 @@ package review.spi;
  * @author: xiaoxiaoxiang
  * @date: 2021/1/19 16:34
  */
-public interface Log {
+public interface MyLog {
 
     void info(String info);
 }
