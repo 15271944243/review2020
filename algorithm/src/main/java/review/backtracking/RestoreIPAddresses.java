@@ -62,6 +62,27 @@ public class RestoreIPAddresses {
      */
 
     public List<String> restoreIpAddresses(String s) {
+
+        // 一开始position为0
+        int position = 0;
         return null;
+    }
+
+    /**
+     * 每次切割长度 subLength: 1 - 3
+     * 每次切割后位置 position = position + subLength
+     * 递归过程中的中间结果 tmpResult
+     */
+    private void backtracking(int position, String s, String tmpResult, List<String> result) {
+        // 结束条件
+        if (position == s.length() - 1) {
+            // 放入结果
+            result.add(tmpResult);
+            return;
+        }
+
+        for (int i = 1; i < 3; i++) {
+
+        }
     }
 }
