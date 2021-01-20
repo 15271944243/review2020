@@ -2,8 +2,8 @@ package review.jksj.common;
 
 import review.jksj.common.auth.AuthOperation;
 import review.jksj.common.auth.AuthOperationResult;
-import review.jksj.common.keeplive.KeepliveOperation;
-import review.jksj.common.keeplive.KeepliveOperationResult;
+import review.jksj.common.keeplive.KeepaliveOperation;
+import review.jksj.common.keeplive.KeepaliveOperationResult;
 import review.jksj.common.order.OrderOperation;
 import review.jksj.common.order.OrderOperationResult;
 
@@ -22,7 +22,7 @@ public enum OperationType {
     /**
      * KEEPLIVE
      */
-    KEEPLIVE(2, KeepliveOperation.class, KeepliveOperationResult.class),
+    KEEPALIVE(2, KeepaliveOperation.class, KeepaliveOperationResult.class),
     /**
      * ORDER
      */

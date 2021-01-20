@@ -9,7 +9,7 @@ import review.jksj.common.OperationResult;
  * @date: 2020/12/21 15:42
  */
 @Data
-public class KeepliveOperationResult extends OperationResult {
+public class KeepaliveOperationResult extends OperationResult {
 
     private final long time;
 }

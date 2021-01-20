@@ -12,17 +12,17 @@ import review.jksj.common.OperationResult;
  */
 @Data
 @Slf4j
-public class KeepliveOperation extends Operation {
+public class KeepaliveOperation extends Operation {
 
     private long time;
 
-    public KeepliveOperation() {
+    public KeepaliveOperation() {
         this.time = System.nanoTime();
     }
 
     @Override
     public OperationResult execute() {
-        KeepliveOperationResult result = new KeepliveOperationResult(time);
+        KeepaliveOperationResult result = new KeepaliveOperationResult(time);
         return result;
     }
 }

@@ -12,6 +12,7 @@ import io.netty.handler.logging.LoggingHandler;
 import review.jksj.client.codec.OperationToRequestMessageEncoder;
 import review.jksj.client.codec.OrderProtocolDecoder;
 import review.jksj.client.codec.OrderProtocolEncoder;
+import review.jksj.client.handler.KeepaliveHandler;
 import review.jksj.codec.OrderFrameDecoder;
 import review.jksj.codec.OrderFrameEncoder;
 import review.jksj.common.RequestMessage;
@@ -28,6 +29,9 @@ public class ClientV1 {
 
     public static void main(String[] args) {
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
+
+        KeepaliveHandler keepaliveHandler = new KeepaliveHandler();
+
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(workerGroup)
                 .channel(NioSocketChannel.class)
@@ -44,6 +48,8 @@ public class ClientV1 {
                         pipeline.addLast(new OperationToRequestMessageEncoder());
 
                         pipeline.addLast(new LoggingHandler(LogLevel.INFO));
+
+                        pipeline.addLast("keepaliveHandler", keepaliveHandler);
                     }
                 });
         try {

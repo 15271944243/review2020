@@ -30,6 +30,7 @@ import review.jksj.server.codec.OrderProtocolEncoder;
 import review.jksj.server.handler.AuthHandler;
 import review.jksj.server.handler.MetricHandler;
 import review.jksj.server.handler.OrderServerProcessHandler;
+import review.jksj.server.handler.ServerIdleCheckHandler;
 
 import javax.net.ssl.SSLException;
 import java.security.cert.CertificateException;
@@ -87,7 +88,7 @@ public class Server {
                         // 流量整形
 //                        pipeline.addLast("trafficShapingHandler", globalTrafficShapingHandler);
 
-
+                        pipeline.addLast("serverIdleCheckHandler", new ServerIdleCheckHandler());
 
                         pipeline.addLast(new OrderFrameDecoder());
                         pipeline.addLast(new OrderFrameEncoder());
