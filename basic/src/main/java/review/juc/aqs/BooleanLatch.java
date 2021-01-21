@@ -1,4 +1,4 @@
-package review.juc;
+package review.juc.aqs;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
