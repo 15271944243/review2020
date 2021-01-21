@@ -1,5 +1,7 @@
 package review.utils;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: xiaoxiaoxiang
@@ -54,5 +56,14 @@ public final class StrUtils {
             tail--;
         }
         return new String(chars);
+    }
+
+    public static String listToString(List<String> list) {
+        StringBuffer sb = new StringBuffer();
+        for (String str : list) {
+            sb.append(str).append(",");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 }

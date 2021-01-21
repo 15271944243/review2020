@@ -1,5 +1,8 @@
 package review.backtracking;
 
+import review.utils.StrUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,27 +64,65 @@ public class RestoreIPAddresses {
      * 思路: 采用递归-回溯-剪枝的思想
      */
 
-    public List<String> restoreIpAddresses(String s) {
+    public static void main(String[] args) {
+        RestoreIPAddresses demo = new RestoreIPAddresses();
+        String s = "101023";
+        List<String> result = demo.restoreIpAddresses(s);
+        System.out.println(StrUtils.listToString(result));
+    }
 
+    public List<String> restoreIpAddresses(String s) {
+        List<String> result = new ArrayList<>();
+        // 剪枝 - 字符串长度应该在 4 ~ 12
+        if (s.length() < 4 || s.length() > 12) {
+            return result;
+        }
         // 一开始position为0
-        int position = 0;
-        return null;
+        backtracking(0, s, 0,"", result);
+        return result;
     }
 
     /**
      * 每次切割长度 subLength: 1 - 3
      * 每次切割后位置 position = position + subLength
      * 递归过程中的中间结果 tmpResult
+     * ipNumCount  结束条件: ip数字个数为4
      */
-    private void backtracking(int position, String s, String tmpResult, List<String> result) {
+    private void backtracking(int position, String s, int ipNumCount, String tmpResult, List<String> result) {
         // 结束条件
-        if (position == s.length() - 1) {
-            // 放入结果
-            result.add(tmpResult);
+        if (ipNumCount == 4) {
+            if (position == s.length()) {
+                // 放入结果
+                result.add(tmpResult);
+            }
             return;
         }
-
-        for (int i = 1; i < 3; i++) {
+        // 最大切割长度 1 - 3
+        for (int i = 1; i < 4; i++) {
+            // 切割结束位置
+            int endPosition = position + i;
+            // 剪枝 - 超出字符串长度
+            if (endPosition > s.length()) {
+                return;
+            }
+            String str = s.substring(position, endPosition);
+            // 剪枝 - 不能以0开头
+            if (str.length() > 1 && str.charAt(0) == '0') {
+                return;
+            }
+            // 剪枝 - ip地址为 0 ~ 255
+            if (str.length() == 3) {
+                int strValue = Integer.parseInt(str);
+                if (strValue > 255) {
+                    return;
+                }
+            }
+            // 拼接ip字符串
+            if (tmpResult.length() == 0) {
+                backtracking(endPosition, s, ipNumCount + 1, str, result);
+            } else {
+                backtracking(endPosition, s, ipNumCount + 1, tmpResult + "." + str, result);
+            }
 
         }
     }
