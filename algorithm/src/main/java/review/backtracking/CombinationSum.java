@@ -3,7 +3,7 @@ package review.backtracking;
 import java.util.List;
 
 /**
- * @description:
+ * https://leetcode.com/problems/combination-sum/ No.39
  * @author: xiaoxiaoxiang
  * @date: 2021/1/22 11:41
  */
