@@ -1,0 +1,2 @@
+- 是一个集合来求组合的话,就需要startIndex 例如 Combinations、CombinationSum等
+- 如果是多个集合取组合,各个集合之间相互不影响,那么就不用startIndex

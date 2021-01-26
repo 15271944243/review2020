@@ -1,5 +1,6 @@
 package review.backtracking;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,12 +67,81 @@ public class CombinationSum {
      * 1 <= target <= 500
      *
      * 思路: 采用递归-回溯-剪枝的思想
+     *
+     * candidates[i] * m >= target & candidates[i] * (m - 1) < target
+     * 找到每个 candidates[i] 对应的 m, 每个 candidates[i] 使用 0 ~ m 次
+     * 当 candidates[i] 使用了 n 次时(0 <= n <= m), target = target - (candidates[i] * n)
+     * 对 candidates[i + 1] ~  candidates[length - 1] 进行递归, 求出全部解
+     *
+     * 剪枝思路:
+     * 1. 对 candidates 按从小到大顺序排序, 如果 candidates[i] * n + candidates[i + 1] > target,
+     * 则 candidates[i] * n + candidates[i + 2] ～ candidates[m] 都不符合条件
      */
-
-
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-
+    public static void main(String[] args) {
+        int[] candidates = new int[]{2, 3, 6, 7};
+        int target = 7;
+//        int[] candidates = new int[]{2, 3, 5};
+//        int target = 8;
+        CombinationSum demo = new CombinationSum();
+        List<List<Integer>> result = demo.combinationSum(candidates, target);
     }
 
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<Integer> tmpResult = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+        backtracking(0, candidates, target, 0, tmpResult, result);
+        return result;
+    }
+
+    /**
+     * 递归-回溯-剪枝
+     * @param start       其实位置
+     * @param candidates
+     * @param target
+     * @param tmpSum      零时sum
+     * @param tmpResult
+     * @param result
+     */
+    private void backtracking(int start, int[] candidates, int target, int tmpSum, List<Integer> tmpResult, List<List<Integer>> result) {
+        if (target == tmpSum) {
+            // 终止条件,返回结果
+            result.add(new ArrayList<>(tmpResult));
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            if (i == 2) {
+                System.out.println(1);
+            }
+            // 剩余sum值
+            int left = target - tmpSum;
+            if (left < 0) {
+                // 终止条件,无结果返回
+                break;
+            }
+            int m = left / candidates[i];
+            for (int j = m; j > 0; j--) {
+                int val = candidates[i] * j;
+                tmpSum += val;
+                addNum(candidates[i], j, tmpResult);
+                backtracking(i + 1, candidates, target, tmpSum, tmpResult, result);
+                tmpSum -= val;
+                removeNum(j, tmpResult);
+            }
+        }
+    }
+
+    private void addNum(int num, int count, List<Integer> tmpResult) {
+        for (int i = 0; i < count; i++) {
+            tmpResult.add(num);
+        }
+    }
+
+    private void removeNum(int count, List<Integer> tmpResult) {
+        int index = tmpResult.size() - 1;
+        for (int i = 0; i < count; i++) {
+            tmpResult.remove(index);
+            index--;
+        }
+    }
 
 }
