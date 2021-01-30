@@ -11,6 +11,12 @@ import java.util.concurrent.Executors;
  */
 public class CountDownLatchDemo {
 
+    /**
+     * Driver  多个线程等待某一个线程的信号,同时开始执行
+     * Driver2 一个线程等待其他多个线程都执行完毕,再继续自己的工作
+     * @param args
+     * @throws InterruptedException
+     */
     public static void main(String[] args) throws InterruptedException {
 //        Driver driver = new Driver();
 //        driver.main(3);
