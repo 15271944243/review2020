@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @description:
@@ -28,5 +30,13 @@ public class Test {
         if (flag == true) {
             System.out.println("Hello, JVM!");
         }
+
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        for (Integer i : list) { // 第二次循环时 throw ConcurrentModificationException
+            list.add(1);
+        }
+
     }
 }
