@@ -7,8 +7,8 @@ package review;
  */
 public class DeadLock implements Runnable {
     public int flag;
-    private Object o1 = new Object();
-    private Object o2 = new Object();
+    static Object o1 = new Object();
+    static Object o2 = new Object();
 
     @Override
     public void run() {
@@ -16,6 +16,7 @@ public class DeadLock implements Runnable {
         if (flag == 1) {
             synchronized (o1) {
                 try {
+                    System.out.println("flag == 1 的线程获得锁o1");
                     Thread.sleep(1000L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -24,15 +25,17 @@ public class DeadLock implements Runnable {
                     System.out.println("flag == 1 的线程获得了两把锁");
                 }
             }
-        } else {
+        }
+        if (flag == 2) {
             synchronized (o2) {
                 try {
+                    System.out.println("flag == 1 的线程获得锁o2");
                     Thread.sleep(1000L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 synchronized (o1) {
-                    System.out.println("flag != 1 的线程获得了两把锁");
+                    System.out.println("flag == 2 的线程获得了两把锁");
                 }
             }
         }
@@ -45,7 +48,5 @@ public class DeadLock implements Runnable {
         deadLock2.flag = 2;
         new Thread(deadLock1, "t1").start();
         new Thread(deadLock2, "t2").start();
-
-
     }
 }
