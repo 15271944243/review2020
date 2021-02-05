@@ -42,11 +42,12 @@ public class Subsets2 {
      *
      * 思路一: 采用递归-回溯-剪枝的思想
      * 注意去重,去重的思路其实跟 CombinationSum2 一样
+     * 也可以使用 IncreasingSubsequences 的去重思路, 但是要排序
      */
 
     public static void main(String[] args) {
         Subsets2 demo = new Subsets2();
-        int[] nums = new int[]{1, 2, 2};
+        int[] nums = new int[]{4, 4, 4, 1, 4};
         List<List<Integer>> result = demo.subsetsWithDup(nums);
     }
 

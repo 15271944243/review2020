@@ -17,3 +17,10 @@
 子集问题:
 
 - Subsets
+- IncreasingSubsequences
+
+排列问题:
+
+
+
+https://mp.weixin.qq.com/s/r73thpBnK1tXndFDtlsdCQ
