@@ -1,5 +1,7 @@
-package review.juc;
+package review.juc.async;
 
+
+import review.juc.NamedThreadFactory;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -46,6 +48,6 @@ public class LearnCompletableFuture {
         LearnCompletableFuture obj = new LearnCompletableFuture();
         obj.learn();
 
-        System.out.println(111);
+//        System.out.println(111);
     }
 }
