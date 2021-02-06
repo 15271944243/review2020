@@ -42,6 +42,27 @@ public class LearnCompletableFuture {
         future3.thenAccept(e -> {
             System.out.println(e);
         });
+
+        CompletableFuture<Integer> future4 = CompletableFuture.supplyAsync(()->7/0, executor)
+                .thenApply(r->r*10)
+                .exceptionally(e->0);
+
+        future1.join();
+        future2.join();
+        future3.join();
+        System.out.println(future4.join());
+
+        CompletableFuture<String> future5 = CompletableFuture.supplyAsync(() -> {
+            // 第一个实例的结果
+            return "hello";
+        }).thenCompose(resultA -> CompletableFuture.supplyAsync(() -> {
+            // 把上一个实例的结果传递到这里
+            return resultA + " world";
+        })).thenCompose(resultAB -> CompletableFuture.supplyAsync(() -> {
+            return resultAB + ", I'm xxx";
+        }));
+        System.out.println(future5.join());
+        executor.shutdown();
     }
 
     public static void main(String[] args) {

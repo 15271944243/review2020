@@ -4,6 +4,7 @@ import java.util.concurrent.Semaphore;
 
 /**
  * {@link java.util.concurrent.Semaphore} 的 java doc demo
+ * 建议阅读: https://mp.weixin.qq.com/s?__biz=MzIxNTQ4MzE1NA==&mid=2247491596&idx=1&sn=61ec570fe199a9b39cb6cdad06ebea5c&scene=21#wechat_redirect
  * @author: xiaoxiaoxiang
  * @date: 2021/1/29 13:51
  */
