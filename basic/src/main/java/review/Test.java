@@ -23,6 +23,8 @@ public class Test {
         bufw.flush();
     }*/
     public static void main(String[] args) {
+        Enum a = EnumTest.ONE;
+
         boolean flag = true;
         if (flag) {
             System.out.println("Hello, Java!");
@@ -37,6 +39,5 @@ public class Test {
         for (Integer i : list) { // 第二次循环时 throw ConcurrentModificationException
             list.add(1);
         }
-
     }
 }

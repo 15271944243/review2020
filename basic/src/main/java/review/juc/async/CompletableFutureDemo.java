@@ -1,7 +1,5 @@
 package review.juc.async;
 
-import com.sun.xml.internal.ws.util.CompletedFuture;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;

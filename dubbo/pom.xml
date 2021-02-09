@@ -17,6 +17,7 @@
     <modules>
         <module>dubbo-xml-provider</module>
         <module>dubbo-xml-consumer</module>
+        <module>dubbo-xml-api</module>
     </modules>
 
     <dependencyManagement>
