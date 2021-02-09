@@ -21,6 +21,21 @@
 
 排列问题:
 
+- Permutation
+- Permutation2
 
+图论额外拓展:
+
+- ReconstructItinerary
+
+棋盘问题:
+
+- NQueens
+- NQueens2
+
+解数独问题
+
+- SudokuSolver
+- ValidSudoku
 
 https://mp.weixin.qq.com/s/r73thpBnK1tXndFDtlsdCQ
