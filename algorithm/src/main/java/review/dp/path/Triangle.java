@@ -1,4 +1,4 @@
-package review.dp;
+package review.dp.path;
 
 import java.util.ArrayList;
 import java.util.Arrays;
