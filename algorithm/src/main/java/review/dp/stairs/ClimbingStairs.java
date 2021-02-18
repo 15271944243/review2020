@@ -1,4 +1,4 @@
-package review.dp;
+package review.dp.stairs;
 
 /**
  * https://leetcode.com/problems/climbing-stairs/ NO. 70 爬楼梯
