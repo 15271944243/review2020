@@ -42,7 +42,8 @@ public class PartitionEqualSubsetSum {
      */
     public static void main(String[] args) {
         PartitionEqualSubsetSum demo = new PartitionEqualSubsetSum();
-        int[] nums = new int[]{1,5,11,5};
+//        int[] nums = new int[]{1,5,11,5};
+        int[] nums = new int[]{1,2,3,5};
         boolean result = demo.canPartition(nums);
     }
 
@@ -55,14 +56,36 @@ public class PartitionEqualSubsetSum {
      * 背包如何正好装满,说明找到了总和为 sum / 2 的子集。
      * 背包中每一个元素是不可重复放入
      *
-     * 1. dp[]的定义为:
-     * 2. 递推公式:
-     * 3. dp数组初始化:
-     * 4. 遍历顺序:
+     * 1. dp[j]的定义为: 背包总容量是j, 最大可以凑成i的子集总和为dp[j];
+     * 个人理解: 容量j = sum/2, 所以 dp[j] <= sum/2; 即如果 dp[j] == sum/2, 说明背包正好被放满,
+     * 所以只需要判断 boolean result = (dp[j] == sum/2) 就行了
+     * 2. 递推公式: dp[j] = max(dp[j], dp[j - nums[i]] + nums[i])
+     * 3. dp数组初始化: dp[0] = 0
+     * 4. 遍历顺序: 先遍历 nums 数组元素,再遍历背包容量,避免nums[i]被重复使用,遍历背包容量需要倒序
      * 5.
      */
     public boolean canPartition(int[] nums) {
-
-        return false;
+        if (nums.length == 1) {
+            return false;
+        }
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+        }
+        if ((sum & 1) == 1) {
+            // sum 为奇数,无法拆分,返回false
+            return false;
+        }
+        int m = sum / 2;
+        int[] dp = new int[m + 1];
+        dp[0] = 0;
+        for (int i = 0; i < nums.length; i++) {
+            // 避免nums[i]被重复使用,这里需要倒序
+            for (int j = m;j >= nums[i];j--) {
+                dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
+            }
+        }
+        boolean result = m == dp[m];
+        return result;
     }
 }

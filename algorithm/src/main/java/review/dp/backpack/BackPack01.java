@@ -31,7 +31,7 @@ public class BackPack01 {
 
     /**
      * 二维dp数组解法
-     * dp[i][j]表示从下标为[0-i]的物品里任意取,放进容量为j的背包,价值总和最大是多少大
+     * dp[i][j]表示从下标为[0-i]的物品里任意取,放进容量为j的背包,价值总和的最大值
      *
      * dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i])
      * 递推公式详见 readme.md
@@ -89,7 +89,7 @@ public class BackPack01 {
             }
             // 正序遍历会导致物品放入多次，例如：
             // dp[1] = dp[1 - weight[0]] + value[0] = 15
-            // dp[2] = dp[2 - weight[0]] + value[0] = 30
+            // dp[2] = dp[2 - weight[0]] + value[0] = dp[1] + value[0] = value[0] + value[0] = 30
             // 此时物品0被放入了两次
             /*for (int j = 1; j < bagWeight + 1; j++) {
                 if (weight[i] <= j) {

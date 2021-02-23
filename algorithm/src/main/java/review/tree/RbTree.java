@@ -9,6 +9,7 @@ package review.tree;
  * 5. 右旋方法定义
  * 6. 节点插入方法定义
  * 7. 修复插入导致自平衡问题定义
+ * 可以参考HashMap的红黑树实现
  * @author: xiaoxiaoxiang
  * @date: 2020/7/19 20:39
  */
