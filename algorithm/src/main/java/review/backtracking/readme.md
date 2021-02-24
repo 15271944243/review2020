@@ -39,3 +39,8 @@
 - ValidSudoku
 
 https://mp.weixin.qq.com/s/r73thpBnK1tXndFDtlsdCQ
+
+
+### 总结
+
+- 树层去重: if (i > 0 && !used[i - 1] && candidates[i] == candidates[i - 1]) 

@@ -62,3 +62,11 @@ dp[j] = max(dp[j], dp[j - weight[i]] + value[i])
 dp[0] = 0;
 
 ### 完全背包
+
+
+
+
+### 总结
+
+- 容量为j的背包,所背的物品价值可以最大为dp[j]: dp[j] = max(dp[j], dp[j - weight[i]] + value[i])
+- 填满容量为j的背包,有dp[j]种方式: dp[j] += dp[j - nums[i]]
