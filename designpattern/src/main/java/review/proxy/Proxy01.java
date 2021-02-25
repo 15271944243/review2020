@@ -1,5 +1,7 @@
 package review.proxy;
 
+import java.lang.reflect.Proxy;
+
 /**
  * @description:
  * @author: xiaoxiaoxiang
@@ -7,6 +9,10 @@ package review.proxy;
  */
 public class Proxy01 {
 
-
-
+    public static void main(String[] args) {
+        MyInvocationHandler invocationHandler = new MyInvocationHandler();
+        MyInterface myInterface = (MyInterface) Proxy.newProxyInstance(MyInterface.class.getClassLoader(),
+                new Class[]{MyInterface.class}, invocationHandler);
+        myInterface.helloWorld();
+    }
 }
