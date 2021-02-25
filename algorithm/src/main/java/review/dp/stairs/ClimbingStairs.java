@@ -47,12 +47,15 @@ public class ClimbingStairs {
      * f(2) = 2
      * f(n) = f(n-2) + f(n-1)
      * 这里就直接依次从f(2)计算到f(n)的值,就能得出结果
+     *
+     * 题目升级: 每次可以爬1、2或者m 个台阶. 问有多少种不同的方法可以爬到楼顶呢
      */
 
     public static void main(String[] args) {
         ClimbingStairs climbingStairs = new ClimbingStairs();
         int result = climbingStairs.climbStairs(10);
-        System.out.println(result);
+        // 总共需要n步爬到顶,每次爬1,2,...,m步,有多少中不重复的方法爬到顶
+        int result2 = climbingStairs.climbStairs3(10, 3);
     }
 
     /**
@@ -100,5 +103,34 @@ public class ClimbingStairs {
             resultN1 = result;
         }
         return result;
+    }
+
+    /**
+     * 题目升级: 每次可以爬1、2或者m个台阶.问有多少种不同的方法可以爬到楼顶呢
+     *
+     * 可以转换为完全背包问题: 背包容量为n,石头重量(1,2,...,m),使用任意个石头,每个石头使用任意次,
+     * 求正好放满背包的情况有多少次,注意这里求排列数,而不是组合数
+     *
+     * 1. dp[j]: 容量为[j]的背包,有多少种方案可以正好放满,求方案的排列数
+     * 2. 确定递推公式: dp[j] += dp[j - weight[i]];
+     * 3. dp数组如何初始化: dp[0] = 1
+     * 4. 确定遍历顺序:  因为是求排列数而不是组合数,所以先遍历背包容量(正序遍历), 再遍历物品
+     * 5. 举例推导dp数组: target = 4, nums = [1, 2, 3]; result = 7
+     *
+     * @param n 楼梯阶数
+     * @param m 每次可以爬1、2或者m个台阶
+     * @return
+     */
+    public int climbStairs3(int n, int m) {
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (i >= j) {
+                    dp[i] += dp[i - j];
+                }
+            }
+        }
+        return dp[n];
     }
 }

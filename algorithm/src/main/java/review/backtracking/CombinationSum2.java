@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * https://leetcode.com/problems/combination-sum-ii/ No.40
- * 组合总和2
+ * https://leetcode.com/problems/combination-sum-ii/ No.40 组合总和2
  * @author: xiaoxiaoxiang
  * @date: 2021/1/29 10:44
  */

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * https://leetcode.com/problems/combination-sum/ No.39
+ * https://leetcode.com/problems/combination-sum/ No.39 组合总和
  * @author: xiaoxiaoxiang
  * @date: 2021/1/22 11:41
  */

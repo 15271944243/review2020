@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * https://leetcode.com/problems/combination-sum-iii/ No.216
- * 组合总和3
+ * https://leetcode.com/problems/combination-sum-iii/ No.216 组合总和3
  * @author: xiaoxiaoxiang
  * @date: 2021/1/28 17:21
  */
