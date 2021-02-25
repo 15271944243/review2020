@@ -1,6 +1,9 @@
 package review.spring;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import review.spring.dao.InventoryMapper;
+import review.spring.dao.OrderMapper;
 import review.spring.service.UserService;
 
 /**
@@ -11,8 +14,11 @@ import review.spring.service.UserService;
 public class Application {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext =
+        AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
-        UserService userService = applicationContext.getBean("userService", UserService.class);
+        UserService userService = context.getBean("userService", UserService.class);
+        userService.selectNameById("xxx222");
+        userService.orderMapperTest();
+        userService.inventoryMapperTest();
     }
 }
