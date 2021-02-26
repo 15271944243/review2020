@@ -66,7 +66,7 @@ public class OnesAndZeroes {
      * 容量为 [m,n] 的背包(m为0的数量,n为1的数量),
      * 从 strs[] 里选 j 个元素能放入背包,求 j 的最大值, j <= strs.length
      * 即容量为[m, n]的背包最多能放入 j 个元素
-     * 转换为 01 背包, strs.length 个石头, 每个石头的weight是[x, y], value 是1, 要放入容量为 [m, n] 的背包,求最大value
+     * 转换为 01 背包, strs.length 个物品, 每个物品的weight是[x, y], value 是1, 要放入容量为 [m, n] 的背包,求最大value
      *
      * 1. dp[i][j]: 容量为[i,j]的背包,能放入的最多的元素个数,即放入元素的最大价值
      * 2. 确定递推公式: 01背包的递推公式是 dp[j] = max(dp[j], dp[j - weight[i]] + value[i])
