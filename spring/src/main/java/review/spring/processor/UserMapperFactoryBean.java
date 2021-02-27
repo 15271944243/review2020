@@ -16,7 +16,9 @@ import java.lang.reflect.Proxy;
  * @author: xiaoxiaoxiang
  * @date: 2021/2/25 15:33
  */
-@Component
+// 因为已经使用扫描的方式将 UserMapper 的代理类注册到 IOC 容器,所以这里去掉 @Component,避免重复注册
+// 该类暂时未使用
+//@Component
 public class UserMapperFactoryBean implements FactoryBean<UserMapper> {
 
     @Override

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import review.spring.annotation.MyScan;
 import review.spring.processor.MapperBeanDefinitionRegister;
 
 /**
@@ -13,7 +14,7 @@ import review.spring.processor.MapperBeanDefinitionRegister;
  */
 @Configuration
 @ComponentScan("review.spring")
-@Import(MapperBeanDefinitionRegister.class)
+@MyScan("review.spring.dao")
 // @EnableAspectJAutoProxy
 public class AppConfig {
 
