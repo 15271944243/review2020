@@ -9,6 +9,8 @@ import review.spring.processor.MapperBeanDefinitionRegister;
 
 /**
  * 注解配置类
+ * @ComponentScan 扫描的包
+ * @EnableAspectJAutoProxy 开启 AOP
  * @author: xiaoxiaoxiang
  * @date: 2021/2/24 17:44
  */
@@ -18,8 +20,4 @@ import review.spring.processor.MapperBeanDefinitionRegister;
 // @EnableAspectJAutoProxy
 public class AppConfig {
 
-    /**
-     * @ComponentScan 扫描的包
-     * @EnableAspectJAutoProxy 开启 AOP
-     */
 }

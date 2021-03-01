@@ -1,9 +1,7 @@
 package review.spring;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import review.spring.dao.InventoryMapper;
-import review.spring.dao.OrderMapper;
+import review.spring.service.AService;
 import review.spring.service.UserService;
 
 /**
@@ -20,5 +18,8 @@ public class Application {
         userService.selectNameById("xxx222");
         userService.orderMapperTest();
         userService.inventoryMapperTest();
+
+        AService aService = context.getBean("aService", AService.class);
+        aService.test();
     }
 }
