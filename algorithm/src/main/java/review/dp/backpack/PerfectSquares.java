@@ -46,12 +46,36 @@ public class PerfectSquares {
      * 5. 举例推导dp数组
      */
     public static void main(String[] args) {
-        int n = 12;
+        int n = 13;
         PerfectSquares demo = new PerfectSquares();
         int result = demo.numSquares(n);
     }
 
+    /**
+     * 该问题可以看作一个完全背包问题,物品的重量和质量都是 1 ~ (n开平方后向下取整), 选任意个物品,每个物品可以选任意次,
+     * 放入背包,求正好放满背包时,最少使用的物品数
+     * 1. dp[j]: 容量为[j]的背包,求正好放满背包时,最少使用的物品数
+     * 2. 确定递推公式: dp[j] = min(dp[j], dp[j-(i*i)]+1)
+     * 3. dp数组如何初始化: dp[0] = 0, dp[i] = Integer.MAX_VALUE
+     * 4. 确定遍历顺序:  先遍历 1 ~ (n开平方后向下取整), 再遍历背包容量(正序遍历)
+     * 5. 举例推导dp数组: n = 12, result = 3
+     * @param n
+     * @return
+     */
     public int numSquares(int n) {
-        return 0;
+        // 物品为 1、2、3 ... c
+        int c = (int) Math.sqrt(n);
+        int[] dp = new int[n+1];
+        dp[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            dp[i] = Integer.MAX_VALUE;
+        }
+        for (int i = 1; i <= c; i++) {
+            int s = i * i;
+            for (int j = s; j <= n; j++) {
+                dp[j] = Math.min(dp[j], dp[j - s] + 1);
+            }
+        }
+        return dp[n];
     }
 }
