@@ -1,7 +1,7 @@
 package review.dp.houserobber;
 
 /**
- * https://leetcode.com/problems/house-robber/ No.198 打家劫舍
+ * https://leetcode.com/problems/house-robber/ No.213 打家劫舍2
  * @author: xiaoxiaoxiang
  * @date: 2021/3/2 10:10
  */
@@ -39,7 +39,7 @@ public class HouseRobber2 {
      *
      * 给定一个代表每个房屋存放金额的非负整数数组，计算你 在不触动警报装置的情况下 ，能够偷窃到的最高金额。
      *
-     * 与 HouseRobber 的区别就是, HouseRobber2 的房屋是环形,即首位相连
+     * 此题与 HouseRobber 的区别就是, HouseRobber2 的房屋是环形,即首位相连
      *
      * 思路一: 递归求解
      *
@@ -58,12 +58,15 @@ public class HouseRobber2 {
     }
 
     /**
+     * 此题与 HouseRobber 的区别就是首位不能相邻,所以我们就区分两个场景:
+     * 0 ~ n - 1的房屋 和 1 ~ n 的房屋,递归公式和 HouseRobber 一样
+     * 所以只需要在以上两种场景里去最大值就可以了
      * 1. dp[i]的定义为: 偷盗第i家的最高金额;
      * 2. 递推公式: dp[i] = max(dp[i-1], dp[i-2] + nums[i])
      * 因为不能偷相邻的房屋,[偷盗第i家的最高金额] 等于 [偷盗第i-2家的最高金额] + [偷第i家的金额]
      * 或 [偷盗第i家的最高金额] 等于 [偷盗第i-家的最高金额] （即不偷第i家）
-     * 3. dp数组初始化: 因为不能偷相邻的房屋,所以要么从第一家开始偷,要么从第二家开始偷,
-     * 所以应该初始化 dp[0] = nums[0] 和 dp[1] = max(nums[0], nums[1])
+     * 3. dp数组初始化: 0 ~ n - 1 的场景,初始化 dp[0] = nums[0] 和 dp[1] = max(nums[0], nums[1])
+     * 1 ~ n 的场景,初始化 dp[0] = nums[1] 和 dp[1] = max(nums[1], nums[2])
      * 4. 遍历顺序: j = 0,1 .... n
      * 5. 举例推导dp数组:
      * @param nums
@@ -76,12 +79,23 @@ public class HouseRobber2 {
         if (nums.length == 1) {
             return nums[0];
         }
-        int[] dp = new int[nums.length];
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
-        for (int i = 2; i < dp.length; i++) {
-            dp[i] = Math.max(dp[i-1], dp[i-2] + nums[i]);
+        if (nums.length == 2) {
+            return Math.max(nums[0], nums[1]);
         }
-        return dp[dp.length - 1];
+        // dp1 范围是 0 ~ nums.length - 2
+        int[] dp1 = new int[nums.length - 1];
+        dp1[0] = nums[0];
+        dp1[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < dp1.length; i++) {
+            dp1[i] = Math.max(dp1[i-1], dp1[i-2] + nums[i]);
+        }
+        // dp1 范围是 1 ~ nums.length - 1
+        int[] dp2 = new int[nums.length - 1];
+        dp2[0] = nums[1];
+        dp2[1] = Math.max(nums[1], nums[2]);
+        for (int i = 2; i < dp2.length; i++) {
+            dp2[i] = Math.max(dp2[i-1], dp2[i-2] + nums[i+1]);
+        }
+        return Math.max(dp1[dp1.length - 1], dp2[dp2.length - 1]);
     }
 }
