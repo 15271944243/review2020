@@ -66,26 +66,77 @@ public class HouseRobber3 {
      */
     public static void main(String[] args) {
         HouseRobber3 demo = new HouseRobber3();
-        // [3,2,3,null,3,null,1
-
-        int result = demo.rob(null);
+        // [3,2,3,null,3,null,1]
+        TreeNode root = demo.getTreeNode();
+        int result = demo.rob(root);
     }
 
     /**
-     *
-     * 1. dp[i]的定义为: 偷盗第i家的最高金额;
-     * 2. 递推公式: dp[i] = max(dp[i-1], dp[i-2] + nums[i])
-     * 因为不能偷相邻的房屋,[偷盗第i家的最高金额] 等于 [偷盗第i-2家的最高金额] + [偷第i家的金额]
-     * 或 [偷盗第i家的最高金额] 等于 [偷盗第i-家的最高金额] （即不偷第i家）
-     * 3. dp数组初始化: 0 ~ n - 1 的场景,初始化 dp[0] = nums[0] 和 dp[1] = max(nums[0], nums[1])
-     * 1 ~ n 的场景,初始化 dp[0] = nums[1] 和 dp[1] = max(nums[1], nums[2])
-     * 4. 遍历顺序: j = 0,1 .... n
-     * 5. 举例推导dp数组:
-     * @param treeNode
+     * 树形结构dp入门题: https://mp.weixin.qq.com/s/BOJ1lHsxbQxUZffXlgglEQ
+     * @param root
      * @return
      */
-    public int rob(TreeNode treeNode) {
+    public int rob(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int[] dp = robTree(root);
+        return Math.max(dp[0], dp[1]);
+    }
 
-        return 0;
+    /**
+     * 1. dp[i]的定义为: 当前节点被抢/不被抢的最大金额,i = 0 表示不被抢, i = 1 表示被抢
+     * 2. 递推公式: dp[1] = node.val + leftDp[0] + rightDp[0]
+     *    dp[0] = Math.max(leftDp[0], leftDp[1]) + Math.max(rightDp[0], rightDp[1]);
+     * 3. dp数组初始化: 节点为 null 的时候, dp[0] = 0, dp[1] = 0
+     * 4. 遍历顺序:  采用递归,从叶子节点开始计算
+     * 5. 举例推导dp数组:
+     * @param node
+     * @return
+     */
+    private int[] robTree(TreeNode node) {
+        // 左子节点被抢/不被抢的最大金额
+        int[] leftDp = null;
+        if (node.left != null) {
+            leftDp = robTree(node.left);
+        } else {
+            leftDp = new int[2];
+        }
+        // 右子节点被抢/不被抢的最大金额
+        int[] rightDp = null;
+        if (node.right != null) {
+            rightDp = robTree(node.right);
+        } else {
+            rightDp = new int[2];
+        }
+        // 抢当前节点
+        int robNode = node.val + leftDp[0] + rightDp[0];
+        // 不抢当前节点
+        int unRobNode = Math.max(leftDp[0], leftDp[1]) +
+                Math.max(rightDp[0], rightDp[1]);
+        return new int[]{unRobNode, robNode};
+    }
+
+    private TreeNode getTreeNode() {
+        // [3,2,3,null,3,null,1
+//        TreeNode root = new TreeNode(3);
+//        TreeNode left1 = new TreeNode(2);
+//        TreeNode right1 = new TreeNode(3);
+//        TreeNode right2 = new TreeNode(3);
+//        TreeNode right3 = new TreeNode(1);
+//        left1.setRight(right2);
+//        right1.setRight(right3);
+//        root.setLeft(left1);
+//        root.setRight(right1);
+
+        // [4,1,null,2,null,3]
+        TreeNode root = new TreeNode(4);
+        TreeNode left1 = new TreeNode(1);
+        TreeNode left2 = new TreeNode(2);
+        TreeNode left3 = new TreeNode(3);
+        root.setLeft(left1);
+        left1.setLeft(left2);
+        left2.setLeft(left3);
+        return root;
     }
 }
