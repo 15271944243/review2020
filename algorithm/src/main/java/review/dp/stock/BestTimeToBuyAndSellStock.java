@@ -1,7 +1,7 @@
 package review.dp.stock;
 
 /**
- * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ No. 121
+ * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/ No. 121 买卖股票的最佳时机
  * @author: xiaoxiaoxiang
  * @date: 2020/9/4 09:58
  */
@@ -30,17 +30,33 @@ public class BestTimeToBuyAndSellStock {
      * Input: [7,6,4,3,1]
      * Output: 0
      * Explanation: In this case, no transaction is done, i.e. max profit = 0.
+     *
+     * Constraints:
+     *
+     * 1 <= prices.length <= 10^5
+     * 0 <= prices[i] <= 10^4
      */
 
     /**
-     * 题目意思: 给定一个数组,数组的第i个元素就是股票第i天第价格
-     * 但是你只能完成最多一笔交易(买卖一次),设计一个算法找到最大利润
+     * 题目意思:
+     *
+     * 给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+     * 你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票。设计一个算法来计算你所能获取的最大利润。
+     * 返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。
+     *
+     * 只能完成最多一笔交易(买卖一次),且不能当天买当天卖
+     *
      * 思路一: 遍历求解
      * 思路二: 遍历求解优化
      * 思路三: 动态规划
-
      *
      */
+    public static void main(String[] args) {
+        BestTimeToBuyAndSellStock demo = new BestTimeToBuyAndSellStock();
+//        int[] prices = new int[]{7,1,5,3,6,4};
+        int[] prices = new int[]{7,6,4,3,1};
+        int result = demo.maxProfit(prices);
+    }
 
     /**
      * 思路一: 遍历求解 时间复杂度O(n^2)
@@ -90,28 +106,23 @@ public class BestTimeToBuyAndSellStock {
 
     /**
      * 思路三: 动态规划
-     * 以 [7,1,5,3,6,4] 为例
-     * 因为只能买卖1次;
-     * 如果第1天持有,最大利润是-7,记为 dp[0][1] = -7
-     * 如果第1天卖出后不持有,最大利润是0,记为 dp[0][0] = 0
      *
-     * 如果第2天持有,最大利润是dp[1][1] = max(dp[0][1], -prices[1])
-     * 如果第2天卖出后不持有,最大利润是dp[1][0] = max((dp[0][1] + prices[1]), dp[0][0]) 即  max(第1天持有,然后第2天卖了, 第1天就已经卖了)
+     * 其实一开始现金是0，那么加入第i天买入股票现金就是 -prices[i]， 这是一个负数
+     * 1. dp[i][j]的定义为: dp[i][1] 表示第i天持有股票所得现金最大值, dp[i][0] 表示第i天不持有股票所得现金最大值
+     * [持有]不代表就是当天[买入],也有可能是昨天就买入了,今天保持持有的状态
+     * 2. 递推公式:
+     * [第i天持有股票所得的现金最大值] = max([第i-1天持有的最大值,第i天不买,因为只能买一次], [之前一直不持有(因为只能买一次),但是第i天买,买是要花钱的])
+     * 即 dp[i][1] = max(dp[i-1][1], - prices[i])
      *
-     * 如果第3天持有,最大利润是dp[2][1] = max(dp[1][1], -prices[2])
-     * 如果第2天卖出后不持有,最大利润是dp[2][0] = max((dp[1][1] + prices[2]), dp[1][0]) 即  max(第2天持有,然后第3天卖了, 前几天就已经卖了)
-     *
-     * dp[][]的第1维数组,表示第i天,第2维数组,0表示卖出后不持有(不一定是当天卖出),1表示持有; dp[i][0]就是当天的最大利润
-     *
-     * 推导出状态转移方程:
-     * dp[i][0] = max((dp[i-1][1] + prices[i]), dp[i-1][0])
-     *
-     * dp[i][1] = max(dp[i-1][1], -prices[i])
-     *
+     * [第i天不持有股票所得的现金最大值] = max([第i-1天不持有股票所得的现金最大值], [第i-1天持有股票,第i天卖出])
+     * 即 dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+     * 3. dp数组初始化: dp[0][1] = -prices[0],dp[0][0] = 0
+     * 4. 遍历顺序:
+     * 5. 举例推导dp数组:
      * @param prices
      * @return
      */
-    public int maxProfit3(int[] prices) {
+    public int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0) {
             return 0;
         }

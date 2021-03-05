@@ -1,9 +1,8 @@
 package review.dp.stock;
 
-import review.dp.MaximumProductSubarray;
 
 /**
- * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/ No. 123
+ * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/ No. 123 买卖股票的最佳时机3
  * @author: xiaoxiaoxiang
  * @date: 2020/9/4 09:58
  */
@@ -14,7 +13,8 @@ public class BestTimeToBuyAndSellStock3 {
      *
      * Design an algorithm to find the maximum profit. You may complete at most two transactions.
      *
-     * Note: You may not engage in multiple transactions at the same time (i.e., you must sell the stock before you buy again).
+     * Note: You may not engage in multiple transactions at the same time (i.e.,
+     * you must sell the stock before you buy again).
      */
 
     /**
@@ -46,11 +46,21 @@ public class BestTimeToBuyAndSellStock3 {
      */
 
     /**
-     * 题目意思: 给定一个数组,数组的第i个元素就是股票第i天第价格
-     * 但是你只能完成最多两笔交易(买卖两次),必须卖掉股票才能再次买入,设计一个算法找到最大利润
+     * 题目意思: 给定一个数组，它的第 i 个元素是一支给定的股票在第 i 天的价格。
+     * 设计一个算法来计算你所能获取的最大利润。你最多可以完成两笔交易。
+     * 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+     *
      * 思路一: 两次买卖拆分
      * 思路二: 动态规划
      */
+    public static void main(String[] args) {
+        BestTimeToBuyAndSellStock3 obj = new BestTimeToBuyAndSellStock3();
+        int[] nums = new int[]{6,1,3,2,4,7};
+//        int[] nums = new int[]{3,3,5,0,0,3,1,4};
+//        int[] nums = new int[]{7,6,4,3,1};
+        int result = obj.maxProfit(nums);
+        int result2 = obj.maxProfit2(nums);
+    }
 
     /**
      * 思路一: 两次买卖拆分
@@ -62,15 +72,6 @@ public class BestTimeToBuyAndSellStock3 {
      * 这里 0 ~ i 的最大利润可以利用之前的算法,一次循环即可,但是i+1 ~ n 怎么算呢?
      * 可以采用反向的方式,从n往i+1的位置算,不过这时候计算的最大亏损(反向计算的最大亏损其实就是正向计算的最大利润)
      */
-    public static void main(String[] args) {
-        BestTimeToBuyAndSellStock3 obj = new BestTimeToBuyAndSellStock3();
-//        int[] nums = new int[]{6,1,3,2,4,7};
-//        int[] nums = new int[]{3,3,5,0,0,3,1,4};
-        int[] nums = new int[]{7,6,4,3,1};
-        int result = obj.maxProfit(nums);
-        System.out.println(result);
-    }
-
     public int maxProfit(int[] prices) {
         if (prices == null || prices.length == 0) {
             return 0;
@@ -102,24 +103,22 @@ public class BestTimeToBuyAndSellStock3 {
     }
 
     /**
-     * 以 [7,1,5,3,6,4] 为例
-     * 因为只能买卖1次;
-     * 如果第1天持有,最大利润是-7,记为 dp[0][1] = -7
-     * 如果第1天卖出后不持有,最大利润是0,记为 dp[0][0] = 0
+     * 其实一开始现金是0，那么加入第i天买入股票现金就是 -prices[i]， 这是一个负数
+     * 1. dp[i][j]的定义为:
+     * dp[i][0] 表示第1次交易,第i天不持有股票所得现金最大值
+     * dp[i][1] 表示第1次交易,第i天持有股票所得现金最大值
+     * dp[i][2] 表示第2次交易,第i天不持有股票所得现金最大值
+     * dp[i][3] 表示第3次交易,第i天持有股票所得现金最大值
+     * [持有]不代表就是当天[买入],也有可能是昨天就买入了,今天保持持有的状态
+     * 2. 递推公式:
+     * dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+     * dp[i][1] = max(dp[i-1][1], - prices[i])
+     * dp[i][2] = max(dp[i-1][3] + prices[i], dp[i-1][2])
+     * dp[i][3] = max(dp[i][0] - prices[i], dp[i-1][3])
      *
-     * 如果第2天持有,最大利润是dp[1][1] = max(dp[0][1], -prices[1])
-     * 如果第2天卖出后不持有,最大利润是dp[1][0] = max((dp[0][1] + prices[1]), dp[0][0]) 即  max(第1天持有,然后第2天卖了, 第1天就已经卖了)
-     *
-     * 如果第3天持有,最大利润是dp[2][1] = max(dp[1][1], -prices[2])
-     * 如果第2天卖出后不持有,最大利润是dp[2][0] = max((dp[1][1] + prices[2]), dp[1][0]) 即  max(第2天持有,然后第3天卖了, 前几天就已经卖了)
-     *
-     * dp[][]的第1维数组,表示第i天,第2维数组,0表示卖出后不持有(不一定是当天卖出),1表示持有; dp[i][0]就是当天的最大利润
-     *
-     * 推导出状态转移方程:
-     * dp[i][0] = max((dp[i-1][1] + prices[i]), dp[i-1][0])
-     *
-     * dp[i][1] = max(dp[i-1][1], -prices[i])
-     *
+     * 3. dp数组初始化: dp[0][1] = -prices[0],dp[0][0] = 0,dp[0][2] = 0,dp[0][2] = -prices[0]
+     * 4. 遍历顺序:
+     * 5. 举例推导dp数组:
      * @param prices
      * @return
      */
@@ -127,15 +126,17 @@ public class BestTimeToBuyAndSellStock3 {
         if (prices == null || prices.length == 0) {
             return 0;
         }
-        // dp[][]的第1维数组,表示第i天,第2维数组,0表示卖出后不持有(不一定是当天卖出),1表示持有; dp[i][0]就是当天的最大利润
-        int[][] dp = new int[prices.length][2];
+        int[][] dp = new int[prices.length][4];
         dp[0][0] = 0;
         dp[0][1] = -prices[0];
-        for (int i=1;i<prices.length;i++) {
-            dp[i][0] = Math.max((dp[i-1][1] + prices[i]), dp[i-1][0]);
-            dp[i][1] = Math.max(dp[i-1][1], -prices[i]);
+        dp[0][2] = 0;
+        dp[0][3] = -prices[0];
+        for (int i = 1; i < prices.length; i++) {
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1], - prices[i]);
+            dp[i][2] = Math.max(dp[i-1][3] + prices[i], dp[i-1][2]);
+            dp[i][3] = Math.max(dp[i][0] - prices[i], dp[i-1][3]);
         }
-
-        return dp[prices.length - 1][0];
+        return Math.max(dp[prices.length - 1][0], dp[prices.length - 1][2]);
     }
 }
