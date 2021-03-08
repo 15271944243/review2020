@@ -1,7 +1,7 @@
 package review.dp.stock;
 
 /**
- * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ No. 309
+ * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/ No. 309 买卖股票的最佳时机含冷静期
  * @author: xiaoxiaoxiang
  * @date: 2020/9/11 11:00
  */
@@ -56,7 +56,7 @@ public class BestTimeToBuyAndSellStockWithCooldown {
      * dp[i][1] = dp[i-1][2] + prices[i]
      * dp[i][2] = max(dp[i-1][0] - price[i], dp[i-1][2])
      *
-     * 3. dp数组初始化: dp[0][1] = 0,dp[0][0] = 0, dp[0][2] = -prices[0
+     * 3. dp数组初始化: dp[0][1] = 0,dp[0][0] = 0, dp[0][2] = -prices[0]
      * 4. 遍历顺序:
      * 5. 举例推导dp数组:
      * @param prices
