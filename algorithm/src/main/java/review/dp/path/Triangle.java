@@ -53,7 +53,9 @@ public class Triangle {
 
         Triangle triangle = new Triangle();
         int result = triangle.minimumTotal(triangleList);
+        int result2 = triangle.minimumTotal2(triangleList);
         System.out.println(result);
+        System.out.println(result2);
     }
 
     /**
@@ -90,4 +92,49 @@ public class Triangle {
         }
         return result[0];
     }
+
+    /**
+     * 1. dp[i][j]的定义为: 三角形第i行第j列元素的最小路径
+     *
+     * 2. 递推公式: dp[i][j] = min(dp[i-1][j-1], dp[i-1][j]) + nums[i][j] 注意边界
+     *
+     * 3. dp数组初始化: 初始化整个边界, 即dp[0][0] = nums[0][0]
+     * dp[i][0] = dp[i-1][0] + nums[i][0],
+     * dp[i][nums[i].length-1] = dp[i-1][nums[i-1].length-1] + nums[i][nums[i].length-1]
+     * 4. 遍历顺序: 自顶向下遍历就行
+     * 5. 举例推导dp数组:
+     * @param triangle
+     * @return
+     */
+    public int minimumTotal2(List<List<Integer>> triangle) {
+        if (triangle.isEmpty()) {
+            return 0;
+        }
+        int l1 = triangle.size();
+        int l2 = triangle.get(l1-1).size();
+        int[][] dp = new int[l1][l2];
+        dp[0][0] = triangle.get(0).get(0);
+        for (int i = 1; i < l1; i++) {
+            List<Integer> row = triangle.get(i);
+            int l3 = row.size();
+            for (int j = 0; j < l3; j++) {
+                if (j == 0) {
+                    // 左边界处理
+                    dp[i][j] = dp[i-1][j] + row.get(j);
+                } else if (j == l3 - 1) {
+                    // 右边界处理
+                    dp[i][j] = dp[i-1][j-1] + row.get(j);
+                } else {
+                    dp[i][j] = Math.min(dp[i-1][j-1], dp[i-1][j]) + row.get(j);
+                }
+            }
+        }
+        int[] bottom = dp[l1-1];
+        int min = bottom[0];
+        for (int i = 1; i < bottom.length; i++) {
+            min = Math.min(min, bottom[i]);
+        }
+        return min;
+    }
+
 }
