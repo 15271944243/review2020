@@ -1,4 +1,4 @@
-package review.dp;
+package review.dp.subseq;
 
 /**
  * https://leetcode.com/problems/maximum-product-subarray/ No. 152 乘积最大子序列

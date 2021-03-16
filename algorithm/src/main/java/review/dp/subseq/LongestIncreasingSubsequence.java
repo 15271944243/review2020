@@ -1,4 +1,4 @@
-package review.dp;
+package review.dp.subseq;
 
 /**
  * https://leetcode.com/problems/longest-increasing-subsequence/ No. 300 最长递增子序列

@@ -53,12 +53,17 @@ public class NumberOfIslands {
 
     public static void main(String[] args) {
         NumberOfIslands demo = new NumberOfIslands();
-        /*char[][] grid = new char[][]{
+        char[][] grid = new char[][]{
                 {'1','1','1','1','0'},
                 {'1','1','0','1','0'},
                 {'1','1','0','0','0'},
                 {'0','0','0','0','0'}
-        };*/
+        };char[][] grid2 = new char[][]{
+                {'1','1','1','1','0'},
+                {'1','1','0','1','0'},
+                {'1','1','0','0','0'},
+                {'0','0','0','0','0'}
+        };
         /*char[][] grid = new char[][]{
                 {'1','1','0','0','0'},
                 {'1','1','0','0','0'},
@@ -70,152 +75,148 @@ public class NumberOfIslands {
                 {'0','1','0'},
                 {'1','1','1'}
         };*/
-        char[][] grid = new char[][]{
+        /*char[][] grid = new char[][]{
                 {'1','0','1','1','1'},
                 {'1','0','1','0','1'},
                 {'1','1','1','0','1'}
-        };
+        };*/
         int result = demo.numIslands(grid);
+        int result2 = demo.numIslands2(grid2);
         System.out.println(result);
+        System.out.println(result2);
     }
 
     /**
-     * 按从上到下,从左到右的顺序,每个岛屿的第一个'1'为root,root的左右/上下相邻为子节点,以此类推,组成并查集
-     * 最终在并查集里有多少个集合,就有多少个岛屿
+     * 找到一个1后,以DFS(深度优先搜索)的方式将这个1的上下左右的1的数都改为0,统计总共有多少个1
+     * 时间复杂度 O(m * n)
      * @param grid
      * @return
      */
     public int numIslands(char[][] grid) {
-        int l1 = grid.length;
-        int l2 = grid[0].length;
-        // 并查集长度
-        int l = l1 * l2;
-        // 按从上到下,从左到右的顺序,将二维数组grid映射到一维数组roots中
-        int[] roots = new int[l];
-        // 因为最终只需要找有多少个根节点,所以初始化为-1
-        for (int i = 0; i < l; i++) {
-            roots[i] = -1;
-        }
-        // 先判断该元素的上/左相邻元素是不是1
-        for (int i = 0; i < l1; i++) {
-            for (int j = 0; j < l2; j++) {
-                // 将二维数组的index转化为一维数组的index
-                int n = i * l2 + j;
-                if (grid[i][j] == '1') {
-                    // 因为是从上到下,从左到右遍历grid
-                    // 判断该元素的上/左相邻元素是不是1,如果是1,则设为当前元素的父节点
-                    // 上相邻元素
-                    int upNodeIndex = n - l2;
-                    if (upNodeIndex >= 0 && roots[upNodeIndex] != -1) {
-                        roots[n] = roots[upNodeIndex];
-                        continue;
-                    }
-                    // 左相邻元素
-                    if (n % l2 != 0 && roots[n - 1] != -1) {
-                        roots[n] = roots[n - 1];
-                        continue;
-                    }
-                    // 没有上和左相邻元素,则当前元素为根节点
-                    roots[n] = n;
-                }
-            }
-        }
-        // 再补充该元素的右相邻元素是不是1的情况
-        //  {'1','1','1'},
-        //  {'0','1','0'},
-        //  {'1','1','1'}  如果不补充的话,这一行的第1个1就当作了独立的1
-        for (int i = 0; i < l1; i++) {
-            for (int j = 0; j < l2; j++) {
-                // 将二维数组的index转化为一维数组的index
-                int n = i * l2 + j;
-                if (roots[n] == n && j + 1 < l2 && roots[n+1] != -1) {
-                    roots[n] = roots[n+1];
-                }
-            }
-        }
-        // 遍历有多个个根节点,即为岛屿数
         int count = 0;
-        for (int i = 0; i < roots.length; i++) {
-            if (roots[i] == i) {
-                count++;
+//        char[][] tmp = new char[grid.length][grid[0].length];
+        // 内层数组还是相同的引用
+//        System.arraycopy(grid, 0, tmp, 0, grid.length);
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == '1') {
+                    count++;
+                    dfs(grid, i, j);
+                }
             }
         }
         return count;
     }
 
+    private void dfs(char[][] grid, int i, int j) {
+        if (i < grid.length && i > -1 && j < grid[0].length && j > -1) {
+            if (grid[i][j] == '1') {
+                grid[i][j] = '0';
+                // 上
+                dfs(grid, i-1, j);
+                // 下
+                dfs(grid, i+1, j);
+                // 左
+                dfs(grid, i, j-1);
+                // 右
+                dfs(grid, i, j+1);
+            }
+        }
+    }
+
+    /**
+     * 组成并查集
+     * 时间复杂度比DFS高
+     * @param grid
+     * @return
+     */
     public int numIslands2(char[][] grid) {
         int l1 = grid.length;
         int l2 = grid[0].length;
-        // 并查集长度
-        int l = l1 * l2;
-        // 按从上到下,从左到右的顺序,将二维数组grid映射到一维数组roots中
-        int[] roots = new int[l];
-        // 初始化
+        UnionFind unionFind = new UnionFind(grid);
         for (int i = 0; i < l1; i++) {
             for (int j = 0; j < l2; j++) {
-                // 将二维数组的index转化为一维数组的index
-                int n = i * l2 + j;
-                // 初始化
-                roots[n] = grid[i][j] == '1' ? n : -1;
-            }
-        }
-        // 整理集合关系,从上到下,从左到右遍历grid
-        for (int i = 0; i < l1; i++) {
-            for (int j = 0; j < l2; j++) {
-                // 将二维数组的index转化为一维数组的index
-                int n = i * l2 + j;
-                if (roots[n] == -1) {
-                    continue;
-                }
-                // 判断该元素的上/左/右相邻元素是不是1
-
-            }
-        }
-
-        // 先判断该元素的上/左相邻元素是不是1
-        for (int i = 0; i < l1; i++) {
-            for (int j = 0; j < l2; j++) {
-                // 将二维数组的index转化为一维数组的index
-                int n = i * l2 + j;
                 if (grid[i][j] == '1') {
-                    // 因为是从上到下,从左到右遍历grid
-                    // 判断该元素的上/左相邻元素是不是1,如果是1,则设为当前元素的父节点
-                    // 上相邻元素
-                    int upNodeIndex = n - l2;
-                    if (upNodeIndex >= 0 && roots[upNodeIndex] != -1) {
-                        roots[n] = roots[upNodeIndex];
-                        continue;
+                    grid[i][j] = '0';
+                    int q = i * l2 + j;
+                    // 上
+                    if (i > 0 && grid[i-1][j] == '1') {
+                        int p = (i - 1) * l2 + j;
+                        unionFind.union(p, q);
                     }
-                    // 左相邻元素
-                    if (n % l2 != 0 && roots[n - 1] != -1) {
-                        roots[n] = roots[n - 1];
-                        continue;
+                    // 下
+                    if (i < l1 - 1 && grid[i+1][j] == '1') {
+                        int p = (i + 1) * l2 + j;
+                        unionFind.union(p, q);
                     }
-                    // 没有上和左相邻元素,则当前元素为根节点
-                    roots[n] = n;
+                    // 左
+                    if (j > 0 && grid[i][j-1] == '1') {
+                        int p = i * l2 + j - 1;
+                        unionFind.union(p, q);
+                    }
+                    // 右
+                    if (j < l2 - 1 && grid[i][j+1] == '1') {
+                        int p = i * l2 + j + 1;
+                        unionFind.union(p, q);
+                    }
                 }
             }
         }
-        // 再补充该元素的右相邻元素是不是1的情况
-        //  {'1','1','1'},
-        //  {'0','1','0'},
-        //  {'1','1','1'}  如果不补充的话,这一行的第1个1就当作了独立的1
-        for (int i = 0; i < l1; i++) {
-            for (int j = 0; j < l2; j++) {
-                // 将二维数组的index转化为一维数组的index
-                int n = i * l2 + j;
+        return unionFind.getCount();
+    }
+
+    static class UnionFind {
+        int[] roots;
+        int count;
+        public UnionFind(char[][] grid) {
+            int l1 = grid.length;
+            int l2 = grid[0].length;
+            // 并查集长度
+            int l = l1 * l2;
+            // 按从上到下,从左到右的顺序,将二维数组grid映射到一维数组roots中
+            this.roots = new int[l];
+            // 初始化
+            for (int i = 0; i < l1; i++) {
+                for (int j = 0; j < l2; j++) {
+                    // 将二维数组的index转化为一维数组的index
+                    int n = i * l2 + j;
+                    // 初始化
+                    if (grid[i][j] == '1') {
+                        this.roots[n] = n;
+                        this.count++;
+                    } else {
+                        this.roots[n] = -1;
+                    }
+                }
             }
         }
 
-
-        // 遍历有多个个根节点,即为岛屿数
-
-        int count = 0;
-        for (int i = 0; i < roots.length; i++) {
-            if (roots[i] == i) {
-                count++;
+        public void union(int p, int q) {
+            int qroot = findRoot(q);
+            int proot = findRoot(p);
+            if (qroot != proot) {
+                this.roots[proot] = qroot;
+                this.count--;
             }
         }
-        return count;
+
+        public int getCount() {
+            return count;
+        }
+
+        private int findRoot(int i) {
+            int root = i;
+            // 找到根节点了
+            while (root != roots[root]) {
+                root = roots[root];
+            }
+            // 路径压缩优化,即路径扁平化,将当前节点指向根节点
+            while (i != roots[i]) {
+                int tmp = roots[i];
+                roots[i] = root;
+                i = tmp;
+            }
+            return root;
+        }
     }
 }
