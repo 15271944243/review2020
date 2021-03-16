@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class MergeSort {
 
     /**
-     * 插入排序:
+     * 归并排序:
      * 时间复杂度(平均): O(n^2)
      * 时间复杂度(最坏): O(n^2)
      * 时间复杂度(最好): O(n)
