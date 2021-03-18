@@ -35,21 +35,25 @@ public class MaximumLengthOfRepeatedSubarray {
      */
     public static void main(String[] args) {
         MaximumLengthOfRepeatedSubarray demo = new MaximumLengthOfRepeatedSubarray();
-        int[] numsA = new int[]{1,2,3,2,1};
-        int[] numsB = new int[]{3,2,1,4,7};
+//        int[] numsA = new int[]{1,2,3,2,1};
+//        int[] numsB = new int[]{3,2,1,4,7};
+//        int[] numsA = new int[]{0,0,0,0,0,0,1,0,0,0};
+//        int[] numsB = new int[]{0,0,0,0,0,0,0,1,0,0};
+        int[] numsA = new int[]{1,0,0,0,1};
+        int[] numsB = new int[]{1,0,0,1,1};
         int result = demo.findLength(numsA, numsB);
         System.out.println(result);
     }
 
     /**
-     * DP思路二
-     * 1. dp[i]的定义为:
      *
+     * 1. dp[i][j]的定义为: A 的 0~i个元素与 B 的 0~j 个元素的最长重复子数组的长度
      *
      * 2. 递推公式:
-
-     * 最后结果就是 max(dp[0], dp[1] ... dp[n])
-     * 3. dp数组初始化: dp[0] = 1
+     * if (A[i] == B[j]) {
+     *     dp[i][j] = dp[i-1][j-1] + 1
+     * }
+     * 3. dp数组初始化: 数组长度为0时,设为dp[0][0] = 0,
      * 4. 遍历顺序: 正序遍历
      * 5. 举例推导dp数组:
      * @param A
@@ -57,7 +61,22 @@ public class MaximumLengthOfRepeatedSubarray {
      * @return
      */
     public int findLength(int[] A, int[] B) {
-
-        return 0;
+        int m = A == null || A.length == 0 ? 0 : A.length+1;
+        int n = B == null || B.length == 0 ? 0 : B.length+1;
+        int[][] dp = new int[m][n];
+        dp[0][0] = 0;
+        int result = 0;
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                int k = i-1, t = j-1;
+                if (A[k] == B[t]) {
+                    dp[i][j] = dp[i-1][j-1] + 1;
+                }
+                if (result < dp[i][j]) {
+                    result = dp[i][j];
+                }
+            }
+        }
+        return result;
     }
 }
