@@ -1,6 +1,7 @@
 package review.dp.houserobber;
 
 import review.tree.TreeNode;
+import review.tree.TreeNodeHelper;
 
 /**
  * https://leetcode.com/problems/house-robber/ No.337 打家劫舍3
@@ -67,7 +68,7 @@ public class HouseRobber3 {
     public static void main(String[] args) {
         HouseRobber3 demo = new HouseRobber3();
         // [3,2,3,null,3,null,1]
-        TreeNode root = demo.getTreeNode();
+        TreeNode root = TreeNodeHelper.getTreeNode();
         int result = demo.rob(root);
     }
 
@@ -115,28 +116,5 @@ public class HouseRobber3 {
         int unRobNode = Math.max(leftDp[0], leftDp[1]) +
                 Math.max(rightDp[0], rightDp[1]);
         return new int[]{unRobNode, robNode};
-    }
-
-    private TreeNode getTreeNode() {
-        // [3,2,3,null,3,null,1
-//        TreeNode root = new TreeNode(3);
-//        TreeNode left1 = new TreeNode(2);
-//        TreeNode right1 = new TreeNode(3);
-//        TreeNode right2 = new TreeNode(3);
-//        TreeNode right3 = new TreeNode(1);
-//        left1.setRight(right2);
-//        right1.setRight(right3);
-//        root.setLeft(left1);
-//        root.setRight(right1);
-
-        // [4,1,null,2,null,3]
-        TreeNode root = new TreeNode(4);
-        TreeNode left1 = new TreeNode(1);
-        TreeNode left2 = new TreeNode(2);
-        TreeNode left3 = new TreeNode(3);
-        root.setLeft(left1);
-        left1.setLeft(left2);
-        left2.setLeft(left3);
-        return root;
     }
 }

@@ -19,15 +19,20 @@ public class BinaryTreeInorderTraversal {
      *
      */
     public static void main(String[] args) {
-        TreeNode rightLeft = new TreeNode(3);
-        TreeNode right = new TreeNode(2, rightLeft, null);
-        TreeNode root = new TreeNode(1, null, right);
-        BinaryTreeInorderTraversal test = new BinaryTreeInorderTraversal();
-        List<Integer> list = test.inorderTraversal(root);
+        BinaryTreeInorderTraversal demo = new BinaryTreeInorderTraversal();
+        TreeNode root = TreeNodeHelper.getTreeNode();
+        List<Integer> list = demo.inorderTraversal2(root);
+//        List<Integer> list = demo.inorderTraversal(root);
     }
 
-    // TODO 非递归算法
+    private List<Integer> inorderTraversal2(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
 
+
+        return null;
+    }
     /**
      * 中序遍历(LDR)
      * D=Degree
