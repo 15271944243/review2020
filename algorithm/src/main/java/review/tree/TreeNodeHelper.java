@@ -29,4 +29,18 @@ public final class TreeNodeHelper {
 //        left2.setLeft(left3);
         return root;
     }
+
+    public static TreeNode getTreeNode2() {
+//      [3,9,20,null,null,15,7]
+        TreeNode root = new TreeNode(3);
+        TreeNode left1 = new TreeNode(9);
+        TreeNode right1 = new TreeNode(20);
+        TreeNode left3 = new TreeNode(15);
+        TreeNode right3 = new TreeNode(7);
+        right1.setRight(right3);
+        right1.setLeft(left3);
+        root.setLeft(left1);
+        root.setRight(right1);
+        return root;
+    }
 }
