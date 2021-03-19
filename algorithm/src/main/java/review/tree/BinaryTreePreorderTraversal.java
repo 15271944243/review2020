@@ -27,7 +27,7 @@ public class BinaryTreePreorderTraversal {
     }
 
     /**
-     * 前序遍历(DLR)  非递归
+     * 前序遍历(DLR)  非递归,因为要访问的元素和要处理的元素顺序是一致的,可以利用栈的特性
      * D=Degree
      * L=Left
      * R=Right
