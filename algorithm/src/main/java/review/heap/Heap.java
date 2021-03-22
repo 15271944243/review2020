@@ -3,7 +3,7 @@ package review.heap;
 import review.utils.StrUtils;
 
 /**
- * 数据结构-堆
+ * 数据结构-堆  优先队列就是采用堆实现,因为优先级队列对外接口只是从队头取元素,从队尾添加元素
  * @author: xiaoxiaoxiang
  * @date: 2020/10/23 15:16
  */
@@ -59,7 +59,7 @@ public class Heap {
     }
 
     /**
-     * 插入
+     * 插入-向堆的尾部插入
      * @param num
      */
     public void insert(int num) {
