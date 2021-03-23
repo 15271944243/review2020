@@ -18,8 +18,8 @@ import java.util.concurrent.Executors;
  * @date: 2021/3/23 11:35
  */
 @Slf4j
-@SpringBootTest(classes = RedisApplication.class)
-@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = RedisApplication.class)
+//@RunWith(SpringRunner.class)
 public class RedisRateLimiterTest {
 
 
