@@ -1,20 +1,30 @@
 package review.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import review.config.sub.DefaultMessageDelegate;
+import review.ratelimiter.RedisRateLimiter;
+import review.ratelimiter.RedisRateLimiterProperties;
+
+import java.util.List;
 
 /**
  * @description:
@@ -24,12 +34,12 @@ import review.config.sub.DefaultMessageDelegate;
 @Configuration
 public class RedisConfig {
 
-//    @Value("${redisConfig.host}")
+//    @Value("${redisconfig.host}")
     private String host;
-//    @Value("${redisConfig.port}")
+//    @Value("${redisconfig.port}")
     private int port;
 
-    @Value("${redisConfig.pubsubtopic}")
+    @Value("${redisconfig.pubsubtopic}")
     private String pubSubTopic;
 
 //    @Bean
@@ -101,5 +111,23 @@ public class RedisConfig {
     @Bean
     public DefaultMessageDelegate defaultMessageDelegate() {
         return new DefaultMessageDelegate();
+    }
+
+    @Bean(name = "redisRateLimiterScript")
+    @ConditionalOnMissingBean(name = "redisRateLimiterScript")
+    public RedisScript redisRateLimiterScript() {
+        DefaultRedisScript redisScript = new DefaultRedisScript<>();
+        ClassPathResource classPathResource = new ClassPathResource("/scripts/redisRateLimiter.lua");
+        redisScript.setLocation(classPathResource);
+        redisScript.setResultType(List.class);
+        return redisScript;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RedisRateLimiter redisRateLimiter(@Qualifier("jsonRedisTemplate") RedisTemplate<String, Object> jsonRedisTemplate,
+        @Qualifier("redisRateLimiterScript") RedisScript<List<Long>> redisScript,
+        RedisRateLimiterProperties properties) {
+        return new RedisRateLimiter(jsonRedisTemplate, redisScript, properties);
     }
 }
