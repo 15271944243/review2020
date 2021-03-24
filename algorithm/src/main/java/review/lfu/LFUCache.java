@@ -53,7 +53,7 @@ public class LFUCache {
      *
      * 思路1: 使用HashMap + TreeMap(换成双向链表也行) + 双向链表DoubleLinkList;
      * HashMap来实现数据查询、插入和删除都是O(1),
-     * TreeMap实现访问次数的排序,它的value就是下来的DoubleLinkList
+     * TreeMap实现访问次数的排序,它的value就是DoubleLinkList
      * 双向链表DoubleLinkList实现访问时间的顺序
      *
      * 思路2:

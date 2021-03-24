@@ -61,9 +61,7 @@ public class LRUCache {
         System.out.println(cache.get(1));
         System.out.println(cache.get(3));
         System.out.println(cache.get(4));
-
     }
-
 
     int capacity;
 
@@ -121,14 +119,16 @@ public class LRUCache {
             LruCacheNode node = new LruCacheNode(key, value);
             if (nodeList.size() == capacity) {
                 LruCacheNode lastNode = nodeList.pollLast();
-                nodeMap.remove(lastNode.getKey());
+                if (lastNode != null) {
+                    nodeMap.remove(lastNode.getKey());
+                }
             }
             nodeMap.put(key, node);
             nodeList.addFirst(node);
         }
     }
 
-    class LruCacheNode {
+    static class LruCacheNode {
         int key;
 
         int value;
