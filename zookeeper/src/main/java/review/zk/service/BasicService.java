@@ -50,8 +50,12 @@ public class BasicService {
                     // 直接创建多级结点
                     // 创建多级节点时,只有最后的数据节点才是指定类型的节点,其父节点是持久节点
                     .creatingParentsIfNeeded()
-                    // 创建临时顺序节点
-                    .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
+                    // 创建持久节点(默认)
+                    .withMode(CreateMode.PERSISTENT)
+                    // 创建顺序持久节点
+//                    .withMode(CreateMode.PERSISTENT_SEQUENTIAL)
+                    // 创建临时节点
+//                    .withMode(CreateMode.EPHEMERAL)
                     .forPath(path, value.getBytes());
             log.info("createNode: {}", node);
         } catch (Exception e) {
@@ -65,9 +69,14 @@ public class BasicService {
      */
     public void deleteNode(String path) {
         try {
-            client.delete()
-                    .forPath(path);
-            log.info("delete node path: {}", path);
+            Stat stat = client.checkExists().forPath(path);
+            if (stat == null) {
+                log.info("node: {} is not exists", path);
+            } else {
+                client.delete()
+                        .forPath(path);
+                log.info("delete node path: {}", path);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
