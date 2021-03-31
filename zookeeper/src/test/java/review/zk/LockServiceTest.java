@@ -13,8 +13,8 @@ import review.zk.service.LockService;
  * @author: xiaoxiaoxiang
  * @date: 2021/3/31 15:08
  */
-@SpringBootTest(classes = ZkApplication.class)
-@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = ZkApplication.class)
+//@RunWith(SpringRunner.class)
 public class LockServiceTest {
 
     @Autowired
@@ -23,7 +23,7 @@ public class LockServiceTest {
     @Autowired
     private LockService lockService;
 
-    @Test
+//    @Test
     public void reentrantMutexLock() throws Exception {
         lockService.reentrantMutexLock("/locknode");
     }

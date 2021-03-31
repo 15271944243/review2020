@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit;
  * @author: xiaoxiaoxiang
  * @date: 2021/3/30 14:58
  */
-@SpringBootTest(classes = ZkApplication.class)
-@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = ZkApplication.class)
+//@RunWith(SpringRunner.class)
 public class WatchServiceTest {
 
     @Autowired
@@ -29,7 +29,7 @@ public class WatchServiceTest {
     @Autowired
     private WatchService watchService;
 
-    @Test
+//    @Test
     public void addWatchForNodeTest() throws InterruptedException, IOException {
         String path = "/test";
         String value = "testttttt";
@@ -46,7 +46,7 @@ public class WatchServiceTest {
         }
     }
 
-    @Test
+//    @Test
     public void addWatchForSubNodeTest() throws InterruptedException, IOException {
         String path = "/test";
         String subPath1 = "/test/sub1";
@@ -69,7 +69,7 @@ public class WatchServiceTest {
         }
     }
 
-    @Test
+//    @Test
     public void addWatchForTreeNodeTest() throws InterruptedException, IOException {
         String path = "/test";
         String subPath1 = "/test/sub1/subsub1";

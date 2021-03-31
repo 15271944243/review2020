@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @description:
+ * 参考: https://www.jianshu.com/p/31335efec309
  * @author: xiaoxiaoxiang
  * @date: 2021/3/31 14:45
  */

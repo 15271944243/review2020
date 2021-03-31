@@ -12,46 +12,46 @@ import review.zk.service.BasicService;
  * @author: xiaoxiaoxiang
  * @date: 2021/3/30 14:58
  */
-@SpringBootTest(classes = ZkApplication.class)
-@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = ZkApplication.class)
+//@RunWith(SpringRunner.class)
 public class BasicServiceTest {
 
     @Autowired
     private BasicService basicService;
 
-    @Test
+//    @Test
     public void createNodeTest() {
         String path = "/test";
         String value = "testttttt";
         basicService.createNode(path, value);
     }
 
-    @Test
+//    @Test
     public void createNode2Test() {
         String path = "/test2/ttt";
         String value = "testttttt2";
         basicService.createNode2(path, value);
     }
 
-    @Test
+//    @Test
     public void deleteNodeTest() {
         String path = "/test";
         basicService.deleteNode(path);
     }
 
-    @Test
+//    @Test
     public void deleteNode2Test() {
         String path = "/test2";
         basicService.deleteNode2(path);
     }
 
-    @Test
+//    @Test
     public void getNodeDataTest() {
         String path = "/test2/ttt0000000001";
         basicService.getNodeData(path);
     }
 
-    @Test
+//    @Test
     public void setNodeDataTest() {
         String path = "/test2/ttt0000000001";
         String value = "testbyxxx";
