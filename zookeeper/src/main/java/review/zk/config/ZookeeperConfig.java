@@ -40,4 +40,18 @@ public class ZookeeperConfig {
         return client;
     }
 
+    @Bean(name = "zookeeperClient2")
+    public CuratorFramework zookeeperClient2() {
+        // 重试策略
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
+        CuratorFramework client =
+                CuratorFrameworkFactory.builder()
+                        .connectString(address)
+                        .sessionTimeoutMs(sessionTimeout)
+                        .connectionTimeoutMs(connectionTimeout)
+                        .retryPolicy(retryPolicy)
+                        .build();
+        client.start();
+        return client;
+    }
 }
