@@ -1,4 +1,4 @@
-package review.dp.subseq;
+package review.dp.str;
 
 /**
  * https://leetcode.com/problems/is-subsequence/ No.392 判断子序列

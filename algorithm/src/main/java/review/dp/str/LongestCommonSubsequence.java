@@ -1,4 +1,4 @@
-package review.dp.subseq;
+package review.dp.str;
 
 /**
  * https://leetcode.com/problems/longest-common-subsequence/ No.1143 最长公共子序列
