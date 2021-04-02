@@ -59,7 +59,7 @@ public class DistinctSubsequences {
      * s 和 t 由英文字母组成
      *
      * 思路一: 递归回溯
-     * 思路二: 动态规划 (多重背包?)
+     * 思路二: 动态规划
      * 1. 确定dp数组(dp table)以及下标的含义
      * 2. 确定递推公式
      * 3. dp数组如何初始化
