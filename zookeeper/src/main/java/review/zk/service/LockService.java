@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class LockService {
 
-
     @Autowired
     @Qualifier("zookeeperClient")
     private CuratorFramework client;

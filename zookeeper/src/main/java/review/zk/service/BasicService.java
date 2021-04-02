@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
 /**
  * zookeeper 基础操作 server
  * @author: xiaoxiaoxiang
@@ -109,12 +112,23 @@ public class BasicService {
         String nodeData = null;
         try {
             byte[] bytes = client.getData().storingStatIn(stat).forPath(path);
+//            long d = byteArrayToLong(bytes, false);
             nodeData = new String(bytes);
             log.info("{} node data is: {}", path, nodeData);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return nodeData;
+    }
+
+    private long byteArrayToLong(byte[] bytes, boolean littleEndian) {
+        ByteBuffer buffer = ByteBuffer.wrap(bytes, 0,8);
+        if(littleEndian){
+            // ByteBuffer.order(ByteOrder) 方法指定字节序,即大小端模式(BIG_ENDIAN/LITTLE_ENDIAN)
+            // ByteBuffer 默认为大端(BIG_ENDIAN)模式
+            buffer.order(ByteOrder.LITTLE_ENDIAN);
+        }
+        return buffer.getLong();
     }
 
     /**

@@ -48,6 +48,7 @@ public class BasicServiceTest {
 //    @Test
     public void getNodeDataTest() {
         String path = "/test2/ttt0000000001";
+//        String path = "/sequence/marketrule/dev1/test";
         basicService.getNodeData(path);
     }
 
