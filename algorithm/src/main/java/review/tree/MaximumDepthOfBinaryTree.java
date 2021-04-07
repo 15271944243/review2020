@@ -35,6 +35,9 @@ public class MaximumDepthOfBinaryTree {
      * 题目意思: 给定一个二叉树,找到它的最大深度
      * 思路一: 深度优先搜索(Depth Fitst Search)
      * 思路二: 广度优先搜索(Breadth First Search)
+     *
+     * 二叉树节点的深度: 指从根节点到该节点的最长简单路径边的条数(leetcode 上是节点的个数)
+     * 二叉树节点的高度: 指从该节点到叶子节点的最长简单路径边的条数(leetcode 上是节点的个数)
      */
 
 

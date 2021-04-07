@@ -1,8 +1,7 @@
 package review.tree;
 
 /**
- * https://leetcode.com/problems/path-sum/ No.112
- * 路径总和
+ * https://leetcode.com/problems/path-sum/ No.112 路径总和
  * @author: xiaoxiaoxiang
  * @date: 2021/2/9 09:46
  */
