@@ -26,6 +26,7 @@
         <module>dubbo</module>
         <module>zookeeper</module>
         <module>kafka</module>
+        <module>rocketmq</module>
     </modules>
 
     <properties>
