@@ -20,11 +20,15 @@ public class ProducerServiceTest {
     @Autowired
     private ProducerService producerService;
 
-    public static final String PRODUCER_GROUP = "myProducerGroup";
-
     public static final String NAMESRV_ADDR = "127.0.0.1:9876";
 
+    public static final String PRODUCER_GROUP = "myProducerGroup";
+
+    public static final String PRODUCER_GROUP2 = "myProducerGroup2";
+
     public static final String TOPIC = "myfirsttest";
+
+    public static final String TOPIC2 = "mytesttopic";
 
     public static final String TAG = "mytag";
 
@@ -55,5 +59,22 @@ public class ProducerServiceTest {
         }
     }
 
+    @Test
+    public void sendMsgInOrderTest() {
+        try {
+            producerService.sendMsgInOrder(PRODUCER_GROUP2, NAMESRV_ADDR, TOPIC2);
+        } catch (MQClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void sendDelayMsgTest() {
+        try {
+            producerService.sendDelayMsg(PRODUCER_GROUP, NAMESRV_ADDR, TOPIC, TAG);
+        } catch (MQClientException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
