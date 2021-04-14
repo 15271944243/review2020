@@ -5,11 +5,15 @@ import org.apache.rocketmq.client.consumer.DefaultLitePullConsumer;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
+import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
+import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
+import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.springframework.stereotype.Service;
 
@@ -55,8 +59,8 @@ public class ConsumerService {
                 log.info("本批次消费消息数量:{}", msgs.size());
                 for (MessageExt msg : msgs) {
                     try {
-                        log.info("消息内容:{}, keys:{}", new String(msg.getBody(), RemotingHelper.DEFAULT_CHARSET),
-                                msg.getKeys());
+                        log.info("消息内容:{}, keys:{}, tags:{}", new String(msg.getBody(), RemotingHelper.DEFAULT_CHARSET),
+                                msg.getKeys(), msg.getTags());
                     } catch (UnsupportedEncodingException e) {
                         log.error("消息转换异常: ", e);
                     }
@@ -91,11 +95,16 @@ public class ConsumerService {
                 }
             }
         }
+        LockSupport.park();
         consumer.shutdown();
     }
 
+    /**
+     * PULL 模式
+     * @throws MQClientException
+     */
     public void consumerPullModeWithAssign(String consumerGroup, String namesrvAddr,
-                                              String topic, String tag) throws MQClientException {
+                                              String topic) throws MQClientException {
         DefaultLitePullConsumer consumer = new DefaultLitePullConsumer(consumerGroup);
         consumer.setNamesrvAddr(namesrvAddr);
         // 设置为手动提交
@@ -128,8 +137,105 @@ public class ConsumerService {
                 consumer.commitSync();
             }
         }
+        LockSupport.park();
         consumer.shutdown();
     }
 
+    /**
+     * 顺序消费
+     * @param consumerGroup
+     * @param namesrvAddr
+     * @param topic
+     * @throws MQClientException
+     */
+    public void consumerInOrder(String consumerGroup, String namesrvAddr,
+                                 String topic) throws MQClientException {
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(consumerGroup);
+        consumer.setNamesrvAddr(namesrvAddr);
+        // 从哪里开始消费
+        // 从上一次消费的位置之后开始消费
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+        consumer.subscribe(topic, "*");
+        // 消费监听
+        // MessageListenerOrderly 是有序的
+        consumer.registerMessageListener(new MessageListenerOrderly() {
+            @Override
+            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
+                context.setAutoCommit(true);
+//                log.info("本批次消费消息数量:{}", msgs.size());
+                for (MessageExt msg : msgs) {
+                    try {
+                        log.info("消息内容:{}", new String(msg.getBody(), RemotingHelper.DEFAULT_CHARSET));
+                    } catch (UnsupportedEncodingException e) {
+                        log.error("消息转换异常: ", e);
+                    }
+                }
+                return ConsumeOrderlyStatus.SUCCESS;
+            }
+        });
+        consumer.start();
+        log.info("consumer start");
+        LockSupport.park();
+    }
 
+    /**
+     * 广播模式: 多个消费者组都可以消费同一个topic,消费者组互相不影响
+     * @throws MQClientException
+     */
+    public void consumerBroadcastMode(String consumerGroupA, String consumerGroupB, String namesrvAddr,
+                                 String topic) throws MQClientException {
+        DefaultMQPushConsumer consumerA = new DefaultMQPushConsumer(consumerGroupA);
+        consumerA.setNamesrvAddr(namesrvAddr);
+        // 从上一次消费的位置之后开始消费
+        consumerA.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+        // 设置为广播模式
+        consumerA.setMessageModel(MessageModel.BROADCASTING);
+        consumerA.subscribe(topic, "*");
+        consumerA.registerMessageListener(new MessageListenerConcurrently() {
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+//                log.info("consumerA 本批次消费消息数量:{}", msgs.size());
+                for (MessageExt msg : msgs) {
+                    try {
+                        log.info("consumerA 消息内容:{}, keys:{}", new String(msg.getBody(), RemotingHelper.DEFAULT_CHARSET),
+                                msg.getKeys());
+                    } catch (UnsupportedEncodingException e) {
+                        log.error("consumerA 消息转换异常: ", e);
+                    }
+                }
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+        consumerA.start();
+        log.info("consumerA start");
+
+        // consumerB
+        // consumerB
+        // consumerB
+        DefaultMQPushConsumer consumerB = new DefaultMQPushConsumer(consumerGroupB);
+        consumerB.setNamesrvAddr(namesrvAddr);
+        // 从上一次消费的位置之后开始消费
+        consumerB.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
+        // 设置为广播模式
+        consumerA.setMessageModel(MessageModel.BROADCASTING);
+        consumerB.subscribe(topic, "*");
+        consumerB.registerMessageListener(new MessageListenerConcurrently() {
+            @Override
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
+//                log.info("consumerB 本批次消费消息数量:{}", msgs.size());
+                for (MessageExt msg : msgs) {
+                    try {
+                        log.info("consumerB 消息内容:{}, keys:{}", new String(msg.getBody(), RemotingHelper.DEFAULT_CHARSET),
+                                msg.getKeys());
+                    } catch (UnsupportedEncodingException e) {
+                        log.error("consumerB 消息转换异常: ", e);
+                    }
+                }
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+        consumerB.start();
+        log.info("consumerB start");
+        LockSupport.park();
+    }
 }
