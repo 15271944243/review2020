@@ -78,7 +78,30 @@ aclEnable=true
 ```
 
 12. springboot 集成 RocketMQ
+```
+- 集成
+<dependency>
+    <groupId>org.apache.rocketmq</groupId>
+    <artifactId>rocketmq-spring-boot-starter</artifactId>
+    <version>2.2.0</version>
+</dependency>
 
+- 源码: https://github.com/apache/rocketmq-spring
 
+使用 org.apache.rocketmq.spring.core.RocketMQTemplate
+
+```
 
 13. 使用 Spring Cloud Stream 集成 RocketMQ
+```
+Spring Cloud Stream 是 Spring 社区提供的一个统一的消息驱动框架,目的是以统一的编程模型来对接所有的消息中间件
+
+- 集成
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-stream-rocketmq</artifactId>
+    <version>2.2.3.RELEASE</version>
+</dependency>
+
+文档不全、集成的 rocketmq 版本较低,不推荐使用
+```

@@ -83,7 +83,7 @@ public class ConsumerServiceTest {
     public void consumerBroadcastModeTest() {
         try {
             // 使用常规的消费方法就行了
-            consumerService.consumerBroadcastMode(CONSUMER_GROUP, CONSUMER_GROUP2, NAMESRV_ADDR, TOPIC);
+            consumerService.consumerBroadcastMode(CONSUMER_GROUP, NAMESRV_ADDR, TOPIC);
         } catch (MQClientException e) {
             e.printStackTrace();
         }

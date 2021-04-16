@@ -25,7 +25,9 @@ import java.util.concurrent.locks.LockSupport;
 public class TraceConsumerService {
 
     /**
-     * 消费消息时存储消息轨迹
+     * 消费消息时存储消息轨迹,此时使用默认的 RMQ_SYS_TRACE_TOPIC 存储消息轨迹数据
+     * 可以通过 DefaultMQPushConsumer 的构造函数函数来指定自定义消息轨迹的topic
+     * DefaultMQPushConsumer(final String consumerGroup, boolean enableMsgTrace, final String customizedTraceTopic);
      * @param consumerGroup
      * @param namesrvAddr
      * @param topic

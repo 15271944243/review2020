@@ -182,9 +182,9 @@ public class ConsumerService {
      * 广播模式: 多个消费者组都可以消费同一个topic,消费者组互相不影响
      * @throws MQClientException
      */
-    public void consumerBroadcastMode(String consumerGroupA, String consumerGroupB, String namesrvAddr,
+    public void consumerBroadcastMode(String consumerGroup, String namesrvAddr,
                                  String topic) throws MQClientException {
-        DefaultMQPushConsumer consumerA = new DefaultMQPushConsumer(consumerGroupA);
+        DefaultMQPushConsumer consumerA = new DefaultMQPushConsumer(consumerGroup);
         consumerA.setNamesrvAddr(namesrvAddr);
         // 从上一次消费的位置之后开始消费
         consumerA.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
@@ -212,7 +212,7 @@ public class ConsumerService {
         // consumerB
         // consumerB
         // consumerB
-        DefaultMQPushConsumer consumerB = new DefaultMQPushConsumer(consumerGroupB);
+        DefaultMQPushConsumer consumerB = new DefaultMQPushConsumer(consumerGroup);
         consumerB.setNamesrvAddr(namesrvAddr);
         // 从上一次消费的位置之后开始消费
         consumerB.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);

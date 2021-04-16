@@ -23,7 +23,9 @@ import java.util.Random;
 public class TraceProducerService {
 
     /**
-     * 发送消息时存储消息轨迹
+     * 发送消息时存储消息轨迹,此时使用默认的 RMQ_SYS_TRACE_TOPIC 存储消息轨迹数据
+     * 可以通过 DefaultMQProducer 的构造函数函数来指定自定义消息轨迹的topic
+     * DefaultMQProducer(final String producerGroup, boolean enableMsgTrace, final String customizedTraceTopic);
      * @param producerGroup
      * @param namesrvAddr
      * @param topic
