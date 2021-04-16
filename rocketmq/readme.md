@@ -22,7 +22,7 @@ MessageListenerOrderly 与 MessageListenerConcurrently 在实现上有什么区�
 5. 批量消息
 DefaultMQProducer.send(Collection<Message> msgs, ...)
 批量发送,消息内容不要超过1M,应该具有相同的topic,不能是延迟消息;
-如果数据太多,就拆分,参考源码 example 目录下的 batch 目录
+如果数据太多,就拆分,参考源码 example 目录下的 batch 模块
 
 6. 广播消息
 多个消费者组都可以消费同一个topic,消费者组互相不影响
@@ -43,4 +43,42 @@ RocketMQ 事务消息并不是分布式事务,因为它只解决本地事务与�
 即它 producer 有关,与 consumer 无关;
 
 
-> 以上内容可以在官网的 USER GUIDE 或者源码 example 目录下查阅
+> 以上内容可以在官网的 USER GUIDE 或者源码 example 模块下查阅
+
+
+10. 消息轨迹
+```
+1. conf/broker.conf 里添加配置
+traceTopicEnable=true
+
+
+官方文档: https://github.com/apache/rocketmq/blob/release-4.7.1/docs/cn/msg_trace/user_guide.md
+```
+
+11. ACL 权限控制
+```
+1. ACL 配置文件
+conf/plain_acl.yml配置文件 
+
+2. conf/broker.conf 上需要开启 ACL 的配置
+aclEnable=true
+
+3. client 端需要增加 maven dependency
+<dependency>
+    <groupId>org.apache.rocketmq</groupId>
+    <artifactId>rocketmq-acl</artifactId>
+    <version>version 自行选择</version>
+</dependency>
+
+4. 官方文档: https://github.com/apache/rocketmq/blob/release-4.7.1/docs/cn/acl/user_guide.md
+
+5. demo 可以参考源码 example 模块下的 org.apache.rocketmq.example.simple.AclClient
+
+6. 学习视频: https://www.bilibili.com/video/BV1b5411K7zg?p=18
+```
+
+12. springboot 集成 RocketMQ
+
+
+
+13. 使用 Spring Cloud Stream 集成 RocketMQ
