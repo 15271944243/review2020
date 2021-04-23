@@ -3,8 +3,7 @@ package review.string;
 import review.utils.StrUtils;
 
 /**
- * https://leetcode.com/problems/reverse-string/ No.344
- * 反转字符串
+ * https://leetcode.com/problems/reverse-string/ No.344 反转字符串
  * @author: xiaoxiaoxiang
  * @date: 2021/1/19 10:57
  */
