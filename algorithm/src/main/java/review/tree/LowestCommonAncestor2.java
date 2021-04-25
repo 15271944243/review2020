@@ -1,7 +1,7 @@
 package review.tree;
 
 /**
- * https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+ * https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/ No.235 二叉搜索树的最近公共祖先
  * @author: xiaoxiaoxiang
  * @date: 2020/5/30 22:33
  */
