@@ -15,6 +15,7 @@ public class FunctionTest {
     public void functionTest() {
         Function<Integer, Integer> a = e -> e * 2;
         Function<Integer, Integer> b = e -> e * e;
+        Function<Integer, String> c = e  -> e + "2";
         System.out.println("a.apply(3) = " + a.apply(3));
         System.out.println("b.apply(3) = " + b.apply(3));
         System.out.println("a.andThen(b).apply(3) = " + a.andThen(b).apply(3));
