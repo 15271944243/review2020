@@ -28,4 +28,5 @@
     <dubbo:protocol name="dubbo"/>
 
     <dubbo:service interface="review.api.service.SayHelloService" ref="sayHelloService"/>
+    <dubbo:service interface="review.api.service.SayHelloService" ref="sayHelloService"/>
 </beans>

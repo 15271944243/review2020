@@ -42,6 +42,11 @@
             <artifactId>dubbo-xml-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
 
 
         <!--【新版的坑】zookeeper及其依赖包，解决日志冲突，还需要剔除日志依赖-->
