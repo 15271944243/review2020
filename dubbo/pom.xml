@@ -36,4 +36,23 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>aspectjrt</artifactId>
+                    <groupId>org.aspectj</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        &lt;!&ndash; zipkin支持dubbo &ndash;&gt;
+        <dependency>
+            <groupId>io.zipkin.brave</groupId>
+            <artifactId>brave-instrumentation-dubbo</artifactId>
+            <version>5.12.3</version>
+        </dependency>-->
+    </dependencies>
 </project>

@@ -23,8 +23,13 @@
 
     <dubbo:application name="dubbo-xml-consumer"/>
 
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" timeout="10000"/>
 
+    <!-- zipkin 配置,会报错,待解决 -->
+    <!--<dubbo:provider filter="tracing" />
+    <dubbo:consumer filter="tracing" />-->
+
+    <!-- 默认是 lazy 价值,通过 init="true" 在服务启动时加载 -->
     <dubbo:reference id="sayHelloService" check="false" interface="review.api.service.SayHelloService"/>
 
 </beans>
