@@ -109,9 +109,6 @@ public class CombinationSum {
             return;
         }
         for (int i = start; i < candidates.length; i++) {
-            if (i == 2) {
-                System.out.println(1);
-            }
             // 剩余sum值
             int left = target - tmpSum;
             if (left < 0) {

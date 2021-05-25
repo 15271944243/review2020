@@ -25,7 +25,7 @@ public class MergeSort {
     public static void main(String[] args) {
         MergeSort mergeSort = new MergeSort();
         int[] a = {30,40,60,30,14,28,77,10,20,50,89,103};
-        a = mergeSort.mergeSort(a);
+        mergeSort.mergeSort(a, 0, a.length-1);
         System.out.println(StrUtils.arrayToString(a, ","));
     }
 
@@ -41,35 +41,45 @@ public class MergeSort {
      *
      * @param arr  待排序的数组
      */
-    public int[] mergeSort(int[] arr){
-        if (arr.length < 2) {
-            return arr;
+    public void mergeSort(int[] arr, int start, int end){
+        if (start < end) {
+            int middle = start + ((end - start) >> 1);
+            mergeSort(arr, start, middle);
+            mergeSort(arr, middle + 1, end);
+            //合并操作
+            merge(arr, start, middle, end);
         }
-        int middle = arr.length / 2;
-        int[] leftArr = Arrays.copyOfRange(arr, 0, middle);
-        int[] rightArr = Arrays.copyOfRange(arr, middle, arr.length);
-        return merge(mergeSort(leftArr), mergeSort(rightArr));
     }
 
-    private int[] merge(int[] leftArr, int[] rightArr) {
-        int[] reuslt = new int[leftArr.length + rightArr.length];
-        int m = 0, n = 0;
-        for(int i=0; i< reuslt.length;i++) {
-            if (m >= leftArr.length) {
-                // 左边的都放完了,就放右边的
-                reuslt[i] = rightArr[n++];
-            } else if (n >= rightArr.length) {
-                // 右边的都放完了,就放左边的
-                reuslt[i] = leftArr[m++];
+    public void merge(int[] nums, int start, int mid, int end) {
+        int[] temp = new int[end - start + 1];
+        int i = start;
+        int j = mid + 1;
+        int k = 0;
+
+        while (i <= mid && j <= end) {
+            if (nums[i] <= nums[j]) {
+                temp[k] = nums[i];
+                i++;
+                k++;
             } else {
-                // 两边都没放完,比较大小,谁小就放谁(按从小到大的顺序)
-                if (leftArr[m] <= rightArr[n]) {
-                    reuslt[i] = leftArr[m++];
-                } else {
-                    reuslt[i] = rightArr[n++];
-                }
+                temp[k] = nums[j];
+                j++;
+                k++;
             }
         }
-        return reuslt;
+        while (i <= mid) {
+            temp[k] = nums[i];
+            i++;
+            k++;
+        }
+        while (j <= end) {
+            temp[k] = nums[j];
+            j++;
+            k++;
+        }
+        for (int t = 0; t < temp.length; t++) {
+            nums[t + start] = temp[t];
+        }
     }
 }
