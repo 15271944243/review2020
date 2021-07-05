@@ -27,6 +27,9 @@
 
     <dubbo:protocol name="dubbo"/>
 
-    <dubbo:service interface="review.api.service.SayHelloService" ref="sayHelloService"/>
+    <!-- zipkin 配置,consumer端会报错,待解决 -->
+    <!--<dubbo:provider filter="tracing" />
+    <dubbo:consumer filter="tracing" />-->
+
     <dubbo:service interface="review.api.service.SayHelloService" ref="sayHelloService"/>
 </beans>

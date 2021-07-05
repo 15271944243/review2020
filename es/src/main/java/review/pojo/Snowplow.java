@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
 
-@Document(indexName = "snowplow", shards = 3)
+@Document(indexName = "snowplow-*", type = "", shards = 3)
 public class Snowplow implements Serializable {
 
     private static final long serialVersionUID = 5642980337929312238L;

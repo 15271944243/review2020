@@ -98,6 +98,8 @@ public class NioClient implements Runnable {
     /**
      * http://blog.sina.com.cn/s/blog_783ede0301013g5n.html
      * 参考上面对文档,如果要在生产使用java原生NIO(本人都是用对Netty),最好注册SelectionKey.OP_WRITE事件
+     *
+     * 经过后续学习,发现 OP_WRITE事件是指 socket 缓冲区有可写空间,允许往里写入数据,所有有关上面的文章,待思考
      * @param socketChannel
      * @throws IOException
      */

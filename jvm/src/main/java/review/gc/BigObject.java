@@ -10,6 +10,7 @@ public class BigObject {
     private static final int _1M = 1024 * 1024;
     /**
      * -verbose:gc -Xms20M -Xmx20M -Xmn10M (年轻代) -XX:+PrintGCDetails
+     * -Xloggc: .... 打印 gc 日志到文件中
      * -XX:SurvivorRatio=8 (Eden:Survivor = 8:1)
      * -XX:PretenureSizeThreshold=3145728 指定大于该设置值的对象直接在老年代分配 只对 Serial 和 ParNew 两款收集器有效
      * @param args
