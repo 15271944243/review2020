@@ -1,8 +1,8 @@
 //package review.spring;
 //
-//import com.xhqb.smschannel.biz.cmpp20.client.message.request.SubmitRequestMessage;
-//import com.xhqb.smschannel.biz.service.service.cmppclienthandler.AsyncXhCmppClientBusinessHandler;
-//import com.xhqb.smschannel.biz.service.service.cmppclienthandler.XhCmppClientBussinessHandler;
+//import com.smschannel.biz.cmpp20.client.message.request.SubmitRequestMessage;
+//import com.smschannel.biz.service.service.cmppclienthandler.AsyncXhCmppClientBusinessHandler;
+//import com.smschannel.biz.service.service.cmppclienthandler.XhCmppClientBussinessHandler;
 //import io.netty.util.CharsetUtil;
 //import org.junit.Before;
 //import org.junit.Test;

@@ -23,7 +23,7 @@ public class Snowplow implements Serializable {
      * 用户访问记录
      */
     @Field(type = FieldType.Nested)
-    private SnowplowVisitData unstruct_event_com_xhqb_track_1;
+    private SnowplowVisitData unstruct_event_com_track_1;
 
     public String getEvent_version() {
         return event_version;
@@ -41,11 +41,11 @@ public class Snowplow implements Serializable {
         this.event_format = event_format;
     }
 
-    public SnowplowVisitData getUnstruct_event_com_xhqb_track_1() {
-        return unstruct_event_com_xhqb_track_1;
+    public SnowplowVisitData getUnstruct_event_com_track_1() {
+        return unstruct_event_com_track_1;
     }
 
-    public void setUnstruct_event_com_xhqb_track_1(SnowplowVisitData unstruct_event_com_xhqb_track_1) {
-        this.unstruct_event_com_xhqb_track_1 = unstruct_event_com_xhqb_track_1;
+    public void setUnstruct_event_com_track_1(SnowplowVisitData unstruct_event_com_track_1) {
+        this.unstruct_event_com_track_1 = unstruct_event_com_track_1;
     }
 }

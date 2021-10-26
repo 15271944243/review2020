@@ -46,11 +46,11 @@ public class EsApplication implements ApplicationListener<ApplicationReadyEvent>
     private void test() {
         String firstAccessTime = null;
         BoolQueryBuilder boolQueryBuilder = boolQuery();
-        boolQueryBuilder.must(termQuery("app_id", "mobile.xhqb.com"));
+        boolQueryBuilder.must(termQuery("app_id", "mobile.com"));
         boolQueryBuilder.must(termQuery("event_name", "track"));
-        boolQueryBuilder.must(termQuery("unstruct_event_com_xhqb_track_1.category", "wjApplyActivity"));
-        //boolQueryBuilder.must(termQuery("unstruct_event_com_xhqb_track_1.action", "visit"));
-        boolQueryBuilder.must(termQuery("unstruct_event_com_xhqb_track_1.label", "20191218000003910010"));
+        boolQueryBuilder.must(termQuery("unstruct_event_com_track_1.category", "wjApplyActivity"));
+        //boolQueryBuilder.must(termQuery("unstruct_event_com__track_1.action", "visit"));
+        boolQueryBuilder.must(termQuery("unstruct_event_com_track_1.label", "20191218000003910010"));
         SortBuilder sortBuilder = SortBuilders.fieldSort("collector_tstamp").order(SortOrder.ASC);
         NativeSearchQueryBuilder searchQuery = new NativeSearchQueryBuilder();
         searchQuery.withQuery(boolQueryBuilder)//.withIndices("snowplow").withTypes("enriched")
@@ -65,12 +65,12 @@ public class EsApplication implements ApplicationListener<ApplicationReadyEvent>
     private List<Snowplow> queryApplyExitEsDate() {
         List<Snowplow> snowplowList = new ArrayList<>();
         BoolQueryBuilder boolQueryBuilder = boolQuery();
-        boolQueryBuilder.must(termQuery("unstruct_event_com_xhqb_app_element_click_2.code", "20019"));
+        boolQueryBuilder.must(termQuery("unstruct_event_com_app_element_click_2.code", "20019"));
 
 //        boolQueryBuilder.must(QueryBuilders.rangeQuery("dvce_created_tstamp").gt(startTime).lt(endTime));
 
         //boolQueryBuilder.must(termQuery("user_id", md5Cid));
-        boolQueryBuilder.must(termQuery("app_id", "com.xhqb.app.android"));
+        boolQueryBuilder.must(termQuery("app_id", "com.app.android"));
         SortBuilder sortBuilder = SortBuilders.fieldSort("collector_tstamp").order(SortOrder.ASC);
         NativeSearchQueryBuilder searchQuery = new NativeSearchQueryBuilder();
         searchQuery.withQuery(boolQueryBuilder)

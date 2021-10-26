@@ -1,7 +1,7 @@
 //package review.spring;
 //
-//import com.xhqb.smschannel.biz.RedisTemplateMocker;
-//import com.xhqb.smschannel.common.dal.dto.SmsInfo;
+//import com.smschannel.biz.RedisTemplateMocker;
+//import com.smschannel.common.dal.dto.SmsInfo;
 //import org.junit.Before;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;

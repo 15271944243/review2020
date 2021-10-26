@@ -1,6 +1,6 @@
 //package review.spring;
 //
-//import com.xhqb.smschannel.common.dal.dto.SmsInfo;
+//import com.smschannel.common.dal.dto.SmsInfo;
 //import org.springframework.beans.factory.annotation.Autowired;
 //
 //import java.util.ArrayList;
