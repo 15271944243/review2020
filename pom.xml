@@ -27,6 +27,7 @@
         <module>zookeeper</module>
         <module>kafka</module>
         <module>rocketmq</module>
+        <module>spring-cloud-client</module>
     </modules>
 
     <properties>
