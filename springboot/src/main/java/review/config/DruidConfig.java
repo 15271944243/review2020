@@ -1,6 +1,5 @@
 package review.config;
 
-
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,6 @@ import org.springframework.context.annotation.Primary;
 public class DruidConfig {
 
     /**
-     * 这里也可以直接使用 spring.datasource.xxx 的配置,就不用写下面的 set 了
      * @param configProperties
      * @return
      */
