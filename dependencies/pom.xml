@@ -17,6 +17,8 @@
         <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
         <dubbo.version>2.7.6</dubbo.version>
         <rocketmq.version>4.7.1</rocketmq.version>
+        <druid.version>1.2.8</druid.version>
+        <mysql.connector.version>5.1.36</mysql.connector.version>
         <!--<openid-connect.version>1.3.1</openid-connect.version>-->
     </properties>
 
