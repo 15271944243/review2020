@@ -7,7 +7,7 @@
         icon_path,gray_icon_path,avatar_style,create_time, update_time, creator_id, last_modifier_id
     </sql>
 
-    <select id="selectByList" resultType="review.domain.VipTypeDO" >
+    <select id="selectList" resultType="review.domain.VipTypeDO" >
         select
         <include refid="Base_Column_List" />
         from vip_type

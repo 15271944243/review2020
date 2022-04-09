@@ -1,2 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://10.176.116.0:33066/db_vip_base?characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useTimezone=true&useLegacyDatetimeCode=false&useTimezone=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    username: vip
+    password: 123456
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
