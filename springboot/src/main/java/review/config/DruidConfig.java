@@ -14,6 +14,11 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class DruidConfig {
 
+    /**
+     * 这里也可以直接使用 spring.datasource.xxx 的配置,就不用写下面的 set 了
+     * @param configProperties
+     * @return
+     */
     @Bean(initMethod = "init", destroyMethod = "close")
     @Primary
     public DruidDataSource dataSource(DruidConfigProperties configProperties) {
