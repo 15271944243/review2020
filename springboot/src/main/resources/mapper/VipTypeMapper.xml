@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="review.dao.VipTypeMapper" >
+
+    <sql id="Base_Column_List" >
+        id, code, name, language_code, temp, rights_codes, level, country, brand, sale_channel,
+        icon_path,gray_icon_path,avatar_style,create_time, update_time, creator_id, last_modifier_id
+    </sql>
+
+    <select id="selectByList" resultType="review.domain.VipTypeDO" >
+        select
+        <include refid="Base_Column_List" />
+        from vip_type
+    </select>
+</mapper>
