@@ -3,7 +3,7 @@ package review;
 import java.util.Stack;
 
 /**
- * https://leetcode.com/problems/implement-queue-using-stacks/
+ * https://leetcode.com/problems/implement-queue-using-stacks/ NO.232 用栈实现队列
  * @author: xiaoxiaoxiang
  * @date: 2020/5/13 23:08
  */

@@ -1,7 +1,7 @@
 package review.linkedlist;
 
 /**
- * https://leetcode.com/problems/remove-linked-list-elements/ No.203
+ * https://leetcode.com/problems/remove-linked-list-elements/ No.203 移除链表元素
  * @author: xiaoxiaoxiang
  * @date: 2021/3/29 09:58
  */

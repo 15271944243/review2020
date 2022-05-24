@@ -3,7 +3,7 @@ package review;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * https://leetcode.com/problems/implement-stack-using-queues/
+ * https://leetcode.com/problems/implement-stack-using-queues/ No.225 用队列实现栈
  * @author: xiaoxiaoxiang
  * @date: 2020/5/14 23:39
  */
