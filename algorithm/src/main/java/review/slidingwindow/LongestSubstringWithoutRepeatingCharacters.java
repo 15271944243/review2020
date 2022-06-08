@@ -1,9 +1,7 @@
 package review.slidingwindow;
 
-import java.util.HashMap;
-
 /**
- * https://leetcode.cn/problems/longest-substring-without-repeating-characters/ No.3
+ * https://leetcode.cn/problems/longest-substring-without-repeating-characters/ No.3 无重复字符的最长子串
  * @author: xiaoxiaoxiang
  * @date: 2022/5/21 19:35
  */

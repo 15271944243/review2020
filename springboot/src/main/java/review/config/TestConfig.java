@@ -16,10 +16,10 @@ import review.service.UserService;
  * @author: xiaoxiaoxiang
  * @date: 2022/6/1 8:06
  */
-@Configuration
+//@Configuration
 public class TestConfig {
 
-    @Bean
+//    @Bean
     public UserService userService() {
         UserService userService = new UserService("xxx");
         return userService;
