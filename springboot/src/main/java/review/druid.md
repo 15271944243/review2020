@@ -495,7 +495,7 @@ public void shrink(boolean checkTime, boolean keepAlive) {
 
 这里是对 connection[] 数组里的连接做处理
 
-![](https://typora-xxx.oss-cn-shenzhen.aliyuncs.com/img/1655000620.png)
+![](https://typora-xxx.oss-cn-shenzhen.aliyuncs.com/img/1655126051.png)
 
 - phyTimeoutMillis 默认值是 -1,一般不配置
 - 如果 idleMillis 小于 minEvictableIdleTimeMillis,且小于 keepAliveBetweenTimeMillis,不进行驱逐
@@ -513,7 +513,8 @@ public void shrink(boolean checkTime, boolean keepAlive) {
 
   - 链接空闲时间>= minEvictableIdleTimeMillis,该连接就被驱逐(至少保留 minIdle 数量的链接)
 
-- 在低版本(例如 1.0.18),此时加入了 maxEvictableIdleTimeMillis，但是没有 keepalive，它是为了解决mysql服务器8小时关闭连接的问题
+- 在低版本(例如 1.0.18),此时加入了 maxEvictableIdleTimeMillis，但是没有 keepalive，它是为了解决mysql服务器8小时关闭连接的问题，实际上我个人觉得只使用 minEvictableIdleTimeMillis 也可以实现，
+又求助了官方，官方说对分布式数据库，如阿里云的PolarDB-X（DRDS）/AnalyticDB这样的数据库做优雅的滚动升级比较有用
 
 - 在高版本(例如 1.0.28),此时加入了 keepalive、keepAliveBetweenTimeMillis，配置 keepalive = true，是为了满足在使用 testWhileIdle 的情况下，某些场景需要保活连接的需求；testWhileIdle 是获取连接时，如果连接的空闲时间超过了 timeBetweenEvictionRunsMillis，则去探活，如果线程被获取时，它的空闲时间并没有超过 timeBetweenEvictionRunsMillis，之后可能因为网络故障导致该连接已经断开了，但它仍被存放在连接池中，此时如果有业务线程获取到了该连接，但是实际上该连接是不可用的，就会出现异常
 
