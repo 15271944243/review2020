@@ -54,13 +54,13 @@ private DestroyTask                      destroyTask;
 
 #### 整体流程
 
-![整体流程](https://typora-xxx.oss-cn-shenzhen.aliyuncs.com/img/1655013160.png)
+![整体流程](https://typora-xxx.oss-cn-shenzhen.aliyuncs.com/img/1655165888.png)
 
 整体流程可以看做一个生产者、消费者模式，通过 empty、notEmpty 这两个 Condition 类来实现线程的等待、通知
 
 1、初始化连接池后，生产者线程进入等待
 
-2、消费者线程(业务线程从连接池)获取连接
+2、消费者线程(业务线程)从连接池获取连接
 
 3、消费者线程使用完后归还连接
 
@@ -74,6 +74,8 @@ private DestroyTask                      destroyTask;
 
 
 ### 一、连接池初始化过程
+
+![初始化过程](https://typora-xxx.oss-cn-shenzhen.aliyuncs.com/img/1655166102.png)
 
 使用 JavaConfig 的方式配置 Druid
 
@@ -113,8 +115,6 @@ public abstract class DruidAbstractDataSource extends WrapperAdapter implements 
 - notEmpty 控制获取连接的 Condition，当连接池中连接不够用时，获取连接的业务线程就阻塞到 notEmpty,且唤起阻塞在 empty 上的守护线程进行添加连接，然后唤起业务线程去尝试获取连接
 
 #### 2、DruidDataSource.init()
-
-![](https://typora-xxx.oss-cn-shenzhen.aliyuncs.com/img/1655013417.png)
 
 new DruidDataSource() 之后,可以直接调用 DruidDataSource.init() 进行初始化，或者在 getConnection() 时进行初始化
 
@@ -516,9 +516,8 @@ public void shrink(boolean checkTime, boolean keepAlive) {
 - 在低版本(例如 1.0.18),此时加入了 maxEvictableIdleTimeMillis，但是没有 keepalive，它是为了解决mysql服务器8小时关闭连接的问题，实际上我个人觉得只使用 minEvictableIdleTimeMillis 也可以实现，
 又求助了官方，官方说对分布式数据库，如阿里云的PolarDB-X（DRDS）/AnalyticDB这样的数据库做优雅的滚动升级比较有用
 
-- 在高版本(例如 1.0.28),此时加入了 keepalive、keepAliveBetweenTimeMillis，配置 keepalive = true，是为了满足在使用 testWhileIdle 的情况下，某些场景需要保活连接的需求；testWhileIdle 是获取连接时，如果连接的空闲时间超过了 timeBetweenEvictionRunsMillis，则去探活，如果线程被获取时，它的空闲时间并没有超过 timeBetweenEvictionRunsMillis，之后可能因为网络故障导致该连接已经断开了，但它仍被存放在连接池中，此时如果有业务线程获取到了该连接，但是实际上该连接是不可用的，就会出现异常
+- 在高版本(例如 1.0.28),此时加入了 keepalive、keepAliveBetweenTimeMillis，配置 keepalive = true，是为了满足在使用 testWhileIdle 的情况下，某些场景需要保活连接的需求；testWhileIdle 是获取连接时，如果连接的空闲时间超过了 timeBetweenEvictionRunsMillis，则去探活，如果线程被获取时，它的空闲时间并没有超过 timeBetweenEvictionRunsMillis，之后可能因为网络故障导致该连接已经断开了，但它仍被存放在连接池中，此时如果有业务线程获取到了该连接，但是探活发现该连接已失效，就需要重新获取连接，这样比较影响性能
 
-  
 
 ```java
 int removeCount = evictCount + keepAliveCount;
