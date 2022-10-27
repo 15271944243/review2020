@@ -13,6 +13,7 @@ import java.io.Serializable;
 @ToString
 public class DemoReqVO implements Serializable {
 
+    private static final long serialVersionUID = 3791219834231255817L;
     @NotBlank
     private String userId;
 
