@@ -1,4 +1,4 @@
-package review.controller;
+package review.springboot.controller;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +7,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import review.domain.VipTypeDO;
-import review.service.VipTypeService;
-import review.vo.DemoReqVO;
+import review.springboot.domain.VipTypeDO;
+import review.springboot.service.VipTypeService;
+import review.springboot.vo.DemoReqVO;
 
 import javax.validation.Valid;
 import java.util.List;

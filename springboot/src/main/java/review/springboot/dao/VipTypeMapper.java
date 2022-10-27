@@ -1,6 +1,6 @@
-package review.dao;
+package review.springboot.dao;
 
-import review.domain.VipTypeDO;
+import review.springboot.domain.VipTypeDO;
 
 import java.util.List;
 

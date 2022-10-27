@@ -1,4 +1,4 @@
-package review.config;
+package review.springboot.config;
 
 import lombok.Getter;
 import lombok.Setter;

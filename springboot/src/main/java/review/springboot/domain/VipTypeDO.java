@@ -1,4 +1,4 @@
-package review.domain;
+package review.springboot.domain;
 
 import lombok.Data;
 import lombok.ToString;

@@ -1,8 +1,8 @@
-package review.config;
+package review.springboot.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import review.service.UserService;
+import review.springboot.service.UserService;
 
 /**
  * 测试 @Bean 与 @Component 用在同一个类,会如何加载

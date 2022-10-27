@@ -1,4 +1,4 @@
-package review.vo;
+package review.springboot.vo;
 
 import lombok.ToString;
 

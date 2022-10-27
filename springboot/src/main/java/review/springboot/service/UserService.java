@@ -1,4 +1,4 @@
-package review.service;
+package review.springboot.service;
 
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,9 @@
-package review.service;
+package review.springboot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import review.dao.VipTypeMapper;
-import review.domain.VipTypeDO;
+import review.springboot.dao.VipTypeMapper;
+import review.springboot.domain.VipTypeDO;
 
 import java.util.List;
 
