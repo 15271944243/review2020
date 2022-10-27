@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @Configuration
 @EnableTransactionManagement
 @AutoConfigureAfter({DruidConfig.class})
-@MapperScan(basePackages = {"review.dao"})
+@MapperScan(basePackages = {"review.springboot.dao"})
 public class TransactionConfig implements TransactionManagementConfigurer {
 
     @Autowired

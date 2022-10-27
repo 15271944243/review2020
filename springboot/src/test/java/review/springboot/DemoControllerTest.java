@@ -1,8 +1,11 @@
 package review.springboot;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 import review.springboot.vo.DemoReqVO;
 
@@ -11,6 +14,8 @@ import review.springboot.vo.DemoReqVO;
  * @author: xiaoxiaoxiang
  * @date: 2022/10/27 15:06
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SbApplication.class)
 public class DemoControllerTest {
 
     @Autowired
