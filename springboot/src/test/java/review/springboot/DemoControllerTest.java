@@ -1,5 +1,6 @@
 package review.springboot;
 
+import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,15 @@ public class DemoControllerTest {
 
     @Test
     public void testValidated() {
-        String url = "http://127.0.0.1/demo/validated";
+        String url = "http://127.0.0.1:8080/demo/validated";
         DemoReqVO reqVO = new DemoReqVO();
-        ResponseEntity<String> objectResponseEntity = restTemplate.postForEntity(url, reqVO, String.class);
+        ResponseEntity<String> objectResponseEntity = restTemplate.postForEntity(url,  JSON.toJSONString(reqVO), String.class);
     }
 
     @Test
     public void testValid() {
-        String url = "http://127.0.0.1/demo/valid";
+        String url = "http://127.0.0.1:8080/demo/valid";
         DemoReqVO reqVO = new DemoReqVO();
-        ResponseEntity<String> objectResponseEntity = restTemplate.postForEntity(url, reqVO, String.class);
+        ResponseEntity<String> objectResponseEntity = restTemplate.postForEntity(url, JSON.toJSONString(reqVO), String.class);
     }
 }
