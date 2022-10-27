@@ -2,11 +2,16 @@ package review.controller;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import review.domain.VipTypeDO;
 import review.service.VipTypeService;
+import review.vo.DemoReqVO;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -25,6 +30,24 @@ public class DemoController {
     public String queryAllVipType() {
         List<VipTypeDO> vipTypeDOList = vipTypeService.queryAllVipType();
         String result = JSON.toJSONString(vipTypeDOList);
+        return result;
+    }
+
+    @RequestMapping("/validated")
+    public String testValidated(@RequestBody @Validated DemoReqVO reqVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+
+        }
+        String result = JSON.toJSONString(reqVO);
+        return result;
+    }
+
+    @RequestMapping("/valid")
+    public String testValid(@RequestBody @Valid DemoReqVO reqVO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+
+        }
+        String result = JSON.toJSONString(reqVO);
         return result;
     }
 }
